@@ -18,12 +18,14 @@ jobs:
           # Truncate body to 1800 chars for Discord's 2000 char limit
           BODY=$(echo "$RELEASE_BODY" | head -c 1800)
 
-          # Build the JSON payload
+          # Build the JSON payload (thread_name required for forum channels)
           PAYLOAD=$(jq -n \
             --arg title "Open Brain $RELEASE_NAME" \
             --arg desc "$BODY" \
             --arg url "$RELEASE_URL" \
+            --arg thread "Release: Open Brain $RELEASE_NAME" \
             '{
+              thread_name: $thread,
               embeds: [{
                 title: $title,
                 description: $desc,
