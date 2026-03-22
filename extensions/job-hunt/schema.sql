@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS job_postings (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     company_id UUID REFERENCES companies(id) ON DELETE CASCADE NOT NULL,
     user_id UUID NOT NULL,
+    created_by TEXT NOT NULL,
     title TEXT NOT NULL,
     url TEXT,
     salary_min INTEGER,
@@ -32,7 +33,10 @@ CREATE TABLE IF NOT EXISTS job_postings (
     requirements TEXT[],
     nice_to_haves TEXT[],
     notes TEXT,
-    source TEXT CHECK (source IN ('linkedin', 'company-site', 'referral', 'recruiter', 'other') OR source IS NULL),
+    source TEXT CHECK (source IN ('linkedin', 'company-site', 'referral', 'recruiter', 'other', 'greenhouse', 'lever', 'workday', 'indeed') OR source IS NULL),
+    priority TEXT,
+    location TEXT,
+    enrichment_error TEXT,
     posted_date DATE,
     closing_date DATE,
     created_at TIMESTAMPTZ DEFAULT now() NOT NULL
@@ -44,10 +48,13 @@ CREATE TABLE IF NOT EXISTS applications (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     job_posting_id UUID REFERENCES job_postings(id) ON DELETE CASCADE NOT NULL,
     user_id UUID NOT NULL,
-    status TEXT DEFAULT 'applied' CHECK (status IN ('draft', 'applied', 'screening', 'interviewing', 'offer', 'accepted', 'rejected', 'withdrawn')),
+    created_by TEXT NOT NULL,
+    status TEXT DEFAULT 'applied' CHECK (status IN ('draft', 'ready', 'applied', 'screening', 'interviewing', 'offer', 'accepted', 'rejected', 'withdrawn')),
     applied_date DATE,
     response_date DATE,
     resume_version TEXT,
+    resume_path TEXT,
+    cover_letter_path TEXT,
     cover_letter_notes TEXT,
     referral_contact TEXT,
     notes TEXT,
@@ -168,6 +175,28 @@ CREATE TRIGGER update_applications_updated_at
     BEFORE UPDATE ON applications
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
+
+-- Table: attribution_log
+-- Tracks which actor (human or agent) created or changed records
+CREATE TABLE IF NOT EXISTS attribution_log (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    entity_type TEXT NOT NULL CHECK (entity_type IN ('job_posting', 'application')),
+    entity_id UUID NOT NULL,
+    action TEXT NOT NULL,
+    actor TEXT NOT NULL,
+    reason TEXT,
+    created_at TIMESTAMPTZ DEFAULT now() NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_attribution_log_entity
+    ON attribution_log(entity_type, entity_id);
+
+ALTER TABLE attribution_log ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY attribution_log_user_policy ON attribution_log
+    FOR ALL
+    USING (true)
+    WITH CHECK (true);
 
 -- Sample data (optional - uncomment to insert examples)
 -- INSERT INTO companies (user_id, name, industry, size, remote_policy) VALUES
