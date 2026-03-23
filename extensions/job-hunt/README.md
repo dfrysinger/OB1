@@ -174,13 +174,91 @@ This is the power of a fully interconnected Open Brain — context flows across 
 ## Available Tools
 
 1. **`add_company`** — Add a company to track (name, industry, website, size, location, remote_policy, notes, glassdoor_rating)
-2. **`add_job_posting`** — Add a specific role at a company (company_id, title, url, salary_min, salary_max, requirements, nice_to_haves, source, posted_date)
-3. **`submit_application`** — Record a submitted application (job_posting_id, status, applied_date, resume_version, cover_letter_notes, referral_contact)
-4. **`schedule_interview`** — Schedule an interview for an application (application_id, interview_type, scheduled_at, duration_minutes, interviewer_name, interviewer_title, notes)
-5. **`log_interview_notes`** — Add feedback/notes after an interview, update status to completed (interview_id, feedback, rating 1-5)
-6. **`get_pipeline_overview`** — Dashboard summary: counts by application status, upcoming interviews in next N days, recent activity. This is your "how's it going?" tool.
-7. **`get_upcoming_interviews`** — List interviews in the next N days with full company/role context
-8. **`link_contact_to_professional_crm`** — **CROSS-EXTENSION BRIDGE** — Takes a job_contact_id, creates/links to a professional_contacts record in Extension 5, sets professional_crm_contact_id
+2. **`add_job_posting`** — Add a specific role at a company (company_id, title, url, salary_min, salary_max, requirements, nice_to_haves, source, posted_date, created_by)
+3. **`submit_application`** — Record a submitted application (job_posting_id, status, applied_date, resume_version, cover_letter_notes, referral_contact, created_by)
+4. **`update_application`** — Update the status or details of an application (application_id, status, actor, ...)
+5. **`schedule_interview`** — Schedule an interview for an application (application_id, interview_type, scheduled_at, duration_minutes, interviewer_name, interviewer_title, notes)
+6. **`log_interview_notes`** — Add feedback/notes after an interview, update status to completed (interview_id, feedback, rating 1-5)
+7. **`get_pipeline_overview`** — Dashboard summary: counts by application status, upcoming interviews in next N days, recent activity. This is your "how's it going?" tool.
+8. **`get_upcoming_interviews`** — List interviews in the next N days with full company/role context
+9. **`get_attribution_history`** — Return the full attribution log for a given entity (entity_type, entity_id). Useful for debugging who or what created or changed a record.
+10. **`link_contact_to_professional_crm`** — **CROSS-EXTENSION BRIDGE** — Takes a job_contact_id, creates/links to a professional_contacts record in Extension 5, sets professional_crm_contact_id
+
+## Source Attribution
+
+### The `created_by` Field
+
+Every `job_postings` and `applications` record carries a `created_by` TEXT field that identifies who or what created the record. This is distinct from `user_id`, which scopes data to the owner. `created_by` tracks the originating actor for audit and debugging purposes.
+
+Common values:
+- `"claude-desktop"` — created interactively via Claude Desktop
+- `"claude-code"` — created by a Claude Code agent
+- `"slack-ingest"` — created by the Slack ingest automation
+- `"manual"` — created directly in the database or via an API call outside of the MCP server
+
+### The `attribution_log` Table
+
+Every meaningful state change to a `job_posting` or `application` is written to `attribution_log`. The table captures:
+
+| Column | Description |
+|--------|-------------|
+| `entity_type` | `'job_posting'` or `'application'` |
+| `entity_id` | UUID of the record that changed |
+| `action` | What happened (see action types below) |
+| `actor` | Who or what caused the change |
+| `reason` | Optional free-text explanation |
+| `created_at` | When the event was logged |
+
+**Action types:**
+
+| Action | Meaning |
+|--------|---------|
+| `created` | Record was first inserted |
+| `status_changed` | Application status transitioned to a new value |
+| `enriched` | Job posting was updated with enrichment data |
+| `enrichment_failed` | Enrichment was attempted but failed |
+| `deleted` | Record was soft- or hard-deleted |
+
+**Known actor identifiers:**
+
+| Actor | Source |
+|-------|--------|
+| `claude-desktop` | Interactive session in Claude Desktop |
+| `claude-code` | Claude Code agent |
+| `slack-ingest` | Slack message ingest automation |
+| `scheduled-agent` | Cron-triggered agent task |
+| `manual` | Direct database or API access |
+
+### Debugging Attribution
+
+Use `get_attribution_history` to pull the full event log for any record:
+
+```
+Show me the attribution history for application <uuid>
+```
+
+Or query the table directly in the Supabase SQL editor:
+
+```sql
+-- All events for a specific job posting
+SELECT * FROM attribution_log
+WHERE entity_type = 'job_posting'
+  AND entity_id = '<your-uuid>'
+ORDER BY created_at ASC;
+
+-- All records created by the Slack ingest in the last 7 days
+SELECT * FROM attribution_log
+WHERE actor = 'slack-ingest'
+  AND created_at > now() - INTERVAL '7 days'
+ORDER BY created_at DESC;
+
+-- Count status changes by actor
+SELECT actor, action, COUNT(*)
+FROM attribution_log
+WHERE action = 'status_changed'
+GROUP BY actor, action
+ORDER BY count DESC;
+```
 
 ## Expected Outcome
 

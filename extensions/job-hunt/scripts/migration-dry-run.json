@@ -1,0 +1,3318 @@
+[
+  {
+    "thought_id": "dd6e3777-7ff4-4d9f-8e9a-8c4fa26b8ce8",
+    "thought_content": "Job hunt - application: Senior Director of Product, AI at Toptal\nApplied: yes (1/15)\nLinkedIn: https://www.linkedin.com/jobs/view/4346126435/\nNetworking contact: Kai Byrne (head of product) http://lin...",
+    "parsed": {
+      "company": "Toptal",
+      "title": "Senior Director of Product, AI",
+      "url": "https://www.linkedin.com/jobs/view/4346126435/",
+      "status": "applied",
+      "applied_date": "2026-01-15",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Kai Byrne",
+          "linkedin_url": "http://linkedin.com/in/kai-byrne-79221a214",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": "head of product"
+        }
+      ],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "dc82e6da-a182-43ed-a160-ed54c7cbc452",
+    "thought_content": "Job hunt - application: SVP at SharkNinja\nApplied: yes (1/16)\nLinkedIn: https://www.linkedin.com/jobs/view/4362466954/\nNetworked: yes\nTags: job hunt, job search",
+    "parsed": {
+      "company": "SharkNinja",
+      "title": "SVP",
+      "url": "https://www.linkedin.com/jobs/view/4362466954/",
+      "status": "applied",
+      "applied_date": "2026-01-16",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": null,
+          "linkedin_url": null,
+          "role_in_process": "other",
+          "networked": "true",
+          "notes": null
+        }
+      ],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "7fd3f468-bf0b-43f0-bf5d-05e690495908",
+    "thought_content": "Job hunt - application: VP, UX Lead at The Nuclear Company\nApplied: yes (1/24)\nLinkedIn: https://www.linkedin.com/jobs/view/4345502118/\nNetworking contact: Elena M. Sanchez http://linkedin.com/in/elen...",
+    "parsed": {
+      "company": "The Nuclear Company",
+      "title": "VP, UX Lead",
+      "url": "https://www.linkedin.com/jobs/view/4345502118/",
+      "status": "applied",
+      "applied_date": "2026-01-24",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Elena M. Sanchez",
+          "linkedin_url": "http://linkedin.com/in/elenamsanchez",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Nuclear/Daniel Frysinger - Resume 2026 nuclear.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Nuclear/Daniel Frysinger - Cover Letter 2026.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "991abaf5-9b14-41c4-9474-b5f98c255bbe",
+    "thought_content": "Job hunt - application: Head of UX Interaction at Dify\nApplied: yes (1/24)\nLinkedIn: https://www.linkedin.com/jobs/view/4365222592/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Dify",
+      "title": "Head of UX Interaction",
+      "url": "https://www.linkedin.com/jobs/view/4365222592/",
+      "status": "applied",
+      "applied_date": "2026-01-24",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Dify/Daniel Frysinger - Resume 2026 dify.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "764c2411-2d70-4b9f-8076-14d0c97b6ad7",
+    "thought_content": "Job hunt - application: VP of Product at Crunchbase\nApplied: yes (1/24)\nLinkedIn: https://www.linkedin.com/jobs/view/4337269116/\nNetworking contacts: Maria Renee De Leon (recruiter) http://linkedin.co...",
+    "parsed": {
+      "company": "Crunchbase",
+      "title": "VP of Product",
+      "url": "https://www.linkedin.com/jobs/view/4337269116/",
+      "status": "applied",
+      "applied_date": "2026-01-24",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Maria Renee De Leon",
+          "linkedin_url": "http://linkedin.com/in/mariareneedeleon",
+          "role_in_process": "recruiter",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "DH Eolu",
+          "linkedin_url": "http://linkedin.com/in/dheolu",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": "head of product AI"
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Crunchbase/Daniel Frysinger - Resume 2026 crunchbase.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "1de8416a-7237-45db-ae1d-8981972de91a",
+    "thought_content": "Job hunt - application: Director, Product Management at GitHub\nApplied: yes (1/24)\nLinkedIn: https://www.linkedin.com/jobs/view/4324892791/\nNetworking contacts: Chris Butler; Maya Ross (VP Product Co-...",
+    "parsed": {
+      "company": "GitHub",
+      "title": "Director, Product Management",
+      "url": "https://www.linkedin.com/jobs/view/4324892791/",
+      "status": "applied",
+      "applied_date": "2026-01-24",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Chris Butler",
+          "linkedin_url": null,
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Maya Ross",
+          "linkedin_url": "http://linkedin.com/in/mayaross",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": "VP Product Co-pilot"
+        },
+        {
+          "name": "Simina Pasat",
+          "linkedin_url": "http://linkedin.com/in/simina-pasat-5707a633",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Sangeeta Halepet",
+          "linkedin_url": "http://linkedin.com/in/sangeetahalepet",
+          "role_in_process": "recruiter",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/GitHub/Daniel Frysinger - Resume 2026 github df.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "6434af97-1662-4911-aa83-79ad9e0bb314",
+    "thought_content": "Job hunt - application: Head of Product at undisclosed company via IntelliPro\nApplied: no (1/26)\nLinkedIn: https://www.linkedin.com/jobs/view/4363880426/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": null,
+      "title": "Head of Product",
+      "url": "https://www.linkedin.com/jobs/view/4363880426/",
+      "status": "applied",
+      "applied_date": "2026-01-26",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "5001d559-91a5-4cf3-b5e4-10ab76e0c0bb",
+    "thought_content": "Job hunt - application: VP of Product at Curative\nApplied: yes (1/26)\nLinkedIn: https://www.linkedin.com/jobs/view/4353668039/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Curative",
+      "title": "VP of Product",
+      "url": "https://www.linkedin.com/jobs/view/4353668039/",
+      "status": "applied",
+      "applied_date": "2026-01-26",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Curative/Daniel Frysinger - Resume 2026 Curative.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ad441593-0514-408c-95e9-febdf83fa332",
+    "thought_content": "Job hunt - application: Principal Product Manager, Agentic AI at Epicor\nApplied: yes (1/28)\nLinkedIn: https://www.linkedin.com/jobs/view/4358308670/\nNetworking contacts: Tara; Matthew Brady (recruiter...",
+    "parsed": {
+      "company": "Epicor",
+      "title": "Principal Product Manager, Agentic AI",
+      "url": "https://www.linkedin.com/jobs/view/4358308670/",
+      "status": "applied",
+      "applied_date": "2026-01-28",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Tara",
+          "linkedin_url": null,
+          "role_in_process": "other",
+          "networked": "true",
+          "notes": null
+        },
+        {
+          "name": "Matthew Brady",
+          "linkedin_url": null,
+          "role_in_process": "recruiter",
+          "networked": "true",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Epicor/Daniel Frysinger - Resume 2026 Epicor.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "fc5b5e6e-c2ac-468e-98ff-90fb3d3a0e79",
+    "thought_content": "Job hunt - application: Vice President, Product & AI at DeepHow\nApplied: yes (1/28)\nLinkedIn: https://www.linkedin.com/jobs/view/4365892019/\nNetworking: messaged CEO\nNetworked: yes\nTags: job hunt, job...",
+    "parsed": {
+      "company": "DeepHow",
+      "title": "Vice President, Product & AI",
+      "url": "https://www.linkedin.com/jobs/view/4365892019/",
+      "status": "applied",
+      "applied_date": "2026-01-28",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "CEO",
+          "linkedin_url": null,
+          "role_in_process": "other",
+          "networked": "true",
+          "notes": "messaged CEO"
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/DeepHow/Daniel Frysinger - Resume 2026 DeepHow.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "7ec6d40a-a15c-471d-9bbb-379740c54f8b",
+    "thought_content": "Job hunt - application: Director of Product, AI Automations at Entrada\nApplied: yes (1/28)\nLinkedIn: https://www.linkedin.com/jobs/view/4327620282/\nNetworking contacts: 3 recruiters and 2 possible hir...",
+    "parsed": {
+      "company": "Entrada",
+      "title": "Director of Product, AI Automations",
+      "url": "https://www.linkedin.com/jobs/view/4327620282/",
+      "status": "applied",
+      "applied_date": "2026-01-28",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": null,
+          "linkedin_url": null,
+          "role_in_process": "recruiter",
+          "networked": "true",
+          "notes": "3 recruiters"
+        },
+        {
+          "name": null,
+          "linkedin_url": null,
+          "role_in_process": "hiring_manager",
+          "networked": "true",
+          "notes": "2 possible hiring managers"
+        }
+      ],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "636d6ebc-1e71-4a4c-8b7d-209afdc66b3f",
+    "thought_content": "Job hunt - application: Vice President, Product Management and UX at Whisker\nApplied: yes (1/28)\nLinkedIn: https://www.linkedin.com/jobs/collections/recommended/?currentJobId=4325288926\nNetworking con...",
+    "parsed": {
+      "company": "Whisker",
+      "title": "Vice President, Product Management and UX",
+      "url": "https://www.linkedin.com/jobs/collections/recommended/?currentJobId=4325288926",
+      "status": "applied",
+      "applied_date": "2026-01-28",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Ashley Seguin",
+          "linkedin_url": "http://linkedin.com/in/seguinashley",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "C Jones",
+          "linkedin_url": "http://linkedin.com/in/cjonesrobotics",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Oliver Seil",
+          "linkedin_url": "http://linkedin.com/in/oliver-seil",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Ashley Chan",
+          "linkedin_url": "http://linkedin.com/in/ashleychan2",
+          "role_in_process": "recruiter",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Whisker/Daniel Frysinger - Resume 2026 Whisker.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "812151bf-4992-44fc-aa69-f316f5c0804b",
+    "thought_content": "Job hunt - application: VP Product AI+Mobile at Curology\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4305273104/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Curology",
+      "title": "VP Product AI+Mobile",
+      "url": "https://www.linkedin.com/jobs/view/4305273104/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Curology/Daniel Frysinger - Resume 2026 Curology.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Curology/Daniel Frysinger - Cover Letter 2026 Curology VP Product BACKUP.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "2027b266-1a2e-425a-82c9-9698f16492e8",
+    "thought_content": "Job hunt - application: Product Director at Tempus AI\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4283306648/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Tempus AI",
+      "title": "Product Director",
+      "url": "https://www.linkedin.com/jobs/view/4283306648/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Tempus AI/Daniel Frysinger - Resume 2026 Tempus AI.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "f43240ef-cc8b-472d-a3ff-159dea1d462f",
+    "thought_content": "Job hunt - application: VP of AI Product at Cohere\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4351667090/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Cohere",
+      "title": "VP of AI Product",
+      "url": "https://www.linkedin.com/jobs/view/4351667090/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Cohere/Daniel Frysinger - Resume 2026 Cohere.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "c8caac97-4886-40ff-b61b-4dda50587a1f",
+    "thought_content": "Job hunt - application: Head of AI Strategy at Lumentum\nApplied: yes\nPosting: verified (no link)\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Lumentum",
+      "title": "Head of AI Strategy",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Lumentum/Daniel Frysinger - Resume 2026 Lumentum.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "958cd755-7aad-4822-a71a-814d26b32270",
+    "thought_content": "Job hunt - application: Director of Product AI at Whoop!\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4353081498/\nNetworking contacts: Lauren; Alexis Urtees Coffey http://linkedin.com/in/...",
+    "parsed": {
+      "company": "Whoop",
+      "title": "Director of Product AI",
+      "url": "https://www.linkedin.com/jobs/view/4353081498/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Lauren",
+          "linkedin_url": null,
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Alexis Urtees Coffey",
+          "linkedin_url": "http://linkedin.com/in/alexisurteescoffey",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": "Craig B and Rick H are mutuals"
+        },
+        {
+          "name": "Alyssa Pritchard",
+          "linkedin_url": "http://linkedin.com/in/alyssapritchard13",
+          "role_in_process": "recruiter",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/WHOOP/Daniel Frysinger - Resume 2026 WHOOP.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/WHOOP/Daniel Frysinger - Cover Letter 2026 WHOOP VP Product AI v1.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "cda86fb2-772b-42fe-b0a5-96ea5c7c6ee6",
+    "thought_content": "Job hunt - application: VP of Product Management at Irving Knight Group\nApplied: yes (1/19)\nLinkedIn: https://www.linkedin.com/jobs/view/4364313593/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Irving Knight Group",
+      "title": "VP of Product Management",
+      "url": "https://www.linkedin.com/jobs/view/4364313593/",
+      "status": "applied",
+      "applied_date": "2026-01-19",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Irving Knight Group/Daniel Frysinger - Resume 2026 Irving Knight Group.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "d3e8b92b-7c6d-4f78-9866-e6941adaf40e",
+    "thought_content": "Job hunt - application: VP Product Design at ThoughtSpot\nApplied: yes (1/19)\nLinkedIn: https://www.linkedin.com/jobs/view/4339487537/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "ThoughtSpot",
+      "title": "VP Product Design",
+      "url": "https://www.linkedin.com/jobs/view/4339487537/",
+      "status": "applied",
+      "applied_date": "2026-01-19",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/ThoughtSpot/Daniel Frysinger - Resume 2026 ThoughtSpot.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "74e24fff-1969-43d0-a9e1-7671d863f92a",
+    "thought_content": "Job hunt - application: Head of UX Design and Research at Samsung\nApplied: no (1/19)\nLinkedIn: https://www.linkedin.com/jobs/view/4345483491/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Samsung",
+      "title": "Head of UX Design and Research",
+      "url": "https://www.linkedin.com/jobs/view/4345483491/",
+      "status": "draft",
+      "applied_date": "2026-01-19",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "fee99412-05fd-482d-a250-a17dbbbda61f",
+    "thought_content": "Job hunt - application: Director of UX, Product Experience (Mountain View) at Cisco\nApplied: no (1/19)\nLinkedIn: https://www.linkedin.com/jobs/view/4329556664/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Cisco",
+      "title": "Director of UX, Product Experience",
+      "url": "https://www.linkedin.com/jobs/view/4329556664/",
+      "status": "draft",
+      "applied_date": "2026-01-19",
+      "location": "Mountain View",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Cisco/Daniel Frysinger - Resume 2026 Cisco.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ea197cc6-9213-46fe-b62a-5205973333bc",
+    "thought_content": "Job hunt - application: Senior Director, UX Design at Red Hat\nApplied: no (1/19)\nLinkedIn: https://www.linkedin.com/jobs/view/4331906268/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Red Hat",
+      "title": "Senior Director, UX Design",
+      "url": "https://www.linkedin.com/jobs/view/4331906268/",
+      "status": "draft",
+      "applied_date": "2026-01-19",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "70cc502c-5fb0-4886-b8f9-292d4fad3bc2",
+    "thought_content": "Job hunt - application: Director of UX, Product Experience (Austin TX) at Cisco\nApplied: no (1/19)\nLinkedIn: https://www.linkedin.com/jobs/view/4329761610/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Cisco",
+      "title": "Director of UX, Product Experience",
+      "url": "https://www.linkedin.com/jobs/view/4329761610/",
+      "status": "applied",
+      "applied_date": "2026-01-19",
+      "location": "Austin TX",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Cisco/Daniel Frysinger - Resume 2026 Cisco.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "4fe3f378-91ad-4bd9-95d8-478ead84318a",
+    "thought_content": "Job hunt - application: Head of Product at Jobgether\nApplied: no (1/19)\nLinkedIn: https://www.linkedin.com/jobs/view/4364223340/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Jobgether",
+      "title": "Head of Product",
+      "url": "https://www.linkedin.com/jobs/view/4364223340/",
+      "status": "draft",
+      "applied_date": "2026-01-19",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "9d058c1b-0eb5-4d07-b286-08c68f2453e6",
+    "thought_content": "Job hunt - application: Head of Product at Jobgether\nApplied: no (1/19)\nLinkedIn: https://www.linkedin.com/jobs/view/4364223340/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Jobgether",
+      "title": "Head of Product",
+      "url": "https://www.linkedin.com/jobs/view/4364223340/",
+      "status": "draft",
+      "applied_date": "2026-01-19",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "768a84be-3086-4bdd-9a8e-2bc19b50137a",
+    "thought_content": "Job hunt - application: Director, Consumer Insights & UXR at Epic Games\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4180596510/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Epic Games",
+      "title": "Director, Consumer Insights & UXR",
+      "url": "https://www.linkedin.com/jobs/view/4180596510/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "dc0009d3-d338-49a4-98bf-a8d2309c26a4",
+    "thought_content": "Job hunt - application: Deputy Director, AI Infrastructure for Education (2 Year LTE) at Gates Foundation\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4337034121/\nNetworked: no\nTags: job h...",
+    "parsed": {
+      "company": "Gates Foundation",
+      "title": "Deputy Director, AI Infrastructure for Education (2 Year LTE)",
+      "url": "https://www.linkedin.com/jobs/view/4337034121/",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "df4c6bd7-86e7-4598-a56d-ca17f2c0fe08",
+    "thought_content": "Job hunt - application: VP of Engineering, Consumer AI Platform at Evolution USA\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4331597307/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Evolution USA",
+      "title": "VP of Engineering, Consumer AI Platform",
+      "url": "https://www.linkedin.com/jobs/view/4331597307/",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "b0f3d69c-22b5-46da-92d3-06e9e34d92ed",
+    "thought_content": "Job hunt - application: Head of Product, Core Experiences Platform at Gusto\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4363752129/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Gusto",
+      "title": "Head of Product, Core Experiences Platform",
+      "url": "https://www.linkedin.com/jobs/view/4363752129/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Gusto/Daniel Frysinger - Resume 2026 Gusto.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Gusto/Daniel Frysinger - Cover Letter 2026 Gusto Head of Product Core Experiences Platform.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "88fcc8b1-16dd-45e5-bfac-fc6f6f966c81",
+    "thought_content": "Job hunt - application: Vice President, Product at StockX\nApplied: yes (2/25/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "StockX",
+      "title": "Vice President, Product",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-25",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "dd60dbaa-6d66-4758-84ab-ee65641c0412",
+    "thought_content": "Job hunt - application: Head of Product Development at Electronic Arts (EA)\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4344358392/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Electronic Arts (EA)",
+      "title": "Head of Product Development",
+      "url": "https://www.linkedin.com/jobs/view/4344358392/",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "e509a4ba-dd73-4121-abd0-4c245192c7e6",
+    "thought_content": "Job hunt - application: Senior Director, Product Manager AI Research at Cisco\nApplied: yes (2/9)\nLinkedIn: https://www.linkedin.com/jobs/view/4344857234/\nNetworking contact: Sapna Palimar http://linke...",
+    "parsed": {
+      "company": "Cisco",
+      "title": "Senior Director, Product Manager AI Research",
+      "url": "https://www.linkedin.com/jobs/view/4344857234/",
+      "status": "applied",
+      "applied_date": "2026-02-09",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Sapna Palimar",
+          "linkedin_url": "http://linkedin.com/in/sapna-palimar-7160512",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Cisco/Daniel Frysinger - Resume 2026 Cisco.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "c49c76b9-7d64-4183-aeb9-7852e454ddf5",
+    "thought_content": "Job hunt - application: VP Platform Product at Metropolis Technologies\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4341795232/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Metropolis Technologies",
+      "title": "VP Platform Product",
+      "url": "https://www.linkedin.com/jobs/view/4341795232/",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "c3662019-5a80-4c69-883c-4d34864da362",
+    "thought_content": "Job hunt - application: VP Product Operations and PMO at Teradata\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4359007842/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Teradata",
+      "title": "VP Product Operations and PMO",
+      "url": "https://www.linkedin.com/jobs/view/4359007842/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "9a87fb47-5eaa-4666-96c0-d43071693a01",
+    "thought_content": "Job hunt - application: SR Director of UX, Data 360 Platform at Salesforce\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4336986033/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Salesforce",
+      "title": "SR Director of UX, Data 360 Platform",
+      "url": "https://www.linkedin.com/jobs/view/4336986033/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "6eca88c3-d6c9-4dbd-98fc-166c283c8ae8",
+    "thought_content": "Job hunt - application: Director, Product Design & UX Architecture at SentinelOne\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4359344720/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "SentinelOne",
+      "title": "Director, Product Design & UX Architecture",
+      "url": "https://www.linkedin.com/jobs/view/4359344720/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/SentinelOne/Daniel Frysinger - Resume 2026 SentinelOne.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "7c4eb948-09c9-47e7-8c0e-9b7771e1f032",
+    "thought_content": "Job hunt - application: Group Manager, Product Management, AI Experiences at Adobe\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4324555475/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Adobe",
+      "title": "Group Manager, Product Management, AI Experiences",
+      "url": "https://www.linkedin.com/jobs/view/4324555475/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Adobe/Daniel Frysinger - Resume 2026 Adobe.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "cd26adda-543a-489a-8b0b-0b12e8ad7f10",
+    "thought_content": "Job hunt - application: Sr. Director of Product Management, Global Products at Rippling\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4361500580/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Rippling",
+      "title": "Sr. Director of Product Management, Global Products",
+      "url": "https://www.linkedin.com/jobs/view/4361500580/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "0921515d-e55f-400f-8e00-311739ebc17e",
+    "thought_content": "Job hunt - application: VP of Design at Mercury\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4353501942/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Mercury",
+      "title": "VP of Design",
+      "url": "https://www.linkedin.com/jobs/view/4353501942/",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "82104979-68ee-4743-805c-373e09cbddca",
+    "thought_content": "Job hunt - application: Head of Product, Core Experiences Platform at Gusto (second posting)\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4363802074/\nNetworked: no\nTags: job hunt, job sea...",
+    "parsed": {
+      "company": "Gusto",
+      "title": "Head of Product, Core Experiences Platform",
+      "url": "https://www.linkedin.com/jobs/view/4363802074/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "second posting",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Gusto/Daniel Frysinger - Resume 2026 Gusto.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Gusto/Daniel Frysinger - Cover Letter 2026 Gusto Head of Product Core Experiences Platform.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "6e9ce17f-4391-4189-94f3-0e855a77a3c8",
+    "thought_content": "Job hunt - application: Principal Product Manager - Tech, IP Protection at Amazon\nApplied: no\nPosting: verified (no link)\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Amazon",
+      "title": "Principal Product Manager - Tech, IP Protection",
+      "url": null,
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "b2c38282-7dd8-4749-8cb7-366f7f8805db",
+    "thought_content": "Job hunt - application: VP, Product Management for Higher Ed at Cengage Group\nApplied: no\nPosting: verified (no link)\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Cengage Group",
+      "title": "VP, Product Management for Higher Ed",
+      "url": null,
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": "verified (no link)",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "c7ab2fca-faed-4552-bf51-3f0e9210aace",
+    "thought_content": "Job hunt - application: Director New Platforms at Intuitive\nApplied: no\nPosting: verified (no link)\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Intuitive",
+      "title": "Director New Platforms",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": "verified (no link)",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Intuit/Daniel Frysinger - Resume 2026 Intuit.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "6eb7c39f-edf6-4b4a-a818-744d09f5128d",
+    "thought_content": "Job hunt - application: Director of Product Design, Revenue Cycle Management at Simple Practice\nApplied: no\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Simple Practice",
+      "title": "Director of Product Design, Revenue Cycle Management",
+      "url": null,
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "e0ed5632-bf91-4ec4-a0a6-55cc62460ead",
+    "thought_content": "Job hunt - application: VP, Product Strategy at Huge\nApplied: no\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Huge",
+      "title": "VP, Product Strategy",
+      "url": null,
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "cc5fdc2e-5c16-4f7d-bf3d-983033c26d7f",
+    "thought_content": "Job hunt - application: Senior Director, Services Products & Strategy at Snowflake\nApplied: no\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Snowflake",
+      "title": "Senior Director, Services Products & Strategy",
+      "url": null,
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "7d3276ae-2935-4637-bc9e-cef066077fae",
+    "thought_content": "Job hunt - application: UX/UI Director AI Workspace at Google\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4367047088\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Google",
+      "title": "UX/UI Director AI Workspace",
+      "url": "https://www.linkedin.com/jobs/view/4367047088",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Resume 2026 Google.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Cover Letter 2026 Google Director PM Applied AI.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "64d87f6f-d4df-440a-9077-ac738d12e7a9",
+    "thought_content": "Job hunt - application: Group Product Manager at Intuit\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4345221996\nNetworking contacts: Paul Hubbard http://linkedin.com/in/paulhubbard; Sam (d...",
+    "parsed": {
+      "company": "Intuit",
+      "title": "Group Product Manager",
+      "url": "https://www.linkedin.com/jobs/view/4345221996",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Paul Hubbard",
+          "linkedin_url": "http://linkedin.com/in/paulhubbard",
+          "role_in_process": "other",
+          "networked": false,
+          "notes": null
+        },
+        {
+          "name": "Sam",
+          "linkedin_url": "http://linkedin.com/in/sam-design",
+          "role_in_process": "other",
+          "networked": false,
+          "notes": "designer"
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Intuit/Daniel Frysinger - Resume 2026 Intuit.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "8ff3a66f-e579-4cd7-beca-3d78e036631a",
+    "thought_content": "Job hunt - application: Group Product Manager at Workday (AI)\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4357485532\nNetworking contact: Jessica Hsi http://linkedin.com/in/jessicahsi\nNetw...",
+    "parsed": {
+      "company": "Workday",
+      "title": "Group Product Manager",
+      "url": "https://www.linkedin.com/jobs/view/4357485532",
+      "status": "draft",
+      "applied_date": null,
+      "location": "AI",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [
+        {
+          "name": "Jessica Hsi",
+          "linkedin_url": "http://linkedin.com/in/jessicahsi",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Workday/Daniel Frysinger - Resume 2026 Workday.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "464c6bf0-4271-4f37-a1df-2edaa646be02",
+    "thought_content": "Job hunt - application: Director of Product Management at Okta\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4299576546\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Okta",
+      "title": "Director of Product Management",
+      "url": "https://www.linkedin.com/jobs/view/4299576546",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ed2b7d96-4a8c-414e-8cab-d25f59346b49",
+    "thought_content": "Job hunt - application: Director, UX, Workspace Platform at Google\nApplied: no\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Google",
+      "title": "Director, UX, Workspace Platform",
+      "url": null,
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Resume 2026 Google.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Cover Letter 2026 Google Director PM Applied AI.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "5a821b33-d2c4-4c11-80d7-4a6eeb6ee46d",
+    "thought_content": "Job hunt - application: Head of Product at Handoff AI\nApplied: yes\nLink: https://www.handoff.ai/careers/jobs?id=0086130d-8bf8-48dd-a265-0e323aefe0fc\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Handoff AI",
+      "title": "Head of Product",
+      "url": "https://www.handoff.ai/careers/jobs?id=0086130d-8bf8-48dd-a265-0e323aefe0fc",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Handoff/Daniel Frysinger - Resume 2026 Handoff.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Handoff/Daniel Frysinger - Cover Letter 2026 Handoff Head of Product.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "3c9d29f8-9c46-4917-a630-eca3ec2b9ea7",
+    "thought_content": "Job hunt - application: Group Product Manager, Generative AI, Google Cloud at Google\nApplied: yes (2/9)\nLinkedIn: https://www.linkedin.com/jobs/view/4365587202/\nNetworking contacts: Miguel; Gitanjali ...",
+    "parsed": {
+      "company": "Google",
+      "title": "Group Product Manager, Generative AI, Google Cloud",
+      "url": "https://www.linkedin.com/jobs/view/4365587202/",
+      "status": "applied",
+      "applied_date": "2026-02-09",
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Miguel",
+          "linkedin_url": null,
+          "role_in_process": "other",
+          "networked": false,
+          "notes": null
+        },
+        {
+          "name": "Gitanjali Stevens",
+          "linkedin_url": "http://linkedin.com/in/gitanjali-stevens",
+          "role_in_process": "other",
+          "networked": false,
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Resume 2026 Google.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Cover Letter 2026 Google Director PM Applied AI.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "350589f5-42be-4ff0-a20c-0299d3e4c19a",
+    "thought_content": "Job hunt - application: Director, Product Management, Applied AI at Google (Sunnyvale)\nApplied: yes (2/9)\nLink: https://www.google.com/about/careers/applications/jobs/results/131249023473328838\nNetwor...",
+    "parsed": {
+      "company": "Google",
+      "title": "Director, Product Management, Applied AI",
+      "url": "https://www.google.com/about/careers/applications/jobs/results/131249023473328838",
+      "status": "applied",
+      "applied_date": "2026-02-09",
+      "location": "Sunnyvale",
+      "source": "company-site",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Resume 2026 Google.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Cover Letter 2026 Google Director PM Applied AI.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "8a371f0c-f666-47ef-9cdf-45723caff3af",
+    "thought_content": "Job hunt - application: Product Leader at Inworld AI\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4368796764\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Inworld AI",
+      "title": "Product Leader",
+      "url": "https://www.linkedin.com/jobs/view/4368796764",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Inworld AI/Daniel Frysinger - Resume 2026 Inworld AI.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "8e22b48e-433a-4c32-9dba-0d65b6fdd470",
+    "thought_content": "Job hunt - application: Group Product Manager at Google\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4369152021\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Google",
+      "title": "Group Product Manager",
+      "url": "https://www.linkedin.com/jobs/view/4369152021",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Resume 2026 Google.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Cover Letter 2026 Google Director PM Applied AI.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "cdb5dc28-da97-4273-9a65-5201d3a42f1b",
+    "thought_content": "Job hunt - application: Head of Product Design at Demand.io\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4371108230\nNetworking contact: Graham Lee (recruiter) http://linkedin.com/in/graham...",
+    "parsed": {
+      "company": "Demand.io",
+      "title": "Head of Product Design",
+      "url": "https://www.linkedin.com/jobs/view/4371108230",
+      "status": "draft",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Graham Lee",
+          "linkedin_url": "http://linkedin.com/in/graham-lee-1a0779286",
+          "role_in_process": "recruiter",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "5c821959-50c5-45a3-abec-aa822d997f54",
+    "thought_content": "Job hunt - application: Director, Product Management at Samsara\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4351920988\nNetworking contacts: Steven Guido http://linkedin.com/in/stevenfgui...",
+    "parsed": {
+      "company": "Samsara",
+      "title": "Director, Product Management",
+      "url": "https://www.linkedin.com/jobs/view/4351920988",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Steven Guido",
+          "linkedin_url": "http://linkedin.com/in/stevenfguido",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Greg Hwang",
+          "linkedin_url": "http://linkedin.com/in/greghwang",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Samsara/Daniel Frysinger - Resume 2026 Samsara.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Samsara/Daniel Frysinger - Cover Letter 2026 Samsara Director Product Management.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "b34dcabc-fcb6-4439-a957-394b456514a5",
+    "thought_content": "Job hunt - application: Head of Product at BackOps AI\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4360061309/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "BackOps AI",
+      "title": "Head of Product",
+      "url": "https://www.linkedin.com/jobs/view/4360061309/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/BackOps AI/Daniel Frysinger - Resume 2026 BackOps AI.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "3416ee90-bce7-42ad-8c7a-7e72f0ecb69b",
+    "thought_content": "Job hunt - application: Sr. Director, Product - Design Tools at Adobe\nApplied: yes\nLinkedIn: https://www.linkedin.com/jobs/view/4329873454/\nNetworked: no\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Adobe",
+      "title": "Sr. Director, Product - Design Tools",
+      "url": "https://www.linkedin.com/jobs/view/4329873454/",
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Adobe/Daniel Frysinger - Resume 2026 Adobe.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "f1554128-bc6f-4135-803e-1f41f5acd821",
+    "thought_content": "Job hunt - application: Director of UI/UX (Control4 and OvrC products) at ADI Global\nApplied: yes\nNetworking contact: Nima Jamshidi (referral contact, internal)\nNotes: LinkedIn outreach to Nima asking...",
+    "parsed": {
+      "company": "ADI Global",
+      "title": "Director of UI/UX (Control4 and OvrC products)",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "referral",
+      "priority": "medium",
+      "notes": "LinkedIn outreach to Nima asking for referral",
+      "contacts": [
+        {
+          "name": "Nima Jamshidi",
+          "linkedin_url": null,
+          "role_in_process": "referral",
+          "networked": "true",
+          "notes": "internal referral contact"
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/ADI Global/Daniel Frysinger - Resume 2026 ADI Global.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/ADI Global/Daniel Frysinger - Cover Letter 2026 ADI Global Director UI UX v2.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "d1bff7cf-f87c-4923-9e77-8215aee78a1f",
+    "thought_content": "Job hunt - application: Sr. Director of UX at Insulet\nApplied: yes\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Insulet",
+      "title": "Sr. Director of UX",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Insulet/Daniel Frysinger - Resume 2026 Insulet Sr Dir UX.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "9552ed63-80e5-4ce3-a0d8-c5997f392522",
+    "thought_content": "Job hunt - application: Product leadership role at Replit\nApplied: yes\nNetworking contacts: Virginia Jaynes http://linkedin.com/in/virginiajaynes; Jessie Lloyd http://linkedin.com/in/jessielloyd; Mela...",
+    "parsed": {
+      "company": "Replit",
+      "title": "Product leadership role",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": "Outreach to multiple recruiters",
+      "contacts": [
+        {
+          "name": "Virginia Jaynes",
+          "linkedin_url": "http://linkedin.com/in/virginiajaynes",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Jessie Lloyd",
+          "linkedin_url": "http://linkedin.com/in/jessielloyd",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Melanie Malott",
+          "linkedin_url": "http://linkedin.com/in/melaniemalott",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Patricia Mangione",
+          "linkedin_url": "http://linkedin.com/in/patriciamangione",
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Serena Cameirano",
+          "linkedin_url": null,
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Replit/Daniel Frysinger - Resume 2026 Replit.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ed982df9-4c78-49d1-92e7-e02ff50cd332",
+    "thought_content": "Job hunt - application: Sr./Director of Product, GenAI Data Engine at Scale AI\nApplied: yes\nNetworking contacts: Heather Samaras (Head of Growth Recruiting) http://linkedin.com/in/hsamaras; additional...",
+    "parsed": {
+      "company": "Scale AI",
+      "title": "Sr./Director of Product, GenAI Data Engine",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": "Cover letter written, LinkedIn outreach to recruiting team",
+      "contacts": [
+        {
+          "name": "Heather Samaras",
+          "linkedin_url": "http://linkedin.com/in/hsamaras",
+          "role_in_process": "recruiter",
+          "networked": "true",
+          "notes": "Head of Growth Recruiting"
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Scale AI/Daniel Frysinger - Resume 2026 Scale AI.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Scale AI/Daniel Frysinger - Cover Letter 2026 Scale AI GenAI Data Engine v1.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "6c75a50e-1373-41fd-8f57-a31fcdfae83a",
+    "thought_content": "Job hunt - application: Head of Product at Sciemo\nApplied: yes\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Sciemo",
+      "title": "Head of Product",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Sciemo/Daniel Frysinger - Resume 2026 Sciemo.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "7ef33598-6645-4a1a-a328-4627b2d29a0c",
+    "thought_content": "Job hunt - application: Senior Product Manager at Siemens\nApplied: yes\nNotes: Cover letter written emphasizing AI/data platform experience and building automation background from PassiveLogic\nTags: jo...",
+    "parsed": {
+      "company": "Siemens",
+      "title": "Senior Product Manager",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": "Cover letter written emphasizing AI/data platform experience and building automation background from PassiveLogic",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Siemens/Daniel Frysinger - Resume 2026 Siemens.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Siemens/Daniel Frysinger - Cover Letter 2026 Siemens Senior Product Manager.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "87c593f7-d398-4730-8477-6e195feb3ddf",
+    "thought_content": "Job hunt - application: Product leadership role at Uniphore\nApplied: yes\nNotes: Applied via Workday\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Uniphore",
+      "title": "Product leadership role",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": "Applied via Workday",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Uniphore/Daniel Frysinger - Resume 2026 Uniphore.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "79fe12b8-7e88-4216-a104-a07590ee45e9",
+    "thought_content": "Job hunt - application: Product leadership role at ZAGG\nApplied: yes\nTags: job hunt, job search",
+    "parsed": {
+      "company": "ZAGG",
+      "title": "Product leadership role",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/ZAGG/Daniel Frysinger - Resume 2026 ZAGG.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ccd01161-2246-4bfa-85cf-4ed1c15b55b5",
+    "thought_content": "Job hunt - application: Product leadership role at A1\nApplied: yes\nTags: job hunt, job search",
+    "parsed": {
+      "company": "A1",
+      "title": "Product leadership role",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/A1/Daniel Frysinger - Resume 2026 A1.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "96f631c5-307d-4d61-8148-b801951d288b",
+    "thought_content": "Job hunt - application: Product leadership role at Ashley Furniture\nApplied: yes\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Ashley Furniture",
+      "title": "Product leadership role",
+      "url": null,
+      "status": "applied",
+      "applied_date": null,
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Ashley Furniture/Daniel Frysinger - Resume 2026 Ashley Furniture.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "8c7157fc-5e29-48a9-a2dc-4803f3405fe0",
+    "thought_content": "Job hunt - application: Product leadership role at Banyan Software\nApplied: yes (3/18/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Banyan Software",
+      "title": "Product leadership role",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-03-18",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "a7506ff3-2d27-4d0e-9499-489fabace2e6",
+    "thought_content": "Job hunt - application: Head of Product at Handoff AI\nApplied: yes\nStatus: Rejected (3/18/2026)\nSource: Lever\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Handoff AI",
+      "title": "Head of Product",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-03-18",
+      "location": null,
+      "source": "other",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Handoff/Daniel Frysinger - Resume 2026 Handoff.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Handoff/Daniel Frysinger - Cover Letter 2026 Handoff Head of Product.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "5e96301b-023f-4a34-ae5d-90fb85c2e50b",
+    "thought_content": "Job hunt - application: Director, Product Management (2025-4763) at GitHub\nApplied: yes (1/24/2026)\nStatus: Interviewing (recruiter screen, then multi-round interviews scheduled Feb-Mar 2026)\nRecruite...",
+    "parsed": {
+      "company": "GitHub",
+      "title": "Director, Product Management",
+      "url": null,
+      "status": "interviewing",
+      "applied_date": "2026-01-24",
+      "location": null,
+      "source": "iCIMS",
+      "priority": "medium",
+      "notes": "Recruiter screen, then multi-round interviews scheduled Feb-Mar 2026.",
+      "contacts": [
+        {
+          "name": "Sangeetha Mahajan",
+          "linkedin_url": null,
+          "role_in_process": "recruiter",
+          "networked": "true",
+          "notes": null
+        },
+        {
+          "name": "Christopher Butler",
+          "linkedin_url": null,
+          "role_in_process": "referral",
+          "networked": "true",
+          "notes": "Referred by on 2/9/2026."
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/GitHub/Daniel Frysinger - Resume 2026 github df.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "741c5cbd-f1b4-4c9d-afec-84749131a33a",
+    "thought_content": "Job hunt - application: Staff Product Manager (2025-4722) at GitHub\nApplied: yes (3/10/2026)\nStatus: Interviewing (case study interview scheduled, NDA signed)\nRecruiter: Sangeetha Mahajan\nScheduler: B...",
+    "parsed": {
+      "company": "GitHub",
+      "title": "Staff Product Manager",
+      "url": null,
+      "status": "interviewing",
+      "applied_date": "2026-03-10",
+      "location": null,
+      "source": "other",
+      "priority": "medium",
+      "notes": "case study interview scheduled, NDA signed",
+      "contacts": [
+        {
+          "name": "Sangeetha Mahajan",
+          "linkedin_url": null,
+          "role_in_process": "recruiter",
+          "networked": "false",
+          "notes": null
+        },
+        {
+          "name": "Brianna Hobson",
+          "linkedin_url": null,
+          "role_in_process": "other",
+          "networked": "false",
+          "notes": "Scheduler"
+        }
+      ],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/GitHub/Daniel Frysinger - Resume 2026 github df.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "f2d9376c-7146-4d60-83a9-0b2ad9b63ad2",
+    "thought_content": "Job hunt - application: Director of UI/UX (17765) at Resideo\nApplied: yes (2/16/2026)\nStatus: Rejected (3/5/2026)\nRecruiter: Mitchell Hargett\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Resideo",
+      "title": "Director of UI/UX",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-02-16",
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [
+        {
+          "name": "Mitchell Hargett",
+          "linkedin_url": null,
+          "role_in_process": "recruiter",
+          "networked": "false",
+          "notes": null
+        }
+      ],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "3772246f-9748-42e2-83c7-24d359685767",
+    "thought_content": "Job hunt - application: VP, Product Management (AI) at EDB\nApplied: yes (2/25/2026)\nStatus: Role filled, not proceeding (3/3/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "EDB",
+      "title": "VP, Product Management (AI)",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-02-25",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": "Role filled, not proceeding",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "0f03a5f3-6893-4e74-8214-f3749404f954",
+    "thought_content": "Job hunt - application: VP/SVP Product, AI/ML at Lantern\nApplied: yes (2/27/2026)\nStatus: Rejected (3/1/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Lantern",
+      "title": "VP/SVP Product, AI/ML",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-02-27",
+      "location": null,
+      "source": "other",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "636a9f1f-01b5-4ce0-855f-0ad765612386",
+    "thought_content": "Job hunt - application: Director, Strategic Product Management at Veracode\nApplied: yes (2/27/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Veracode",
+      "title": "Director, Strategic Product Management",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-27",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "790f4348-8db5-470a-9f77-334fe456121f",
+    "thought_content": "Job hunt - application: Director, Product Management (AI Agent Platform) at Nextiva\nApplied: yes (2/25/2026)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Nextiva",
+      "title": "Director, Product Management (AI Agent Platform)",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-25",
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "fbbfd79d-72bf-4208-8ab9-1cefc5ecc869",
+    "thought_content": "Job hunt - application: Director, Product Design (Foundations) at Headway\nApplied: yes (2/21/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Headway",
+      "title": "Director, Product Design (Foundations)",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-21",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "07440049-dc28-4a66-9142-476be4a21b0b",
+    "thought_content": "Job hunt - application: Head of Product at Sciemo\nApplied: yes (~2/19/2026)\nStatus: Rejected (2/20/2026)\nSource: Ashby\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Sciemo",
+      "title": "Head of Product",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-02-19",
+      "location": null,
+      "source": "other",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Sciemo/Daniel Frysinger - Resume 2026 Sciemo.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "2bc70134-1b1c-48b8-9bd4-722437288ed8",
+    "thought_content": "Job hunt - application: Product role at Scale AI\nApplied: yes (2/19/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Scale AI",
+      "title": "Product role",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-19",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Scale AI/Daniel Frysinger - Resume 2026 Scale AI.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Scale AI/Daniel Frysinger - Cover Letter 2026 Scale AI GenAI Data Engine v1.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ef72bfb4-2fc2-4e90-8ddf-72c2324192ba",
+    "thought_content": "Job hunt - application: Senior Director, Product Management - AI Research (Foundation AI - Security) at Cisco\nApplied: yes (~2/10/2026)\nStatus: Rejected (2/27/2026)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Cisco",
+      "title": "Senior Director, Product Management - AI Research (Foundation AI - Security)",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-02-10",
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Cisco/Daniel Frysinger - Resume 2026 Cisco.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "b1e9a9af-f95e-4a2b-845a-37d02af1beac",
+    "thought_content": "Job hunt - application: Senior Director of Product, AI (US-Based) at Toptal\nApplied: yes (1/15/2026)\nSource: Lever\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Toptal",
+      "title": "Senior Director of Product, AI",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-01-15",
+      "location": "US-Based",
+      "source": "company-site",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ec6f57ca-fff2-421c-9763-d17ed4a5d33e",
+    "thought_content": "Job hunt - application: Director of Product, Core Platform & Mobile at PandaDoc\nApplied: yes\nStatus: Rejected (1/15/2026)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "PandaDoc",
+      "title": "Director of Product, Core Platform & Mobile",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-01-15",
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "d92c96cf-cc44-49b2-b054-ed8a1c88a679",
+    "thought_content": "Job hunt - application: Vice President, UX Lead at The Nuclear Company\nApplied: yes (1/24/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "The Nuclear Company",
+      "title": "Vice President, UX Lead",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-01-24",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Nuclear/Daniel Frysinger - Resume 2026 nuclear.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Nuclear/Daniel Frysinger - Cover Letter 2026.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "074fbc7f-5423-45ad-bcd2-b906940146c4",
+    "thought_content": "Job hunt - application: Vice President of Product at Crunchbase\nApplied: yes (1/25/2026)\nSource: Teamtailor\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Crunchbase",
+      "title": "Vice President of Product",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-01-25",
+      "location": null,
+      "source": "Teamtailor",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Crunchbase/Daniel Frysinger - Resume 2026 crunchbase.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "95cc8774-c513-4a76-96fb-87f1536a29ef",
+    "thought_content": "Job hunt - application: Director of Product, AI Automations at Entrata\nApplied: yes (1/29/2026)\nStatus: Rejected (2/4/2026)\nSource: Lever\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Entrata",
+      "title": "Director of Product, AI Automations",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-01-29",
+      "location": null,
+      "source": "other",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Entrata/Daniel Frysinger - Resume 2026 Entrata.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Entrata/Daniel Frysinger - Cover Letter 2026 Entrata Director of Product AI Automations.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "4cee1cdb-456b-4de6-9d5e-92631b94ed9b",
+    "thought_content": "Job hunt - application: Product role at Whisker\nApplied: yes (1/29/2026)\nSource: Paylocity\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Whisker",
+      "title": "Product role",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-01-29",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Whisker/Daniel Frysinger - Resume 2026 Whisker.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "39b70a0d-5ebb-44f6-a73f-b7ae8a1cfb50",
+    "thought_content": "Job hunt - application: VP of AI Product at Cohere\nApplied: yes (1/30/2026)\nSource: Ashby\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Cohere",
+      "title": "VP of AI Product",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-01-30",
+      "location": null,
+      "source": "other",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Cohere/Daniel Frysinger - Resume 2026 Cohere.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ad3bb2df-89ed-4e55-936f-b33f442b0277",
+    "thought_content": "Job hunt - application: VP, Product (AI) at WHOOP\nApplied: yes (2/2/2026)\nSource: Lever\nTags: job hunt, job search",
+    "parsed": {
+      "company": "WHOOP",
+      "title": "VP, Product (AI)",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-02",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/WHOOP/Daniel Frysinger - Resume 2026 WHOOP.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/WHOOP/Daniel Frysinger - Cover Letter 2026 WHOOP VP Product AI v1.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "b672d3d2-8a91-4c3d-8a46-fac2069a628d",
+    "thought_content": "Job hunt - application: Vice President, Product Management at Tebra\nApplied: yes (2/10/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Tebra",
+      "title": "Vice President, Product Management",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-10",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "48bed721-9f5d-4a92-9fd2-75e424907ab9",
+    "thought_content": "Job hunt - application: Director, Product Management - Vehicle Platform at Samsara\nApplied: yes (2/11/2026)\nSource: Greenhouse\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Samsara",
+      "title": "Director, Product Management - Vehicle Platform",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-11",
+      "location": null,
+      "source": "company-site",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Samsara/Daniel Frysinger - Resume 2026 Samsara.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Samsara/Daniel Frysinger - Cover Letter 2026 Samsara Director Product Management.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "70bc8470-2b5e-43c4-a6ac-9912be447f8b",
+    "thought_content": "Job hunt - application: Group Product Manager, Intuit AI Platform at Intuit\nApplied: yes (2/12/2026)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Intuit",
+      "title": "Group Product Manager, Intuit AI Platform",
+      "url": null,
+      "status": "applied",
+      "applied_date": "2026-02-12",
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Intuit/Daniel Frysinger - Resume 2026 Intuit.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "2003ca05-2891-4b52-8d81-40eeef62401a",
+    "thought_content": "Job hunt - application: Head of Design and Research at Asana\nApplied: yes (2/12/2026)\nStatus: Rejected (2/13/2026)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Asana",
+      "title": "Head of Design and Research",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-02-12",
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "dade3fe6-226f-4aaf-b0d6-7b8458b455d9",
+    "thought_content": "Job hunt - application: Head of Product at Gusto\nApplied: yes\nStatus: Rejected (2/16/2026)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Gusto",
+      "title": "Head of Product",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-02-16",
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Gusto/Daniel Frysinger - Resume 2026 Gusto.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Gusto/Daniel Frysinger - Cover Letter 2026 Gusto Head of Product Core Experiences Platform.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "c2aa093a-53a8-46bb-83ed-48653aa53251",
+    "thought_content": "Job hunt - application: Group Product Manager - Evisort AI at Workday\nApplied: yes (2/20/2026)\nStatus: Rejected (2/27/2026)\nNotes: This is distinct from the Workday entry already in Open Brain which w...",
+    "parsed": {
+      "company": "Workday",
+      "title": "Group Product Manager - Evisort AI",
+      "url": null,
+      "status": "rejected",
+      "applied_date": "2026-02-20",
+      "location": null,
+      "source": null,
+      "priority": "medium",
+      "notes": "This is distinct from the Workday entry already in Open Brain which was marked as not yet applied. This one was applied and rejected.",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Workday/Daniel Frysinger - Resume 2026 Workday.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "d0f009e7-2bc8-4372-bc2a-70f745f3ccc4",
+    "thought_content": "Job hunt - application: Product Lead, AI at Stripe\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4378019076/\nLocation: United States (Remote)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Stripe",
+      "title": "Product Lead, AI",
+      "url": "https://www.linkedin.com/jobs/view/4378019076/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ab416802-723b-49e1-a2bc-1cb922eedb53",
+    "thought_content": "Job hunt - application: Director of Product Design at Weave\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4377897310/\nLocation: Lehi, UT (Hybrid)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Weave",
+      "title": "Director of Product Design",
+      "url": "https://www.linkedin.com/jobs/view/4377897310/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Lehi, UT (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "b1363ae6-1e11-4a7e-a5b3-c6e6056051ee",
+    "thought_content": "Job hunt - application: Senior Director of Product Management, Global Products at Rippling\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4361500580/\nLocation: New York, NY (On-site)\nTags: j...",
+    "parsed": {
+      "company": "Rippling",
+      "title": "Senior Director of Product Management, Global Products",
+      "url": "https://www.linkedin.com/jobs/view/4361500580/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "New York, NY",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "7df7f686-646f-43b9-96f8-84a1f177122c",
+    "thought_content": "Job hunt - application: Senior Manager, UX Specialist (AI Product experience) at Deloitte\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4377828419/\nLocation: Denver, CO (Hybrid)\nTags: job h...",
+    "parsed": {
+      "company": "Deloitte",
+      "title": "Senior Manager, UX Specialist (AI Product experience)",
+      "url": "https://www.linkedin.com/jobs/view/4377828419/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "Denver, CO (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "6f5a987d-beeb-4473-876e-6b0e80b813b8",
+    "thought_content": "Job hunt - application: Sr. Director of Design, Member Experiences at Reddit\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4376933691/\nLocation: United States (Remote)\nTags: job hunt, job s...",
+    "parsed": {
+      "company": "Reddit",
+      "title": "Sr. Director of Design, Member Experiences",
+      "url": "https://www.linkedin.com/jobs/view/4376933691/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "fc1472c6-7e54-4f49-a3c5-d2dd8827a85a",
+    "thought_content": "Job hunt - application: Director of Design, Content Ecosystem at Reddit\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4376948003/\nLocation: United States (Remote)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Reddit",
+      "title": "Director of Design, Content Ecosystem",
+      "url": "https://www.linkedin.com/jobs/view/4376948003/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "ba24c80c-1312-4d04-89c5-8917e2f76133",
+    "thought_content": "Job hunt - application: Director New Platforms at Intuitive\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4340705099/\nLocation: Sunnyvale, CA (On-site)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Intuitive",
+      "title": "Director New Platforms",
+      "url": "https://www.linkedin.com/jobs/view/4340705099/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Sunnyvale, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Intuit/Daniel Frysinger - Resume 2026 Intuit.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "0a606309-8b78-48de-b9b0-4cd93ecfb434",
+    "thought_content": "Job hunt - application: Director, Product Design - AI in Experience Design at Capital One\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4377887696/\nLocation: San Francisco, CA (On-site)\nTag...",
+    "parsed": {
+      "company": "Capital One",
+      "title": "Director, Product Design - AI in Experience Design",
+      "url": "https://www.linkedin.com/jobs/view/4377887696/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "San Francisco, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "95f286f5-06dd-4a1b-8956-5970d9015852",
+    "thought_content": "Job hunt - application: Sr. Manager UX Design, AWS Fintech Research & Design at Amazon Web Services (AWS)\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4346151965/\nLocation: Seattle, WA\nTag...",
+    "parsed": {
+      "company": "Amazon Web Services (AWS)",
+      "title": "Sr. Manager UX Design, AWS Fintech Research & Design",
+      "url": "https://www.linkedin.com/jobs/view/4346151965/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "Seattle, WA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "32023899-6869-45e6-a915-e2208bea46cc",
+    "thought_content": "Job hunt - application: Sr. Mgr, Prod Mgmt, Generative AI, Creative X at Amazon\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4357593764/\nLocation: Seattle, WA\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Amazon",
+      "title": "Sr. Mgr, Prod Mgmt, Generative AI, Creative X",
+      "url": "https://www.linkedin.com/jobs/view/4357593764/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "Seattle, WA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "4fede1b2-0c36-4909-8b62-7a03011c9fe8",
+    "thought_content": "Job hunt - application: Director Engineering - User Experience at Honeywell\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4262463728/\nLocation: Atlanta, GA (On-site)\nTags: job hunt, job sea...",
+    "parsed": {
+      "company": "Honeywell",
+      "title": "Director Engineering - User Experience",
+      "url": "https://www.linkedin.com/jobs/view/4262463728/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Atlanta, GA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "17d0e7fe-e2d3-49e1-9254-181354210c88",
+    "thought_content": "Job hunt - application: Principal Product Manager - Tech, Intellectual Property Protection at Amazon\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4260453745/\nLocation: Seattle, WA\nTags: jo...",
+    "parsed": {
+      "company": "Amazon",
+      "title": "Principal Product Manager - Tech, Intellectual Property Protection",
+      "url": "https://www.linkedin.com/jobs/view/4260453745/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "Seattle, WA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "65966cd4-2153-4402-8f4f-0e636fa2d2ef",
+    "thought_content": "Job hunt - application: Director of Product Management at Waystar\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4368413850/\nLocation: Lehi, UT\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Waystar",
+      "title": "Director of Product Management",
+      "url": "https://www.linkedin.com/jobs/view/4368413850/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Lehi, UT",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt - application",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "f624a567-6f9d-4ab5-8061-8b7fda96cacc",
+    "thought_content": "Job hunt - application: Senior Director, User Experience, AEC Design Solutions at Autodesk\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4368539823/\nLocation: San Francisco, CA (Hybrid) — a...",
+    "parsed": {
+      "company": "Autodesk",
+      "title": "Senior Director, User Experience, AEC Design Solutions",
+      "url": "https://www.linkedin.com/jobs/view/4368539823/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "San Francisco, CA (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "089e70c7-ec09-42c9-a78e-fbf569231386",
+    "thought_content": "Job hunt - application: Director, Product Management at Qualcomm\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4354411091/\nLocation: San Diego, CA\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Qualcomm",
+      "title": "Director, Product Management",
+      "url": "https://www.linkedin.com/jobs/view/4354411091/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "San Diego, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "d3783de1-1e41-4cf9-84df-88bd86f41504",
+    "thought_content": "Job hunt - application: Director, Product Management, Firefly Custom Models at Adobe\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4357405103/\nLocation: San Jose, CA\nTags: job hunt, job sea...",
+    "parsed": {
+      "company": "Adobe",
+      "title": "Director, Product Management, Firefly Custom Models",
+      "url": "https://www.linkedin.com/jobs/view/4357405103/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "San Jose, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Adobe/Daniel Frysinger - Resume 2026 Adobe.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "f5600459-dcbb-48f3-a335-3f354691e807",
+    "thought_content": "Job hunt - application: Director of Product Design at The Hiive Company\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4368771364/\nLocation: Portland, OR (Hybrid)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "The Hiive Company",
+      "title": "Director of Product Design",
+      "url": "https://www.linkedin.com/jobs/view/4368771364/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Portland, OR (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "555fbe98-3d2d-47b6-86e5-ac4750606a08",
+    "thought_content": "Job hunt - application: Head of Design at Pholio\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4379142436/\nLocation: New York City Metropolitan Area (On-site)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Pholio",
+      "title": "Head of Design",
+      "url": "https://www.linkedin.com/jobs/view/4379142436/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "New York City Metropolitan Area",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt - application",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "140715d3-dbbf-4ae4-a526-19544d7d1d9e",
+    "thought_content": "Job hunt - application: Technical Product Manager, AI at Zoox\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4366965707/\nLocation: Foster City, CA (Hybrid)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Zoox",
+      "title": "Technical Product Manager, AI",
+      "url": "https://www.linkedin.com/jobs/view/4366965707/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Foster City, CA (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "2d3cf9e3-949a-4adb-88d2-70d5564fd67e",
+    "thought_content": "Job hunt - application: Associate Director, Product Management - Luxury at Bose Corporation\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4373482528/\nLocation: Binghamton, NY (On-site)\nTags...",
+    "parsed": {
+      "company": "Bose Corporation",
+      "title": "Associate Director, Product Management - Luxury",
+      "url": "https://www.linkedin.com/jobs/view/4373482528/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "Binghamton, NY",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "91f8737b-2eac-4d24-8c75-6a9358de68e1",
+    "thought_content": "Job hunt - application: Head of Product - AI Applications at Klaviyo\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4374682628/\nLocation: Boston, MA (Hybrid)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Klaviyo",
+      "title": "Head of Product - AI Applications",
+      "url": "https://www.linkedin.com/jobs/view/4374682628/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "Boston, MA (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "20be9b6b-85d8-44db-bcb2-937fe0f6f54f",
+    "thought_content": "Job hunt - application: Sr Project Engineer – Forge AI Software at Honeywell\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4367339502/\nLocation: Atlanta, GA (On-site)\nTags: job hunt, job se...",
+    "parsed": {
+      "company": "Honeywell",
+      "title": "Sr Project Engineer – Forge AI Software",
+      "url": "https://www.linkedin.com/jobs/view/4367339502/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Atlanta, GA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "729d82e2-b1ce-4fd1-877b-4163bdda9e8f",
+    "thought_content": "Job hunt - application: Head of Product Design, ThousandEyes at Cisco\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4339112119/\nLocation: Seattle, WA\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Cisco",
+      "title": "Head of Product Design",
+      "url": "https://www.linkedin.com/jobs/view/4339112119/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Seattle, WA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt - application",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Cisco/Daniel Frysinger - Resume 2026 Cisco.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "88a834f0-ae00-4ebd-a7f8-7cd208b9c7c3",
+    "thought_content": "Job hunt - application: Head of Product, Alexa Connections at Amazon\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4375655522/\nLocation: Sunnyvale, CA\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Amazon",
+      "title": "Head of Product, Alexa Connections",
+      "url": "https://www.linkedin.com/jobs/view/4375655522/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Sunnyvale, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "fb1fa960-86e6-48eb-84f7-9ac9f9a15322",
+    "thought_content": "Job hunt - application: Sr. Director, Product Management - AI Products at HighLevel\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4352016113/\nLocation: United States (Remote)\nTags: job hunt...",
+    "parsed": {
+      "company": "HighLevel",
+      "title": "Sr. Director, Product Management - AI Products",
+      "url": "https://www.linkedin.com/jobs/view/4352016113/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "eb70cfc2-87fe-4e15-8591-0ddcb6ae672f",
+    "thought_content": "Job hunt - application: Associate Director, UX for AI Agents at Vista Consulting Group\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4373017239/\nLocation: United States (Remote)\nTags: job h...",
+    "parsed": {
+      "company": "Vista Consulting Group",
+      "title": "Associate Director, UX for AI Agents",
+      "url": "https://www.linkedin.com/jobs/view/4373017239/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "8005a957-2222-48fd-87ad-071da59c0e9d",
+    "thought_content": "Job hunt - application: Partner - Head of AI & Strategy (Boutique Consultancy) at Harnham\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4381000658/\nLocation: New York, NY (Remote)\nTags: job...",
+    "parsed": {
+      "company": "Harnham",
+      "title": "Partner - Head of AI & Strategy",
+      "url": "https://www.linkedin.com/jobs/view/4381000658/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "New York, NY (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "913daa6c-da5a-4960-9012-4d735a333159",
+    "thought_content": "Job hunt - application: Chief Product Officer at CreativeX\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4354510993/\nLocation: New York City Metropolitan Area (Hybrid)\nTags: job hunt, job s...",
+    "parsed": {
+      "company": "CreativeX",
+      "title": "Chief Product Officer",
+      "url": "https://www.linkedin.com/jobs/view/4354510993/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "New York City Metropolitan Area (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "471b7e60-a5a8-424d-a6a5-c96072fa0acf",
+    "thought_content": "Job hunt - application: Director of Product Management, AI Agents and Ecosystem at GitLab\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4373875127/\nLocation: United States (Remote)\nTags: jo...",
+    "parsed": {
+      "company": "GitLab",
+      "title": "Director of Product Management, AI Agents and Ecosystem",
+      "url": "https://www.linkedin.com/jobs/view/4373875127/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "fd26539c-43b8-4ec5-bd24-c9d34a9db670",
+    "thought_content": "Job hunt - application: SVP AI & Digital Platform at Pioneering Intelligence\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4289657668/\nLocation: Cambridge, MA\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Pioneering Intelligence",
+      "title": "SVP AI & Digital Platform",
+      "url": "https://www.linkedin.com/jobs/view/4289657668/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Cambridge, MA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt - application",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "1bc07369-7bd8-4170-a82a-b66cd89114d3",
+    "thought_content": "Job hunt - application: Associate Director, AI Platform & Product at Avanade\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4381682609/\nLocation: Seattle, WA\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Avanade",
+      "title": "Associate Director, AI Platform & Product",
+      "url": "https://www.linkedin.com/jobs/view/4381682609/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "Seattle, WA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "5e0d9eae-d94e-479b-a76c-89275470c673",
+    "thought_content": "Job hunt - application: Director of Product Consumer Experience at Mesh\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4351621244/\nLocation: United States (Remote)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Mesh",
+      "title": "Director of Product Consumer Experience",
+      "url": "https://www.linkedin.com/jobs/view/4351621244/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "34a89462-0208-40cb-8d76-24a737c13238",
+    "thought_content": "Job hunt - application: Director, Product Design at Peloton\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4380298301/\nLocation: New York, NY (Hybrid)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Peloton",
+      "title": "Director, Product Design",
+      "url": "https://www.linkedin.com/jobs/view/4380298301/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "New York, NY (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "d4b10807-23ef-4511-9693-2a47d633d4f5",
+    "thought_content": "Job hunt - application: Director of Product, Computer Vision and Artificial Intelligence at Verkada\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4343447609/\nLocation: San Mateo, CA (On-sit...",
+    "parsed": {
+      "company": "Verkada",
+      "title": "Director of Product, Computer Vision and Artificial Intelligence",
+      "url": "https://www.linkedin.com/jobs/view/4343447609/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "San Mateo, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "e9da25f1-ac10-43f6-8882-0654cca3703e",
+    "thought_content": "Job hunt - application: Director of Product, Maps at MapBox\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4342954947/\nLocation: San Francisco, CA (Remote) — also posted in Washington, DC\nTa...",
+    "parsed": {
+      "company": "MapBox",
+      "title": "Director of Product, Maps",
+      "url": "https://www.linkedin.com/jobs/view/4342954947/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "San Francisco, CA (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "3198306e-bf9d-4243-8ffa-4577ea3397db",
+    "thought_content": "Job hunt - application: Senior Product Manager, Google Home Hardware at Google\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4379160227/\nLocation: Mountain View, CA (On-site)\nTags: job hunt...",
+    "parsed": {
+      "company": "Google",
+      "title": "Senior Product Manager, Google Home Hardware",
+      "url": "https://www.linkedin.com/jobs/view/4379160227/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Mountain View, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Resume 2026 Google.docx",
+      "_cover_letter_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Google/Daniel Frysinger - Cover Letter 2026 Google Director PM Applied AI.docx"
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "5f8b8a97-ff11-4d25-ba66-a7688bdb5087",
+    "thought_content": "Job hunt - application: VP of Product at Ambient.ai\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4380104694/\nLocation: San Francisco Bay Area (Hybrid)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Ambient.ai",
+      "title": "VP of Product",
+      "url": "https://www.linkedin.com/jobs/view/4380104694/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "San Francisco Bay Area (Hybrid)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "Job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/AI/Daniel Frysinger - Resume 2026 AI.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "d6917695-8e69-409b-ad90-f7c0faa98a0e",
+    "thought_content": "Job hunt - application: VP of Product at KINETIC\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4380182024/\nLocation: New York, NY (Remote)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "KINETIC",
+      "title": "VP of Product",
+      "url": "https://www.linkedin.com/jobs/view/4380182024/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "New York, NY (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "20235a9c-3aa3-45a2-b915-196df46acea7",
+    "thought_content": "Job hunt - application: VP, Design - Virtual Expert Platform at Intuit\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4378723059/\nLocation: San Diego, CA\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Intuit",
+      "title": "VP, Design - Virtual Expert Platform",
+      "url": "https://www.linkedin.com/jobs/view/4378723059/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "San Diego, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Intuit/Daniel Frysinger - Resume 2026 Intuit.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "7476e437-b562-4b70-a67a-f4f4929eb6a1",
+    "thought_content": "Job hunt - application: Vice President, Product & Design at Aurora Solar\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4362135886/\nLocation: United States (Remote)\nTags: job hunt, job searc...",
+    "parsed": {
+      "company": "Aurora Solar",
+      "title": "Vice President, Product & Design",
+      "url": "https://www.linkedin.com/jobs/view/4362135886/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "56b74f3f-923e-427c-bc79-5840e0efea38",
+    "thought_content": "Job hunt - application: Senior Design Manager, AI at Atlassian\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4380516905/\nLocation: San Francisco, CA (Remote)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Atlassian",
+      "title": "Senior Design Manager, AI",
+      "url": "https://www.linkedin.com/jobs/view/4380516905/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "San Francisco, CA (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "667b97bb-3a25-4962-8d4d-484a885f1a16",
+    "thought_content": "Job hunt - application: Head of Product at OPAQUE Systems\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4360517574/\nLocation: San Francisco, CA\nTags: job hunt, job search",
+    "parsed": {
+      "company": "OPAQUE Systems",
+      "title": "Head of Product",
+      "url": "https://www.linkedin.com/jobs/view/4360517574/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "San Francisco, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "b455c6c1-d854-473b-a3c1-7476cc23b45f",
+    "thought_content": "Job hunt - application: Head of Product at Boam AI\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4361688570/\nLocation: United States (Remote)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "Boam AI",
+      "title": "Head of Product",
+      "url": "https://www.linkedin.com/jobs/view/4361688570/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "United States (Remote)",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": "job hunt, job search",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/AI/Daniel Frysinger - Resume 2026 AI.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "229e549c-4336-4a43-b289-0bcf15f8d6a8",
+    "thought_content": "Job hunt - application: Director of Product, AI Platform & Ecosystem - International at Intuit\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4369630157/\nLocation: Mountain View, CA (On-site...",
+    "parsed": {
+      "company": "Intuit",
+      "title": "Director of Product, AI Platform & Ecosystem - International",
+      "url": "https://www.linkedin.com/jobs/view/4369630157/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Mountain View, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Intuit/Daniel Frysinger - Resume 2026 Intuit.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "6fd5a06b-76c5-4298-8337-1d84a9a3f247",
+    "thought_content": "Job hunt - application: AI Product Director at AllenComm\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4368006642/\nLocation: Salt Lake City, UT (On-site)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "AllenComm",
+      "title": "AI Product Director",
+      "url": "https://www.linkedin.com/jobs/view/4368006642/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Salt Lake City, UT",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "08eb41b4-b1d2-487c-b95d-9834abdeed4a",
+    "thought_content": "Job hunt - application: Senior Manager, Product Management - Intelligent System Experiences at Apple\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4371375459/\nLocation: Cupertino, CA\nTags: ...",
+    "parsed": {
+      "company": "Apple",
+      "title": "Senior Manager, Product Management - Intelligent System Experiences",
+      "url": "https://www.linkedin.com/jobs/view/4371375459/",
+      "status": "applied",
+      "applied_date": null,
+      "location": "Cupertino, CA",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "42d17927-4136-4704-b286-35c4bae05467",
+    "thought_content": "Job hunt - application: Creative Director, Design at NRG Energy Company\nApplied: no\nLinkedIn: https://www.linkedin.com/jobs/view/4341885531/\nLocation: Lehi, UT (On-site)\nTags: job hunt, job search",
+    "parsed": {
+      "company": "NRG Energy Company",
+      "title": "Creative Director, Design",
+      "url": "https://www.linkedin.com/jobs/view/4341885531/",
+      "status": "draft",
+      "applied_date": null,
+      "location": "Lehi, UT",
+      "source": "linkedin",
+      "priority": "medium",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "a19d8313-89be-4b39-9998-cc5eec8ba154",
+    "thought_content": "These are some jobs I thought were particularly interesting over the last few weeks\n\n*Ambient AI—series B startup!*\n<https://www.linkedin.com/jobs/view/4380104694/|https://www.linkedin.com/jobs/view/4...",
+    "parsed": {
+      "company": "Ambient AI",
+      "title": null,
+      "url": "https://www.linkedin.com/jobs/view/4380104694/",
+      "status": null,
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "high",
+      "notes": "series B startup!",
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/AI/Daniel Frysinger - Resume 2026 AI.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 0
+  },
+  {
+    "thought_id": "a19d8313-89be-4b39-9998-cc5eec8ba154",
+    "thought_content": "These are some jobs I thought were particularly interesting over the last few weeks\n\n*Ambient AI—series B startup!*\n<https://www.linkedin.com/jobs/view/4380104694/|https://www.linkedin.com/jobs/view/4...",
+    "parsed": {
+      "company": "Flock",
+      "title": null,
+      "url": "https://www.linkedin.com/jobs/view/4370800557/",
+      "status": null,
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "high",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 1
+  },
+  {
+    "thought_id": "a19d8313-89be-4b39-9998-cc5eec8ba154",
+    "thought_content": "These are some jobs I thought were particularly interesting over the last few weeks\n\n*Ambient AI—series B startup!*\n<https://www.linkedin.com/jobs/view/4380104694/|https://www.linkedin.com/jobs/view/4...",
+    "parsed": {
+      "company": "Verkada",
+      "title": null,
+      "url": "https://www.linkedin.com/jobs/view/4343447609/",
+      "status": null,
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "high",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 2
+  },
+  {
+    "thought_id": "a19d8313-89be-4b39-9998-cc5eec8ba154",
+    "thought_content": "These are some jobs I thought were particularly interesting over the last few weeks\n\n*Ambient AI—series B startup!*\n<https://www.linkedin.com/jobs/view/4380104694/|https://www.linkedin.com/jobs/view/4...",
+    "parsed": {
+      "company": "Stripe",
+      "title": "product lead ai",
+      "url": "https://www.linkedin.com/jobs/view/4378019076/",
+      "status": null,
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "high",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 3
+  },
+  {
+    "thought_id": "a19d8313-89be-4b39-9998-cc5eec8ba154",
+    "thought_content": "These are some jobs I thought were particularly interesting over the last few weeks\n\n*Ambient AI—series B startup!*\n<https://www.linkedin.com/jobs/view/4380104694/|https://www.linkedin.com/jobs/view/4...",
+    "parsed": {
+      "company": "Zoox",
+      "title": null,
+      "url": "https://www.linkedin.com/jobs/view/4366965707/",
+      "status": null,
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "high",
+      "notes": "cars!",
+      "contacts": [],
+      "_resume_path": null,
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 4
+  },
+  {
+    "thought_id": "a19d8313-89be-4b39-9998-cc5eec8ba154",
+    "thought_content": "These are some jobs I thought were particularly interesting over the last few weeks\n\n*Ambient AI—series B startup!*\n<https://www.linkedin.com/jobs/view/4380104694/|https://www.linkedin.com/jobs/view/4...",
+    "parsed": {
+      "company": "Uniphore",
+      "title": null,
+      "url": "https://www.linkedin.com/jobs/view/4382197492/",
+      "status": null,
+      "applied_date": null,
+      "location": null,
+      "source": "linkedin",
+      "priority": "high",
+      "notes": null,
+      "contacts": [],
+      "_resume_path": "/Users/dfrysinger/Library/CloudStorage/Dropbox/Resume/2026 Resume - Claude/Uniphore/Daniel Frysinger - Resume 2026 Uniphore.docx",
+      "_cover_letter_path": null
+    },
+    "parse_error": null,
+    "entry_index": 5
+  }
+]
