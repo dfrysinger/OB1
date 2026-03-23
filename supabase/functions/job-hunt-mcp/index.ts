@@ -329,11 +329,12 @@ server.registerTool(
   async ({ application_id, status, applied_date, resume_version, resume_path, cover_letter_path, cover_letter_notes, referral_contact, response_date, notes, actor, actor_reason, created_by }) => {
     try {
       // Fetch current state for change detection
-      const { data: current } = await supabase
+      const { data: current, error: currentErr } = await supabase
         .from("applications")
         .select("status, resume_path, cover_letter_path")
         .eq("id", application_id)
         .single();
+      if (currentErr) console.error(`Failed to fetch current application state: ${currentErr.message}`);
 
       const updateFields: Record<string, unknown> = {};
       if (status !== undefined) updateFields.status = status;
@@ -781,18 +782,18 @@ server.registerTool(
       }
 
       if (query) {
+        // Escape PostgREST special characters in the query
+        const safeQuery = query.replace(/[%_.,()\\]/g, '\\$&');
+
         // Find companies matching the query
         const { data: matchingCos, error: coErr } = await supabase
           .from("companies")
           .select("id")
-          .ilike("name", `%${query}%`);
+          .ilike("name", `%${safeQuery}%`);
         if (coErr) {
           console.error("Company search error:", coErr);
         }
         const coIds = (matchingCos ?? []).map((c: any) => c.id);
-
-        // Escape PostgREST special characters in the query
-        const safeQuery = query.replace(/[%_.,()\\]/g, '\\$&');
 
         const filters: string[] = [
           `title.ilike.%${safeQuery}%`,
@@ -1417,11 +1418,12 @@ server.registerTool(
       }
 
       // Fetch current state for change detection in attribution logging
-      const { data: current } = await supabase
+      const { data: current, error: currentErr } = await supabase
         .from("job_postings")
         .select("networking_status, has_network_connections, priority, title, status")
         .eq("id", job_posting_id)
         .single();
+      if (currentErr) console.error(`Failed to fetch current posting state: ${currentErr.message}`);
 
       const { data, error } = await supabase
         .from("job_postings")
@@ -1438,20 +1440,21 @@ server.registerTool(
       }
 
       // Build descriptive reason with old -> new transitions for key fields
-      let reason = actor_reason;
-      if (!reason) {
-        const changes: string[] = [];
-        if (networking_status !== undefined && current) {
-          changes.push(`networking_status: ${current.networking_status} -> ${networking_status}`);
-        }
-        if (priority !== undefined && current) {
-          changes.push(`priority: ${current.priority} -> ${priority}`);
-        }
-        const otherFields = Object.keys(updateFields).filter(f => f !== "networking_status" && f !== "priority");
-        if (otherFields.length > 0) {
-          changes.push(`Updated: ${otherFields.join(", ")}`);
-        }
-        reason = changes.join("; ");
+      // Always include structured transitions so pipeline-stats ILIKE queries match
+      const changes: string[] = [];
+      if (networking_status !== undefined && current) {
+        changes.push(`networking_status: ${current.networking_status} -> ${networking_status}`);
+      }
+      if (priority !== undefined && current) {
+        changes.push(`priority: ${current.priority} -> ${priority}`);
+      }
+      const otherFields = Object.keys(updateFields).filter(f => f !== "networking_status" && f !== "priority");
+      if (otherFields.length > 0) {
+        changes.push(`Updated: ${otherFields.join(", ")}`);
+      }
+      let reason = changes.join("; ");
+      if (actor_reason) {
+        reason = reason ? `${reason} — ${actor_reason}` : actor_reason;
       }
 
       const { error: attrErr } = await supabase.from("attribution_log").insert({
