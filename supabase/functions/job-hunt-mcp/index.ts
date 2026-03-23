@@ -1442,11 +1442,13 @@ server.registerTool(
       // Build descriptive reason with old -> new transitions for key fields
       // Always include structured transitions so pipeline-stats ILIKE queries match
       const changes: string[] = [];
-      if (networking_status !== undefined && current) {
-        changes.push(`networking_status: ${current.networking_status} -> ${networking_status}`);
+      if (networking_status !== undefined) {
+        const oldVal = current?.networking_status ?? "unknown";
+        changes.push(`networking_status: ${oldVal} -> ${networking_status}`);
       }
-      if (priority !== undefined && current) {
-        changes.push(`priority: ${current.priority} -> ${priority}`);
+      if (priority !== undefined) {
+        const oldVal = current?.priority ?? "unknown";
+        changes.push(`priority: ${oldVal} -> ${priority}`);
       }
       const otherFields = Object.keys(updateFields).filter(f => f !== "networking_status" && f !== "priority");
       if (otherFields.length > 0) {

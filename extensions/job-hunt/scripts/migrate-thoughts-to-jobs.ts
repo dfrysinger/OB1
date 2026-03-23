@@ -273,7 +273,7 @@ async function commitToDatabase(supabase: SupabaseClient, entries: ParsedEntry[]
         .select("id")
         .eq("url", p.url)
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (existingPosting) {
         postingId = existingPosting.id;

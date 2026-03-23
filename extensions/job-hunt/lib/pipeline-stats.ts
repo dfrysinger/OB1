@@ -393,20 +393,20 @@ async function fetchStaleApplications(supabase: SupabaseClient): Promise<StaleAp
   const cutoff = offsetDate(new Date().toISOString().slice(0, 10), -14);
   const { data, error } = await supabase
     .from("applications")
-    .select("id, updated_at, job_postings(title, companies(name))")
+    .select("id, applied_date, job_postings(title, companies(name))")
     .eq("status", "applied")
     .is("response_date", null)
-    .lte("updated_at", `${cutoff}T23:59:59Z`)
-    .order("updated_at", { ascending: true })
+    .lte("applied_date", cutoff)
+    .order("applied_date", { ascending: true })
     .limit(5);
   if (error) throw new Error(`Failed to fetch stale applications: ${error.message}`);
 
   return (data ?? []).map((row) => {
     const jp = row.job_postings as Record<string, unknown>;
     const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
-    const daysOld = Math.floor(
-      (Date.now() - new Date(row.updated_at).getTime()) / 86400000
-    );
+    const daysOld = row.applied_date
+      ? Math.floor((Date.now() - new Date(row.applied_date).getTime()) / 86400000)
+      : 0;
     return {
       title: jp?.title as string ?? "Untitled",
       company,
