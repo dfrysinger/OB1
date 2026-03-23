@@ -1330,13 +1330,13 @@ server.registerTool(
   "update_job_posting",
   {
     title: "Update Job Posting",
-    description: "Update fields on an existing job posting. Used to set networking_status, connection_count, priority, and other fields.",
+    description: "Update fields on an existing job posting. Used to set networking_status, has_network_connections, priority, and other fields.",
     inputSchema: {
       job_posting_id: z.string().uuid().describe("Posting ID (UUID)"),
       actor: z.string().describe("Who is making this update"),
       actor_reason: z.string().optional().describe("Why this update is being made"),
       networking_status: z.enum(["not_started", "researched", "outreach_in_progress", "done"]).optional().describe("Networking pipeline status"),
-      connection_count: z.number().optional().describe("Number of LinkedIn connections at this company"),
+      has_network_connections: z.boolean().optional().describe("Whether LinkedIn showed network connections for this posting"),
       priority: z.enum(["high", "medium", "low"]).nullable().optional().describe("Job priority"),
       title: z.string().optional().describe("Job title"),
       location: z.string().optional().describe("Location"),
@@ -1346,11 +1346,11 @@ server.registerTool(
       closing_date: z.string().nullable().optional().describe("Closing date (YYYY-MM-DD)"),
     },
   },
-  async ({ job_posting_id, actor, actor_reason, networking_status, connection_count, priority, title, location, salary_min, salary_max, notes, closing_date }) => {
+  async ({ job_posting_id, actor, actor_reason, networking_status, has_network_connections, priority, title, location, salary_min, salary_max, notes, closing_date }) => {
     try {
       const updateFields: Record<string, unknown> = {};
       if (networking_status !== undefined) updateFields.networking_status = networking_status;
-      if (connection_count !== undefined) updateFields.connection_count = connection_count;
+      if (has_network_connections !== undefined) updateFields.has_network_connections = has_network_connections;
       if (priority !== undefined) updateFields.priority = priority;
       if (title !== undefined) updateFields.title = title;
       if (location !== undefined) updateFields.location = location;
@@ -1406,25 +1406,24 @@ server.registerTool(
   "get_networking_queue",
   {
     title: "Get Networking Queue",
-    description: "Get job postings grouped by networking status for pipeline management. Returns contact counts, connection counts, and application status.",
+    description: "Get job postings grouped by networking status for pipeline management. Returns contact counts, network connection flag, and application status.",
     inputSchema: {
       networking_status: z.enum(["not_started", "researched", "outreach_in_progress", "done"]).optional().describe("Filter by networking status"),
       has_contacts: z.boolean().optional().describe("true = only postings with contacts, false = only postings without"),
-      min_connection_count: z.number().optional().describe("Minimum LinkedIn connection count"),
+      has_network_connections: z.boolean().optional().describe("Filter by whether LinkedIn showed network connections"),
       limit: z.number().optional().default(50),
     },
   },
-  async ({ networking_status, has_contacts, min_connection_count, limit }) => {
+  async ({ networking_status, has_contacts, has_network_connections, limit }) => {
     try {
       let q = supabase
         .from("job_postings")
-        .select("id, title, url, location, priority, connection_count, networking_status, created_at, companies(name), applications(id, status)")
+        .select("id, title, url, location, priority, has_network_connections, networking_status, created_at, companies(name), applications(id, status)")
         .order("priority", { ascending: true })
-        .order("connection_count", { ascending: false, nullsFirst: false })
         .limit(limit);
 
       if (networking_status) q = q.eq("networking_status", networking_status);
-      if (min_connection_count != null) q = q.gte("connection_count", min_connection_count);
+      if (has_network_connections !== undefined) q = q.eq("has_network_connections", has_network_connections);
 
       const { data, error } = await q;
       if (error) {
