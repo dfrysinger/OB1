@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS job_postings (
     user_id UUID NOT NULL,
     created_by TEXT NOT NULL,
     title TEXT NOT NULL,
-    url TEXT,
+    url TEXT UNIQUE,
     salary_min INTEGER,
     salary_max INTEGER,
     salary_currency TEXT DEFAULT 'USD',
@@ -39,6 +39,9 @@ CREATE TABLE IF NOT EXISTS job_postings (
     enrichment_error TEXT,
     posted_date DATE,
     closing_date DATE,
+    has_network_connections BOOLEAN,
+    networking_status TEXT DEFAULT 'not_started'
+        CHECK (networking_status IN ('not_started', 'researched', 'outreach_in_progress', 'done')),
     created_at TIMESTAMPTZ DEFAULT now() NOT NULL
 );
 
@@ -98,6 +101,36 @@ CREATE TABLE IF NOT EXISTS job_contacts (
     created_at TIMESTAMPTZ DEFAULT now() NOT NULL
 );
 
+-- Table: posting_contacts
+-- Junction table linking contacts to specific job postings with relationship type
+CREATE TABLE IF NOT EXISTS posting_contacts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    job_posting_id UUID NOT NULL REFERENCES job_postings(id) ON DELETE CASCADE,
+    job_contact_id UUID NOT NULL REFERENCES job_contacts(id) ON DELETE CASCADE,
+    relationship TEXT NOT NULL CHECK (relationship IN (
+        'colleague', 'hiring_manager', 'confirmed_recruiter', 'recruiter',
+        'recruiting_lead', 'network', 'mutual_intro', 'employee', 'executive'
+    )),
+    created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
+    UNIQUE (job_posting_id, job_contact_id)
+);
+
+-- Table: daily_stats
+-- Tracks daily targets and streaks for accountability
+CREATE TABLE IF NOT EXISTS daily_stats (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    date DATE NOT NULL,
+    track TEXT NOT NULL CHECK (track IN (
+        'resume_creation', 'resume_review', 'contact_discovery',
+        'outreach', 'application_submission'
+    )),
+    completed INTEGER NOT NULL DEFAULT 0,
+    target INTEGER NOT NULL DEFAULT 5,
+    deficit INTEGER NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
+    UNIQUE (date, track)
+);
+
 -- Indexes for efficient querying
 CREATE INDEX IF NOT EXISTS idx_companies_user_id
     ON companies(user_id);
@@ -120,6 +153,11 @@ CREATE INDEX IF NOT EXISTS idx_interviews_user_scheduled
 
 CREATE INDEX IF NOT EXISTS idx_job_contacts_user_company
     ON job_contacts(user_id, company_id);
+
+CREATE INDEX IF NOT EXISTS idx_posting_contacts_posting
+    ON posting_contacts(job_posting_id);
+CREATE INDEX IF NOT EXISTS idx_posting_contacts_contact
+    ON posting_contacts(job_contact_id);
 
 -- Row Level Security (RLS)
 ALTER TABLE companies ENABLE ROW LEVEL SECURITY;
@@ -154,6 +192,14 @@ CREATE POLICY job_contacts_user_policy ON job_contacts
     USING (auth.uid() = user_id)
     WITH CHECK (auth.uid() = user_id);
 
+ALTER TABLE posting_contacts ENABLE ROW LEVEL SECURITY;
+CREATE POLICY posting_contacts_policy ON posting_contacts
+    FOR ALL USING (true) WITH CHECK (true);
+
+ALTER TABLE daily_stats ENABLE ROW LEVEL SECURITY;
+CREATE POLICY daily_stats_policy ON daily_stats
+    FOR ALL USING (true) WITH CHECK (true);
+
 -- Function to automatically update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -180,7 +226,7 @@ CREATE TRIGGER update_applications_updated_at
 -- Tracks which actor (human or agent) created or changed records
 CREATE TABLE IF NOT EXISTS attribution_log (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    entity_type TEXT NOT NULL CHECK (entity_type IN ('job_posting', 'application')),
+    entity_type TEXT NOT NULL CHECK (entity_type IN ('job_posting', 'application', 'job_contact')),
     entity_id UUID NOT NULL,
     action TEXT NOT NULL,
     actor TEXT NOT NULL,
