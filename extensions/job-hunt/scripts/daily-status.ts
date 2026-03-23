@@ -70,7 +70,7 @@ async function persistDailyStats(supabase: ReturnType<typeof createClient>, stat
         { onConflict: "date,track" }
       );
     if (error) {
-      console.warn(`daily_stats upsert failed for ${t.track}: ${error.message}`);
+      throw new Error(`daily_stats upsert failed for ${t.track}: ${error.message}`);
     }
   }
 }
@@ -103,10 +103,14 @@ async function main() {
 
   if (!payload) return;
 
+  let slackOk = false;
+  let emailOk = false;
+
   // Send Slack
   try {
     await sendSlackMessage(channel, payload.slack);
     console.log("Slack message sent.");
+    slackOk = true;
   } catch (err) {
     console.error("Slack send failed:", err instanceof Error ? err.message : err);
   }
@@ -115,8 +119,14 @@ async function main() {
   try {
     await sendEmail({ subject: payload.email.subject, html: payload.email.html });
     console.log("Email sent.");
+    emailOk = true;
   } catch (err) {
     console.error("Email send failed:", err instanceof Error ? err.message : err);
+  }
+
+  if (!slackOk && !emailOk) {
+    console.error("FATAL: Both Slack and email delivery failed. No notification was sent.");
+    Deno.exit(1);
   }
 }
 

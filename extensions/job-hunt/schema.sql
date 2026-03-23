@@ -5,7 +5,7 @@
 -- Organizations you're tracking in your job search
 CREATE TABLE IF NOT EXISTS companies (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL,
+    user_id UUID,
     name TEXT NOT NULL,
     industry TEXT,
     website TEXT,
@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS companies (
 -- Specific roles at companies
 CREATE TABLE IF NOT EXISTS job_postings (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    company_id UUID REFERENCES companies(id) ON DELETE CASCADE NOT NULL,
-    user_id UUID NOT NULL,
-    created_by TEXT NOT NULL,
-    title TEXT NOT NULL,
+    company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
+    user_id UUID,
+    created_by TEXT DEFAULT 'legacy' NOT NULL,
+    title TEXT,
     url TEXT UNIQUE,
     salary_min INTEGER,
     salary_max INTEGER,
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS job_postings (
 CREATE TABLE IF NOT EXISTS applications (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     job_posting_id UUID REFERENCES job_postings(id) ON DELETE CASCADE NOT NULL,
-    user_id UUID NOT NULL,
-    created_by TEXT NOT NULL,
+    user_id UUID,
+    created_by TEXT DEFAULT 'legacy' NOT NULL,
     status TEXT DEFAULT 'applied' CHECK (status IN ('draft', 'ready', 'applied', 'screening', 'interviewing', 'offer', 'accepted', 'rejected', 'withdrawn')),
     applied_date DATE,
     response_date DATE,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS applications (
 CREATE TABLE IF NOT EXISTS interviews (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     application_id UUID REFERENCES applications(id) ON DELETE CASCADE NOT NULL,
-    user_id UUID NOT NULL,
+    user_id UUID,
     interview_type TEXT CHECK (interview_type IN ('phone_screen', 'technical', 'behavioral', 'system_design', 'hiring_manager', 'team', 'final')),
     scheduled_at TIMESTAMPTZ,
     duration_minutes INTEGER,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS interviews (
 -- People associated with your job search
 CREATE TABLE IF NOT EXISTS job_contacts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL,
+    user_id UUID,
     company_id UUID REFERENCES companies(id) ON DELETE SET NULL,
     name TEXT NOT NULL,
     title TEXT,
@@ -193,10 +193,12 @@ CREATE POLICY job_contacts_user_policy ON job_contacts
     WITH CHECK (auth.uid() = user_id);
 
 ALTER TABLE posting_contacts ENABLE ROW LEVEL SECURITY;
+-- Open RLS: single-user system, access controlled at MCP server layer
 CREATE POLICY posting_contacts_policy ON posting_contacts
     FOR ALL USING (true) WITH CHECK (true);
 
 ALTER TABLE daily_stats ENABLE ROW LEVEL SECURITY;
+-- Open RLS: single-user system, access controlled at MCP server layer
 CREATE POLICY daily_stats_policy ON daily_stats
     FOR ALL USING (true) WITH CHECK (true);
 
@@ -239,6 +241,7 @@ CREATE INDEX IF NOT EXISTS idx_attribution_log_entity
 
 ALTER TABLE attribution_log ENABLE ROW LEVEL SECURITY;
 
+-- Open RLS: single-user system, access controlled at MCP server layer
 CREATE POLICY attribution_log_user_policy ON attribution_log
     FOR ALL
     USING (true)

@@ -7,9 +7,15 @@ import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import { buildUpdateApplicationLogs } from "./handlers.ts";
 
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const MCP_ACCESS_KEY = Deno.env.get("MCP_ACCESS_KEY")!;
+function requireEnv(name: string): string {
+    const value = Deno.env.get(name);
+    if (!value) throw new Error(`Missing required environment variable: ${name}`);
+    return value;
+}
+
+const SUPABASE_URL = requireEnv("SUPABASE_URL");
+const SUPABASE_SERVICE_ROLE_KEY = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
+const MCP_ACCESS_KEY = requireEnv("MCP_ACCESS_KEY");
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
@@ -95,7 +101,7 @@ server.registerTool(
       priority: z.enum(["high", "medium", "low"]).optional().describe("Job priority"),
       salary_currency: z.string().optional().describe("Salary currency (defaults to USD)"),
       closing_date: z.string().optional().describe("Posting closing date (YYYY-MM-DD)"),
-      created_by: z.string().describe("Who is creating this posting (e.g., 'daniel', 'slack-ingest', 'gmail-sync')"),
+      created_by: z.string().describe("Identifier for who/what created this entry (e.g. 'gmail-sync', 'auto-resume-generator', 'claude-code')"),
       created_by_reason: z.string().optional().describe("Why this posting was created (e.g., 'LinkedIn URL shared in Slack channel')"),
     },
   },
@@ -181,13 +187,14 @@ server.registerTool(
 
       // Log attribution for new postings
       if (isNewPosting) {
-        await supabase.from("attribution_log").insert({
+        const { error: attrErr } = await supabase.from("attribution_log").insert({
           entity_type: "job_posting",
           entity_id: data.id,
           action: "created",
           actor: created_by,
           reason: created_by_reason ?? null,
         });
+        if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
       }
 
       return {
@@ -221,7 +228,7 @@ server.registerTool(
       resume_path: z.string().optional().describe("Path to generated resume file"),
       cover_letter_path: z.string().optional().describe("Path to cover letter file"),
       response_date: z.string().optional().describe("Date company responded (YYYY-MM-DD)"),
-      created_by: z.string().describe("Who is creating this application (e.g., 'daniel', 'auto-resume-generator')"),
+      created_by: z.string().describe("Identifier for who/what created this entry (e.g. 'gmail-sync', 'auto-resume-generator', 'claude-code')"),
       created_by_reason: z.string().optional().describe("Why this application was created"),
     },
   },
@@ -280,7 +287,8 @@ server.registerTool(
           reason: created_by_reason ?? null,
         });
       }
-      await supabase.from("attribution_log").insert(attributionLogs);
+      const { error: attrErr } = await supabase.from("attribution_log").insert(attributionLogs);
+      if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
 
       return {
         content: [{ type: "text" as const, text: JSON.stringify({ success: true, message: "Application recorded successfully", application: data }, null, 2) }],
@@ -313,7 +321,7 @@ server.registerTool(
       referral_contact: z.string().nullable().optional().describe("Referral contact name. Pass null to clear."),
       response_date: z.string().nullable().optional().describe("Date company responded (YYYY-MM-DD). Pass null to clear."),
       notes: z.string().nullable().optional().describe("Additional notes. Pass null to clear."),
-      actor: z.string().describe("Who is making this update (e.g., 'resume-optimizer', 'daniel')"),
+      actor: z.string().describe("Identifier for who/what is making this update (e.g. 'gmail-sync', 'auto-resume-generator', 'claude-code')"),
       actor_reason: z.string().optional().describe("Why this update is being made"),
       created_by: z.string().optional().describe("Override who created this application (for corrections)"),
     },
@@ -370,7 +378,8 @@ server.registerTool(
           actor_reason,
         );
         if (logs.length > 0) {
-          await supabase.from("attribution_log").insert(logs);
+          const { error: attrErr } = await supabase.from("attribution_log").insert(logs);
+          if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
         }
       }
 
@@ -400,6 +409,20 @@ server.registerTool(
   },
   async ({ application_id }) => {
     try {
+      // Verify exists
+      const { data: existing, error: findErr } = await supabase
+        .from("applications")
+        .select("id")
+        .eq("id", application_id)
+        .single();
+
+      if (findErr || !existing) {
+        return {
+          content: [{ type: "text" as const, text: `Application not found: ${application_id}` }],
+          isError: true,
+        };
+      }
+
       const { error } = await supabase
         .from("applications")
         .delete()
@@ -438,6 +461,20 @@ server.registerTool(
   },
   async ({ job_posting_id }) => {
     try {
+      // Verify exists
+      const { data: existing, error: findErr } = await supabase
+        .from("job_postings")
+        .select("id")
+        .eq("id", job_posting_id)
+        .single();
+
+      if (findErr || !existing) {
+        return {
+          content: [{ type: "text" as const, text: `Job posting not found: ${job_posting_id}` }],
+          isError: true,
+        };
+      }
+
       const { error } = await supabase
         .from("job_postings")
         .delete()
@@ -1010,13 +1047,14 @@ server.registerTool(
       }
 
       // Attribution log
-      await supabase.from("attribution_log").insert({
+      const { error: attrErr } = await supabase.from("attribution_log").insert({
         entity_type: "job_contact",
         entity_id: contact.id,
         action: "created",
         actor: created_by,
         reason: null,
       });
+      if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
 
       return {
         content: [{ type: "text" as const, text: JSON.stringify({ success: true, message: `Added contact: ${name}`, contact }, null, 2) }],
@@ -1077,7 +1115,10 @@ server.registerTool(
 
       if (company_id) q = q.eq("company_id", company_id);
       if (role_in_process) q = q.eq("role_in_process", role_in_process);
-      if (query) q = q.or(`name.ilike.%${query}%,title.ilike.%${query}%,notes.ilike.%${query}%`);
+      if (query) {
+        const safeQuery = query.replace(/[%_.,()\\]/g, '\\$&');
+        q = q.or(`name.ilike.%${safeQuery}%,title.ilike.%${safeQuery}%,notes.ilike.%${safeQuery}%`);
+      }
 
       const { data, error } = await q;
       if (error) {
@@ -1152,13 +1193,14 @@ server.registerTool(
         };
       }
 
-      await supabase.from("attribution_log").insert({
+      const { error: attrErr } = await supabase.from("attribution_log").insert({
         entity_type: "job_contact",
         entity_id: job_contact_id,
         action: "updated",
         actor,
         reason: `Updated fields: ${Object.keys(updateFields).join(", ")}`,
       });
+      if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
 
       return {
         content: [{ type: "text" as const, text: JSON.stringify({ success: true, message: `Updated contact ${data.name}`, contact: data }, null, 2) }],
@@ -1214,13 +1256,14 @@ server.registerTool(
         };
       }
 
-      await supabase.from("attribution_log").insert({
+      const { error: attrErr } = await supabase.from("attribution_log").insert({
         entity_type: "job_contact",
         entity_id: job_contact_id,
         action: "deleted",
         actor,
         reason: `Deleted contact: ${existing.name}`,
       });
+      if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
 
       return {
         content: [{ type: "text" as const, text: `Deleted contact ${existing.name} (${job_contact_id})` }],
@@ -1339,24 +1382,32 @@ server.registerTool(
       has_network_connections: z.boolean().optional().describe("Whether LinkedIn showed network connections for this posting"),
       priority: z.enum(["high", "medium", "low"]).nullable().optional().describe("Job priority"),
       title: z.string().optional().describe("Job title"),
+      url: z.string().nullable().optional().describe("Job posting URL"),
       location: z.string().optional().describe("Location"),
+      source: z.enum(["linkedin", "greenhouse", "lever", "workday", "indeed", "company-site", "referral", "recruiter", "other"]).optional().describe("Where you found this posting"),
       salary_min: z.number().nullable().optional().describe("Minimum salary"),
       salary_max: z.number().nullable().optional().describe("Maximum salary"),
+      salary_currency: z.string().optional().describe("Salary currency"),
       notes: z.string().nullable().optional().describe("Notes"),
+      posted_date: z.string().nullable().optional().describe("Date posted (YYYY-MM-DD)"),
       closing_date: z.string().nullable().optional().describe("Closing date (YYYY-MM-DD)"),
     },
   },
-  async ({ job_posting_id, actor, actor_reason, networking_status, has_network_connections, priority, title, location, salary_min, salary_max, notes, closing_date }) => {
+  async ({ job_posting_id, actor, actor_reason, networking_status, has_network_connections, priority, title, url, location, source, salary_min, salary_max, salary_currency, notes, posted_date, closing_date }) => {
     try {
       const updateFields: Record<string, unknown> = {};
       if (networking_status !== undefined) updateFields.networking_status = networking_status;
       if (has_network_connections !== undefined) updateFields.has_network_connections = has_network_connections;
       if (priority !== undefined) updateFields.priority = priority;
       if (title !== undefined) updateFields.title = title;
+      if (url !== undefined) updateFields.url = url;
       if (location !== undefined) updateFields.location = location;
+      if (source !== undefined) updateFields.source = source;
       if (salary_min !== undefined) updateFields.salary_min = salary_min;
       if (salary_max !== undefined) updateFields.salary_max = salary_max;
+      if (salary_currency !== undefined) updateFields.salary_currency = salary_currency;
       if (notes !== undefined) updateFields.notes = notes;
+      if (posted_date !== undefined) updateFields.posted_date = posted_date;
       if (closing_date !== undefined) updateFields.closing_date = closing_date;
 
       if (Object.keys(updateFields).length === 0) {
@@ -1379,13 +1430,14 @@ server.registerTool(
         };
       }
 
-      await supabase.from("attribution_log").insert({
+      const { error: attrErr } = await supabase.from("attribution_log").insert({
         entity_type: "job_posting",
         entity_id: job_posting_id,
         action: "updated",
         actor,
         reason: actor_reason ?? `Updated fields: ${Object.keys(updateFields).join(", ")}`,
       });
+      if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
 
       return {
         content: [{ type: "text" as const, text: JSON.stringify({ success: true, message: `Updated posting: ${data.title ?? data.url}`, job_posting: data }, null, 2) }],

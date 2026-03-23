@@ -58,11 +58,12 @@ export async function fetchPipelineStats(supabase: SupabaseClient): Promise<Pipe
   // For intra-day runs (12pm, 6pm, 11pm) we compute live counts.
 
   // Load existing daily_stats rows for the last 14 days
-  const { data: statsRows } = await supabase
+  const { data: statsRows, error: statsRowsErr } = await supabase
     .from("daily_stats")
     .select("date, track, completed, target, deficit")
     .gte("date", offsetDate(today, -14))
     .order("date", { ascending: false });
+  if (statsRowsErr) throw new Error(`Failed to fetch daily_stats: ${statsRowsErr.message}`);
 
   const statsMap = new Map<string, typeof statsRows[0]>();
   for (const row of (statsRows ?? [])) {
@@ -138,35 +139,40 @@ export async function fetchPipelineStats(supabase: SupabaseClient): Promise<Pipe
 
   // --- Win tracking ---
   // Count applications in interviewing or screening status
-  const { count: activeInterviews } = await supabase
+  const { count: activeInterviews, error: activeInterviewsErr } = await supabase
     .from("applications")
     .select("*", { count: "exact", head: true })
     .in("status", ["interviewing", "screening"]);
+  if (activeInterviewsErr) throw new Error(`Failed to count active interviews: ${activeInterviewsErr.message}`);
 
-  const { count: applicationsOut } = await supabase
+  const { count: applicationsOut, error: applicationsOutErr } = await supabase
     .from("applications")
     .select("*", { count: "exact", head: true })
     .eq("status", "applied");
+  if (applicationsOutErr) throw new Error(`Failed to count applications out: ${applicationsOutErr.message}`);
 
-  const { count: draftResumes } = await supabase
+  const { count: draftResumes, error: draftResumesErr } = await supabase
     .from("applications")
     .select("*", { count: "exact", head: true })
     .eq("status", "draft")
     .is("resume_path", null);
+  if (draftResumesErr) throw new Error(`Failed to count draft resumes: ${draftResumesErr.message}`);
 
-  const { count: totalDrafts } = await supabase
+  const { count: totalDrafts, error: totalDraftsErr } = await supabase
     .from("applications")
     .select("*", { count: "exact", head: true })
     .in("status", ["draft", "ready"]);
+  if (totalDraftsErr) throw new Error(`Failed to count total drafts: ${totalDraftsErr.message}`);
 
   // Last rejection
-  const { data: lastRejection } = await supabase
+  const { data: lastRejection, error: lastRejectionErr } = await supabase
     .from("applications")
     .select("updated_at")
     .eq("status", "rejected")
     .order("updated_at", { ascending: false })
     .limit(1)
     .maybeSingle();
+  if (lastRejectionErr) throw new Error(`Failed to fetch last rejection: ${lastRejectionErr.message}`);
 
   const lastRejectionDaysAgo = lastRejection
     ? Math.floor((Date.now() - new Date(lastRejection.updated_at).getTime()) / 86400000)
@@ -200,48 +206,53 @@ export async function fetchPipelineStats(supabase: SupabaseClient): Promise<Pipe
 
 async function countResumeCreations(supabase: SupabaseClient, today: string): Promise<number> {
   // Count applications where resume_path was set today (using updated_at as proxy)
-  const { count } = await supabase
+  const { count, error } = await supabase
     .from("applications")
     .select("*", { count: "exact", head: true })
     .not("resume_path", "is", null)
     .gte("updated_at", `${today}T00:00:00Z`);
+  if (error) throw new Error(`Failed to count resume creations: ${error.message}`);
   return count ?? 0;
 }
 
 async function countResumeReviews(supabase: SupabaseClient, today: string): Promise<number> {
   // Count applications that moved to 'ready' today
-  const { count } = await supabase
+  const { count, error } = await supabase
     .from("applications")
     .select("*", { count: "exact", head: true })
     .eq("status", "ready")
     .gte("updated_at", `${today}T00:00:00Z`);
+  if (error) throw new Error(`Failed to count resume reviews: ${error.message}`);
   return count ?? 0;
 }
 
 async function countContactDiscoveries(supabase: SupabaseClient, today: string): Promise<number> {
-  const { count } = await supabase
+  const { count, error } = await supabase
     .from("job_postings")
     .select("*", { count: "exact", head: true })
     .in("networking_status", ["researched", "outreach_in_progress", "done"])
     .gte("updated_at", `${today}T00:00:00Z`);
+  if (error) throw new Error(`Failed to count contact discoveries: ${error.message}`);
   return count ?? 0;
 }
 
 async function countOutreach(supabase: SupabaseClient, today: string): Promise<number> {
-  const { count } = await supabase
+  const { count, error } = await supabase
     .from("job_postings")
     .select("*", { count: "exact", head: true })
     .eq("networking_status", "done")
     .gte("updated_at", `${today}T00:00:00Z`);
+  if (error) throw new Error(`Failed to count outreach: ${error.message}`);
   return count ?? 0;
 }
 
 async function countSubmissions(supabase: SupabaseClient, today: string): Promise<number> {
-  const { count } = await supabase
+  const { count, error } = await supabase
     .from("applications")
     .select("*", { count: "exact", head: true })
     .eq("status", "applied")
     .gte("updated_at", `${today}T00:00:00Z`);
+  if (error) throw new Error(`Failed to count submissions: ${error.message}`);
   return count ?? 0;
 }
 
@@ -251,13 +262,14 @@ async function fetchSuggestedJobs(supabase: SupabaseClient): Promise<SuggestedJo
   const suggested: SuggestedJob[] = [];
 
   // Resume creation: top 5 draft applications with no resume, by priority
-  const { data: noResume } = await supabase
+  const { data: noResume, error: noResumeErr } = await supabase
     .from("applications")
     .select("id, job_postings(id, title, companies(name), priority, has_network_connections)")
     .eq("status", "draft")
     .is("resume_path", null)
     .order("created_at", { ascending: true })
     .limit(5);
+  if (noResumeErr) throw new Error(`Failed to fetch suggested resume creations: ${noResumeErr.message}`);
   for (const row of (noResume ?? [])) {
     const jp = row.job_postings as Record<string, unknown>;
     const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
@@ -271,12 +283,13 @@ async function fetchSuggestedJobs(supabase: SupabaseClient): Promise<SuggestedJo
   }
 
   // Resume review: top 5 draft applications with a resume (awaiting review)
-  const { data: needsReview } = await supabase
+  const { data: needsReview, error: needsReviewErr } = await supabase
     .from("applications")
     .select("id, job_postings(title, companies(name))")
     .eq("status", "draft")
     .not("resume_path", "is", null)
     .limit(5);
+  if (needsReviewErr) throw new Error(`Failed to fetch suggested resume reviews: ${needsReviewErr.message}`);
   for (const row of (needsReview ?? [])) {
     const jp = row.job_postings as Record<string, unknown>;
     const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
@@ -290,12 +303,13 @@ async function fetchSuggestedJobs(supabase: SupabaseClient): Promise<SuggestedJo
   }
 
   // Contact discovery: postings with has_network_connections = true and status = not_started
-  const { data: networkReady } = await supabase
+  const { data: networkReady, error: networkReadyErr } = await supabase
     .from("job_postings")
     .select("id, title, companies(name)")
     .eq("networking_status", "not_started")
     .eq("has_network_connections", true)
     .limit(5);
+  if (networkReadyErr) throw new Error(`Failed to fetch suggested contact discoveries: ${networkReadyErr.message}`);
   for (const row of (networkReady ?? [])) {
     const company = (row.companies as Record<string, unknown>)?.name as string ?? "Unknown";
     suggested.push({
@@ -308,11 +322,12 @@ async function fetchSuggestedJobs(supabase: SupabaseClient): Promise<SuggestedJo
   }
 
   // Outreach: postings with networking_status = researched
-  const { data: researched } = await supabase
+  const { data: researched, error: researchedErr } = await supabase
     .from("job_postings")
     .select("id, title, companies(name)")
     .eq("networking_status", "researched")
     .limit(5);
+  if (researchedErr) throw new Error(`Failed to fetch suggested outreach: ${researchedErr.message}`);
   for (const row of (researched ?? [])) {
     const company = (row.companies as Record<string, unknown>)?.name as string ?? "Unknown";
     suggested.push({
@@ -325,11 +340,12 @@ async function fetchSuggestedJobs(supabase: SupabaseClient): Promise<SuggestedJo
   }
 
   // Application submission: top 5 'ready' applications
-  const { data: readyApps } = await supabase
+  const { data: readyApps, error: readyAppsErr } = await supabase
     .from("applications")
     .select("id, job_postings(title, companies(name))")
     .eq("status", "ready")
     .limit(5);
+  if (readyAppsErr) throw new Error(`Failed to fetch suggested submissions: ${readyAppsErr.message}`);
   for (const row of (readyApps ?? [])) {
     const jp = row.job_postings as Record<string, unknown>;
     const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
@@ -349,7 +365,7 @@ async function fetchSuggestedJobs(supabase: SupabaseClient): Promise<SuggestedJo
 
 async function fetchStaleApplications(supabase: SupabaseClient): Promise<StaleApplication[]> {
   const cutoff = offsetDate(new Date().toISOString().slice(0, 10), -14);
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("applications")
     .select("id, updated_at, job_postings(title, companies(name))")
     .eq("status", "applied")
@@ -357,6 +373,7 @@ async function fetchStaleApplications(supabase: SupabaseClient): Promise<StaleAp
     .lte("updated_at", `${cutoff}T23:59:59Z`)
     .order("updated_at", { ascending: true })
     .limit(5);
+  if (error) throw new Error(`Failed to fetch stale applications: ${error.message}`);
 
   return (data ?? []).map((row) => {
     const jp = row.job_postings as Record<string, unknown>;

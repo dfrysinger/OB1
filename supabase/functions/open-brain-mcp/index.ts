@@ -6,10 +6,16 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const OPENROUTER_API_KEY = Deno.env.get("OPENROUTER_API_KEY")!;
-const MCP_ACCESS_KEY = Deno.env.get("MCP_ACCESS_KEY")!;
+function requireEnv(name: string): string {
+    const value = Deno.env.get(name);
+    if (!value) throw new Error(`Missing required environment variable: ${name}`);
+    return value;
+}
+
+const SUPABASE_URL = requireEnv("SUPABASE_URL");
+const SUPABASE_SERVICE_ROLE_KEY = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
+const OPENROUTER_API_KEY = requireEnv("OPENROUTER_API_KEY");
+const MCP_ACCESS_KEY = requireEnv("MCP_ACCESS_KEY");
 
 const OPENROUTER_BASE = "https://openrouter.ai/api/v1";
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
@@ -90,17 +96,15 @@ server.registerTool(
     inputSchema: {
       query: z.string().describe("What to search for"),
       limit: z.number().optional().default(10),
-      threshold: z.number().optional().default(0.5),
     },
   },
-  async ({ query, limit, threshold }) => {
+  async ({ query, limit }) => {
     try {
       const qEmb = await getEmbedding(query);
-      const { data, error } = await supabase.rpc("match_thoughts", {
+      const { data, error } = await supabase.rpc("hybrid_search", {
+        query_text: query,
         query_embedding: qEmb,
-        match_threshold: threshold,
         match_count: limit,
-        filter: {},
       });
 
       if (error) {
@@ -119,16 +123,17 @@ server.registerTool(
       const results = data.map(
         (
           t: {
+            id: string;
             content: string;
             metadata: Record<string, unknown>;
-            similarity: number;
             created_at: string;
           },
           i: number
         ) => {
           const m = t.metadata || {};
           const parts = [
-            `--- Result ${i + 1} (${(t.similarity * 100).toFixed(1)}% match) ---`,
+            `--- Result ${i + 1} ---`,
+            `ID: ${t.id}`,
             `Captured: ${new Date(t.created_at).toLocaleDateString()}`,
             `Type: ${m.type || "unknown"}`,
           ];

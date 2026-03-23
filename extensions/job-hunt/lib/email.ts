@@ -16,7 +16,9 @@ async function readOp(item: string, field: string): Promise<string> {
     const stderr = new TextDecoder().decode(output.stderr).trim();
     throw new Error(`1Password lookup failed for ${item}/${field}: ${stderr}`);
   }
-  return new TextDecoder().decode(output.stdout).trim();
+  const value = new TextDecoder().decode(output.stdout).trim();
+  if (!value) throw new Error(`1Password returned empty value for ${item}/${field}`);
+  return value;
 }
 
 export async function sendEmail(opts: {
