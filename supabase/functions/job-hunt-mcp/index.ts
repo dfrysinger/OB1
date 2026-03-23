@@ -1416,6 +1416,13 @@ server.registerTool(
         };
       }
 
+      // Fetch current state for change detection in attribution logging
+      const { data: current } = await supabase
+        .from("job_postings")
+        .select("networking_status, has_network_connections, priority, title, status")
+        .eq("id", job_posting_id)
+        .single();
+
       const { data, error } = await supabase
         .from("job_postings")
         .update(updateFields)
@@ -1430,12 +1437,29 @@ server.registerTool(
         };
       }
 
+      // Build descriptive reason with old -> new transitions for key fields
+      let reason = actor_reason;
+      if (!reason) {
+        const changes: string[] = [];
+        if (networking_status !== undefined && current) {
+          changes.push(`networking_status: ${current.networking_status} -> ${networking_status}`);
+        }
+        if (priority !== undefined && current) {
+          changes.push(`priority: ${current.priority} -> ${priority}`);
+        }
+        const otherFields = Object.keys(updateFields).filter(f => f !== "networking_status" && f !== "priority");
+        if (otherFields.length > 0) {
+          changes.push(`Updated: ${otherFields.join(", ")}`);
+        }
+        reason = changes.join("; ");
+      }
+
       const { error: attrErr } = await supabase.from("attribution_log").insert({
         entity_type: "job_posting",
         entity_id: job_posting_id,
         action: "updated",
         actor,
-        reason: actor_reason ?? `Updated fields: ${Object.keys(updateFields).join(", ")}`,
+        reason,
       });
       if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
 

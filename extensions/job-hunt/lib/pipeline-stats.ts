@@ -48,14 +48,16 @@ export async function fetchPipelineStats(supabase: SupabaseClient): Promise<Pipe
   const today = new Date().toISOString().slice(0, 10);
 
   // --- Compute today's counts by track ---
-  // Resume creation: job_postings that moved from no resume to having one today
-  // Resume review: applications that moved from 'draft' to 'ready' today
-  // Contact discovery: job_postings where networking_status moved to 'researched' today
-  // Outreach: job_postings where networking_status moved to 'done' today
-  // Application submission: applications submitted today
+  // Each track counts specific actions from the attribution_log table, which
+  // records discrete events (resume added, status changed, etc.) with timestamps.
+  // This avoids the overcounting bug where any unrelated update_at change on a
+  // row would inflate the daily count.
   //
-  // Simplification: we read today's row from daily_stats if it exists (written by 1am scorecard).
-  // For intra-day runs (12pm, 6pm, 11pm) we compute live counts.
+  // Resume creation: attribution_log "resume_added" on applications today
+  // Resume review: attribution_log "status_changed" with reason "-> ready" today
+  // Contact discovery: attribution_log "updated" on job_postings with networking_status -> researched
+  // Outreach: attribution_log "updated" on job_postings with networking_status -> done
+  // Application submission: attribution_log "status_changed" with reason "-> applied" today
 
   // Load existing daily_stats rows for the last 14 days
   const { data: statsRows, error: statsRowsErr } = await supabase
@@ -203,55 +205,79 @@ export async function fetchPipelineStats(supabase: SupabaseClient): Promise<Pipe
 }
 
 // --- Per-track live count helpers ---
+// All helpers query the attribution_log table instead of using updated_at on
+// the entity tables. This avoids overcounting when unrelated edits touch a row
+// that already met the condition earlier today.
 
 async function countResumeCreations(supabase: SupabaseClient, today: string): Promise<number> {
-  // Count applications where resume_path was set today (using updated_at as proxy)
+  // Count attribution_log entries where a resume was added to an application today.
+  // Logged by buildUpdateApplicationLogs in handlers.ts with action "resume_added".
   const { count, error } = await supabase
-    .from("applications")
+    .from("attribution_log")
     .select("*", { count: "exact", head: true })
-    .not("resume_path", "is", null)
-    .gte("updated_at", `${today}T00:00:00Z`);
+    .eq("entity_type", "application")
+    .eq("action", "resume_added")
+    .gte("created_at", `${today}T00:00:00Z`);
   if (error) throw new Error(`Failed to count resume creations: ${error.message}`);
   return count ?? 0;
 }
 
 async function countResumeReviews(supabase: SupabaseClient, today: string): Promise<number> {
-  // Count applications that moved to 'ready' today
+  // Count attribution_log entries where an application status changed to "ready" today.
+  // Logged by buildUpdateApplicationLogs with action "status_changed" and
+  // reason like "draft -> ready".
   const { count, error } = await supabase
-    .from("applications")
+    .from("attribution_log")
     .select("*", { count: "exact", head: true })
-    .eq("status", "ready")
-    .gte("updated_at", `${today}T00:00:00Z`);
+    .eq("entity_type", "application")
+    .eq("action", "status_changed")
+    .ilike("reason", "%-> ready%")
+    .gte("created_at", `${today}T00:00:00Z`);
   if (error) throw new Error(`Failed to count resume reviews: ${error.message}`);
   return count ?? 0;
 }
 
 async function countContactDiscoveries(supabase: SupabaseClient, today: string): Promise<number> {
+  // Count attribution_log entries where a job posting's networking_status was
+  // changed to "researched" today. The update_job_posting handler logs
+  // action "updated" with reason containing the field names or a custom
+  // actor_reason describing the change.
   const { count, error } = await supabase
-    .from("job_postings")
+    .from("attribution_log")
     .select("*", { count: "exact", head: true })
-    .in("networking_status", ["researched", "outreach_in_progress", "done"])
-    .gte("updated_at", `${today}T00:00:00Z`);
+    .eq("entity_type", "job_posting")
+    .eq("action", "updated")
+    .ilike("reason", "%networking_status%researched%")
+    .gte("created_at", `${today}T00:00:00Z`);
   if (error) throw new Error(`Failed to count contact discoveries: ${error.message}`);
   return count ?? 0;
 }
 
 async function countOutreach(supabase: SupabaseClient, today: string): Promise<number> {
+  // Count attribution_log entries where a job posting's networking_status was
+  // changed to "done" today, indicating outreach was completed.
   const { count, error } = await supabase
-    .from("job_postings")
+    .from("attribution_log")
     .select("*", { count: "exact", head: true })
-    .eq("networking_status", "done")
-    .gte("updated_at", `${today}T00:00:00Z`);
+    .eq("entity_type", "job_posting")
+    .eq("action", "updated")
+    .ilike("reason", "%networking_status%done%")
+    .gte("created_at", `${today}T00:00:00Z`);
   if (error) throw new Error(`Failed to count outreach: ${error.message}`);
   return count ?? 0;
 }
 
 async function countSubmissions(supabase: SupabaseClient, today: string): Promise<number> {
+  // Count attribution_log entries where an application status changed to "applied" today.
+  // Logged by buildUpdateApplicationLogs with action "status_changed" and
+  // reason like "ready -> applied".
   const { count, error } = await supabase
-    .from("applications")
+    .from("attribution_log")
     .select("*", { count: "exact", head: true })
-    .eq("status", "applied")
-    .gte("updated_at", `${today}T00:00:00Z`);
+    .eq("entity_type", "application")
+    .eq("action", "status_changed")
+    .ilike("reason", "%-> applied%")
+    .gte("created_at", `${today}T00:00:00Z`);
   if (error) throw new Error(`Failed to count submissions: ${error.message}`);
   return count ?? 0;
 }
