@@ -12,8 +12,15 @@ const DELAY_MAX_MS = 90000;
 const SESSION = "maintenance";
 
 const dryRun = Deno.args.includes("--dry-run");
+const modeIdx = Deno.args.indexOf("--mode");
+const MODE = modeIdx !== -1 ? Deno.args[modeIdx + 1] : "backfill";
+if (!["backfill", "check-active"].includes(MODE)) {
+  console.error(`Unknown mode: ${MODE}. Must be "backfill" or "check-active".`);
+  Deno.exit(1);
+}
 const limitIdx = Deno.args.indexOf("--limit");
-const LIMIT = limitIdx !== -1 ? parseInt(Deno.args[limitIdx + 1], 10) : 3;
+const DEFAULT_LIMIT = MODE === "check-active" ? 999 : 3;
+const LIMIT = limitIdx !== -1 ? parseInt(Deno.args[limitIdx + 1], 10) : DEFAULT_LIMIT;
 
 async function readOp(item: string, field: string): Promise<string> {
   const proc = new Deno.Command("bash", {
@@ -64,19 +71,27 @@ function parsePostedDate(text: string): string | null {
 }
 
 async function main() {
-  console.log(`[${new Date().toISOString()}] Backfill posted dates${dryRun ? " (DRY RUN)" : ""}...`);
+  const modeLabel = MODE === "check-active" ? "check active postings" : "backfill posted dates";
+  console.log(`[${new Date().toISOString()}] Posting maintenance: ${modeLabel}${dryRun ? " (DRY RUN)" : ""}...`);
 
   const url = await readOp("Open Brain - Supabase", "project_url");
   const key = await readOp("Open Brain - Supabase", "service_role_key");
   const supabase = createClient(url, key);
 
-  const { data: postings, error } = await supabase
+  let query = supabase
     .from("job_postings")
-    .select("id, url, title, companies(name)")
-    .is("posted_date", null)
+    .select("id, url, title, posted_date, companies(name)")
     .not("url", "is", null)
     .is("enrichment_error", null)
     .like("url", "%linkedin.com/jobs/view/%");
+
+  if (MODE === "check-active") {
+    query = query.eq("status", "active");
+  } else {
+    query = query.is("posted_date", null);
+  }
+
+  const { data: postings, error } = await query;
 
   if (error) {
     console.error("Query error:", error.message);
@@ -84,12 +99,12 @@ async function main() {
   }
 
   if (!postings || postings.length === 0) {
-    console.log("No postings need posted_date backfill.");
+    console.log("No postings to process.");
     return;
   }
 
   const batch = postings.slice(0, LIMIT);
-  console.log(`Found ${postings.length} total missing posted_date. Processing ${batch.length} (limit ${LIMIT}).\n`);
+  console.log(`Found ${postings.length} postings to process. Running ${batch.length} (limit ${LIMIT}).\n`);
 
   // Launch browser with saved auth state
   console.log("Launching browser...");
@@ -159,25 +174,28 @@ async function main() {
         }
         expired++;
       } else {
-        // Look for the "ago" text in the page
-        const dateText = await pw("eval", '() => { const el = document.querySelector(".job-details-jobs-unified-top-card__primary-description-container"); return el ? el.textContent : document.body.innerText.slice(0, 1000); }');
-
-        const postedDate = parsePostedDate(dateText);
-
-        if (!postedDate) {
-          console.log(`  SKIP ${label} — could not parse posting date`);
-          console.log(`  Text sample: ${dateText.slice(0, 200)}`);
-          skipped++;
-        } else if (dryRun) {
-          console.log(`  WOULD SET → posted_date = ${postedDate}`);
-          updated++;
+        if (MODE === "check-active" && (posting as any).posted_date) {
+          console.log(`  OK ${label} — still active`);
         } else {
-          await supabase
-            .from("job_postings")
-            .update({ posted_date: postedDate })
-            .eq("id", posting.id);
-          console.log(`  SET → posted_date = ${postedDate}`);
-          updated++;
+          const dateText = await pw("eval", '() => { const el = document.querySelector(".job-details-jobs-unified-top-card__primary-description-container"); return el ? el.textContent : document.body.innerText.slice(0, 1000); }');
+
+          const postedDate = parsePostedDate(dateText);
+
+          if (!postedDate) {
+            console.log(`  SKIP ${label} — could not parse posting date`);
+            console.log(`  Text sample: ${dateText.slice(0, 200)}`);
+            skipped++;
+          } else if (dryRun) {
+            console.log(`  WOULD SET → posted_date = ${postedDate}`);
+            updated++;
+          } else {
+            await supabase
+              .from("job_postings")
+              .update({ posted_date: postedDate })
+              .eq("id", posting.id);
+            console.log(`  SET → posted_date = ${postedDate}`);
+            updated++;
+          }
         }
       }
 
