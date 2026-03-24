@@ -756,16 +756,17 @@ server.registerTool(
   },
   async ({ query, status, source, url, priority, has_application, created_by, created_after, created_before, posted_after, posted_before, applied_after, applied_before }) => {
     try {
-      // Build select based on whether status filter is needed
+      // Build select — inner join when filtering by application fields
+      const needsInnerJoin = !!status || !!applied_after || !!applied_before;
       let q;
-      if (status) {
-        // Inner join — only postings with matching application status
+      if (needsInnerJoin) {
         q = supabase
           .from("job_postings")
-          .select("*, companies(name), applications!inner(id, status, applied_date, resume_path, cover_letter_path, created_by)")
-          .eq("applications.status", status);
+          .select("*, companies(name), applications!inner(id, status, applied_date, resume_path, cover_letter_path, created_by)");
+        if (status) q = q.eq("applications.status", status);
+        if (applied_after) q = q.gte("applications.applied_date", applied_after);
+        if (applied_before) q = q.lte("applications.applied_date", applied_before);
       } else {
-        // Left join — all postings, applications if they exist
         q = supabase
           .from("job_postings")
           .select("*, companies(name), applications(id, status, applied_date, resume_path, cover_letter_path, created_by)");
@@ -786,6 +787,16 @@ server.registerTool(
       if (created_by) {
         q = q.eq("created_by", created_by);
       }
+
+      if (created_after) q = q.gte("created_at", `${created_after}T00:00:00Z`);
+      if (created_before) {
+        const next = new Date(created_before);
+        next.setDate(next.getDate() + 1);
+        q = q.lt("created_at", `${next.toISOString().slice(0, 10)}T00:00:00Z`);
+      }
+
+      if (posted_after) q = q.gte("posted_date", posted_after);
+      if (posted_before) q = q.lte("posted_date", posted_before);
 
       if (query) {
         // Escape PostgREST special characters in the query
