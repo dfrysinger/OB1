@@ -126,16 +126,35 @@ async function main() {
       // Check for expired/404/redirect
       const isRedirect = !currentUrl.includes("/jobs/view/");
       const is404 = pageText.includes("Page not found") || pageText.includes("no longer available");
-      if (isRedirect || is404) {
-        const reason = isRedirect ? "Expired (redirected)" : "Expired (page not found)";
-        console.log(`  EXPIRED ${label} — ${reason}`);
+      if (isRedirect) {
+        console.log(`  CLOSED ${label} — posting redirected (expired)`);
         if (!dryRun) {
           await supabase
             .from("job_postings")
-            .update({ enrichment_error: reason })
+            .update({ enrichment_error: "Expired (redirected)", status: "closed" })
+            .eq("id", posting.id);
+          await supabase.from("attribution_log").insert({
+            entity_type: "job_posting",
+            entity_id: posting.id,
+            action: "updated",
+            actor: "backfill-posted-dates",
+            reason: "status: active -> closed — posting redirected (expired)",
+            old_value: "active",
+            new_value: "closed",
+          });
+        } else {
+          console.log(`  WOULD SET status=closed and enrichment_error (redirect)`);
+        }
+        expired++;
+      } else if (is404) {
+        console.log(`  FLAGGED ${label} — page not found (bad link?)`);
+        if (!dryRun) {
+          await supabase
+            .from("job_postings")
+            .update({ enrichment_error: "Page not found (may be bad link)" })
             .eq("id", posting.id);
         } else {
-          console.log(`  WOULD FLAG as expired`);
+          console.log(`  WOULD SET enrichment_error only (404, no status change)`);
         }
         expired++;
       } else {
