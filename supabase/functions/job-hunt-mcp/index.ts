@@ -1544,6 +1544,7 @@ server.registerTool(
         .from("job_postings")
         .select("id, title, url, location, priority, has_network_connections, networking_status, created_at, companies(name), applications(id, status)")
         .order("priority", { ascending: true })
+        .eq("status", "active")
         .limit(limit);
 
       if (networking_status) q = q.eq("networking_status", networking_status);
