@@ -1409,9 +1409,10 @@ server.registerTool(
       notes: z.string().nullable().optional().describe("Notes"),
       posted_date: z.string().nullable().optional().describe("Date posted (YYYY-MM-DD)"),
       closing_date: z.string().nullable().optional().describe("Closing date (YYYY-MM-DD)"),
+      status: z.enum(["active", "closed"]).optional().describe("Posting status (active or closed)"),
     },
   },
-  async ({ job_posting_id, actor, actor_reason, networking_status, has_network_connections, priority, title, url, location, source, salary_min, salary_max, salary_currency, notes, posted_date, closing_date }) => {
+  async ({ job_posting_id, actor, actor_reason, networking_status, has_network_connections, priority, title, url, location, source, salary_min, salary_max, salary_currency, notes, posted_date, closing_date, status }) => {
     try {
       const updateFields: Record<string, unknown> = {};
       if (networking_status !== undefined) updateFields.networking_status = networking_status;
@@ -1427,6 +1428,7 @@ server.registerTool(
       if (notes !== undefined) updateFields.notes = notes;
       if (posted_date !== undefined) updateFields.posted_date = posted_date;
       if (closing_date !== undefined) updateFields.closing_date = closing_date;
+      if (status !== undefined) updateFields.status = status;
 
       if (Object.keys(updateFields).length === 0) {
         return {
@@ -1437,7 +1439,7 @@ server.registerTool(
       // Fetch current state for change detection in attribution logging
       const { data: current, error: currentErr } = await supabase
         .from("job_postings")
-        .select("networking_status, has_network_connections, priority, title, status")
+        .select("networking_status, has_network_connections, priority, title, status, url, location, source, salary_min, salary_max, salary_currency, notes, posted_date, closing_date")
         .eq("id", job_posting_id)
         .single();
       if (currentErr) console.error(`Failed to fetch current posting state: ${currentErr.message}`);
@@ -1456,34 +1458,55 @@ server.registerTool(
         };
       }
 
-      // Build descriptive reason with old -> new transitions for key fields
-      // Always include structured transitions so pipeline-stats ILIKE queries match
-      const changes: string[] = [];
-      if (networking_status !== undefined) {
-        const oldVal = current?.networking_status ?? "unknown";
-        changes.push(`networking_status: ${oldVal} -> ${networking_status}`);
-      }
-      if (priority !== undefined) {
-        const oldVal = current?.priority ?? "unknown";
-        changes.push(`priority: ${oldVal} -> ${priority}`);
-      }
-      const otherFields = Object.keys(updateFields).filter(f => f !== "networking_status" && f !== "priority");
-      if (otherFields.length > 0) {
-        changes.push(`Updated: ${otherFields.join(", ")}`);
-      }
-      let reason = changes.join("; ");
-      if (actor_reason) {
-        reason = reason ? `${reason} — ${actor_reason}` : actor_reason;
-      }
+      // Attribution: log each changed field with old/new values
+      if (current) {
+        const fieldChanges: Array<{ field: string; old_val: string | null; new_val: string | null }> = [];
 
-      const { error: attrErr } = await supabase.from("attribution_log").insert({
-        entity_type: "job_posting",
-        entity_id: job_posting_id,
-        action: "updated",
-        actor,
-        reason,
-      });
-      if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
+        const stringFields = ["title", "status", "networking_status", "priority", "url", "location", "source", "salary_currency", "notes", "posted_date", "closing_date"] as const;
+        for (const field of stringFields) {
+          if (updateFields[field] !== undefined && String(updateFields[field] ?? "") !== String((current as any)[field] ?? "")) {
+            fieldChanges.push({ field, old_val: (current as any)[field] ?? null, new_val: String(updateFields[field] ?? null) });
+          }
+        }
+
+        const numFields = ["salary_min", "salary_max"] as const;
+        for (const field of numFields) {
+          if (updateFields[field] !== undefined && String(updateFields[field] ?? "") !== String((current as any)[field] ?? "")) {
+            fieldChanges.push({ field, old_val: (current as any)[field] != null ? String((current as any)[field]) : null, new_val: updateFields[field] != null ? String(updateFields[field]) : null });
+          }
+        }
+
+        if (updateFields.has_network_connections !== undefined && String(updateFields.has_network_connections) !== String((current as any).has_network_connections)) {
+          fieldChanges.push({ field: "has_network_connections", old_val: String((current as any).has_network_connections ?? null), new_val: String(updateFields.has_network_connections) });
+        }
+
+        for (const change of fieldChanges) {
+          const reason = actor_reason
+            ? `${change.field}: ${change.old_val} -> ${change.new_val} — ${actor_reason}`
+            : `${change.field}: ${change.old_val} -> ${change.new_val}`;
+          const { error: attrErr } = await supabase.from("attribution_log").insert({
+            entity_type: "job_posting",
+            entity_id: job_posting_id,
+            action: "updated",
+            actor: actor ?? "unknown",
+            reason,
+            old_value: change.old_val,
+            new_value: change.new_val,
+          });
+          if (attrErr) console.error(`[update_job_posting] Attribution log error for ${change.field}: ${attrErr.message}`);
+        }
+
+        if (fieldChanges.length === 0) {
+          const { error: attrErr } = await supabase.from("attribution_log").insert({
+            entity_type: "job_posting",
+            entity_id: job_posting_id,
+            action: "updated",
+            actor: actor ?? "unknown",
+            reason: actor_reason ?? "Fields updated",
+          });
+          if (attrErr) console.error(`[update_job_posting] Attribution log error: ${attrErr.message}`);
+        }
+      }
 
       return {
         content: [{ type: "text" as const, text: JSON.stringify({ success: true, message: `Updated posting: ${data.title ?? data.url}`, job_posting: data }, null, 2) }],
