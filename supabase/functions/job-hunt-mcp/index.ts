@@ -752,9 +752,10 @@ server.registerTool(
       posted_before: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("LinkedIn posting date on or before (YYYY-MM-DD)"),
       applied_after: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Application submitted on or after (YYYY-MM-DD)"),
       applied_before: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Application submitted on or before (YYYY-MM-DD)"),
+      posting_status: z.enum(["active", "closed"]).optional().describe("Filter by posting status (active or closed)"),
     },
   },
-  async ({ query, status, source, url, priority, has_application, created_by, created_after, created_before, posted_after, posted_before, applied_after, applied_before }) => {
+  async ({ query, status, source, url, priority, has_application, created_by, created_after, created_before, posted_after, posted_before, applied_after, applied_before, posting_status }) => {
     try {
       // Build select — inner join when filtering by application fields
       const needsInnerJoin = !!status || !!applied_after || !!applied_before;
@@ -797,6 +798,8 @@ server.registerTool(
 
       if (posted_after) q = q.gte("posted_date", posted_after);
       if (posted_before) q = q.lte("posted_date", posted_before);
+
+      if (posting_status) q = q.eq("status", posting_status);
 
       if (query) {
         // Escape PostgREST special characters in the query
