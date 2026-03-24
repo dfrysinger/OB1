@@ -8,6 +8,8 @@ export interface AttributionLogEntry {
   action: string;
   actor: string;
   reason: string | null;
+  old_value?: string | null;
+  new_value?: string | null;
 }
 
 /**
@@ -41,6 +43,8 @@ export function buildUpdateApplicationLogs(
       action: "status_changed",
       actor,
       reason: actor_reason ? `${transition} — ${actor_reason}` : transition,
+      old_value: current.status,
+      new_value: updates.status,
     });
   }
 
@@ -54,6 +58,8 @@ export function buildUpdateApplicationLogs(
       action: updates.resume_path === null ? "resume_removed" : "resume_added",
       actor,
       reason: actor_reason ?? null,
+      old_value: current.resume_path ?? null,
+      new_value: updates.resume_path ?? null,
     });
   }
 
@@ -70,6 +76,8 @@ export function buildUpdateApplicationLogs(
           : "cover_letter_added",
       actor,
       reason: actor_reason ?? null,
+      old_value: current.cover_letter_path ?? null,
+      new_value: updates.cover_letter_path ?? null,
     });
   }
 
