@@ -155,6 +155,31 @@ async function main() {
           // Check for "People you can reach out to" section
           const hasNetworkConnections = document.body.innerText.includes("People you can reach out to");
 
+          // Extract posting date from the "X days/weeks/months ago" or "Reposted X ago" text
+          let postedDateISO: string | null = null;
+          const timeEl = document.querySelector(".job-details-jobs-unified-top-card__primary-description-container .tvm__text")
+            || document.querySelector("[class*='posted-date']")
+            || null;
+          const timeText = timeEl?.textContent?.trim() ?? "";
+          const agoMatch = timeText.match(/(\d+)\s+(minute|hour|day|week|month)s?\s+ago/i);
+          if (agoMatch) {
+            const num = parseInt(agoMatch[1], 10);
+            const unit = agoMatch[2].toLowerCase();
+            const now = new Date();
+            if (unit === "minute" || unit === "hour") {
+              postedDateISO = now.toISOString().slice(0, 10);
+            } else if (unit === "day") {
+              now.setDate(now.getDate() - num);
+              postedDateISO = now.toISOString().slice(0, 10);
+            } else if (unit === "week") {
+              now.setDate(now.getDate() - num * 7);
+              postedDateISO = now.toISOString().slice(0, 10);
+            } else if (unit === "month") {
+              now.setMonth(now.getMonth() - num);
+              postedDateISO = now.toISOString().slice(0, 10);
+            }
+          }
+
           // Recruiter / hirer card
           const hirerCard = document.querySelector(".hirer-card__hirer-information")
             || document.querySelector("[data-test-id='job-poster']")
@@ -183,10 +208,10 @@ async function main() {
             }
           }
 
-          return { title: titleFromPage, company: companyFromPage, location, hasNetworkConnections, recruiterName, recruiterTitle, recruiterUrl };
+          return { title: titleFromPage, company: companyFromPage, location, hasNetworkConnections, postedDateISO, recruiterName, recruiterTitle, recruiterUrl };
         }),
         new Promise((_, reject) => setTimeout(() => reject(new Error("page.evaluate timed out after 15s")), 15000))
-      ]) as { title: string | null; company: string | null; location: string | null; hasNetworkConnections: boolean; recruiterName: string | null; recruiterTitle: string | null; recruiterUrl: string | null };
+      ]) as { title: string | null; company: string | null; location: string | null; hasNetworkConnections: boolean; postedDateISO: string | null; recruiterName: string | null; recruiterTitle: string | null; recruiterUrl: string | null };
 
       await page.close();
 
@@ -240,6 +265,7 @@ async function main() {
       if (company_id) updateFields.company_id = company_id;
       if (details.location) updateFields.location = details.location;
       updateFields.has_network_connections = details.hasNetworkConnections;
+      if (details.postedDateISO) updateFields.posted_date = details.postedDateISO;
 
       if (Object.keys(updateFields).length > 0) {
         const { error: updateErr } = await supabase

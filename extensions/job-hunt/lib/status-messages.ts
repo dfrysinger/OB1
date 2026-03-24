@@ -37,21 +37,18 @@ function formatPipelineFooter(stats: PipelineStats): string[] {
   const lines: string[] = [];
 
   lines.push("");
-  lines.push(`*Pipeline:* ${stats.applicationsOut} applied, ${stats.activeInterviews} interviewing`);
-
-  if (stats.lastRejectionDaysAgo !== null) {
-    lines.push(`*Last rejection:* ${stats.lastRejectionDaysAgo} day(s) ago`);
-  }
+  lines.push(`*Queue:* ${stats.totalDrafts} jobs to apply for | ${stats.applicationsOut} applied, ${stats.activeInterviews} interviewing`);
 
   if (stats.daysToClearBacklog !== null) {
-    lines.push(`*Backlog:* ${stats.totalDrafts} drafts. At ${stats.currentPace.toFixed(1)}/day, ${stats.daysToClearBacklog} days to clear.`);
+    lines.push(`*Pace:* ${stats.currentPace.toFixed(1)} apps/day, ${stats.daysToClearBacklog} days to clear backlog`);
   }
 
-  if (stats.staleApplications.length > 0) {
+  if (stats.staleQueue.length > 0) {
     lines.push("");
-    lines.push("*Aging alerts:*");
-    for (const a of stats.staleApplications.slice(0, 3)) {
-      lines.push(`  ${a.title} at ${a.company} — ${a.daysOld} days with no response`);
+    lines.push("*Aging alerts — apply soon:*");
+    for (const a of stats.staleQueue.slice(0, 3)) {
+      const age = a.postingAgeDays !== null ? ` (posted ${a.postingAgeDays}d ago)` : "";
+      lines.push(`  ${a.title} at ${a.company} — in queue ${a.daysInQueue} days${age}`);
     }
   }
 
