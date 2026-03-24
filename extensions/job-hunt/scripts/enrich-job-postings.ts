@@ -117,11 +117,20 @@ async function main() {
         console.warn(`Skipping ${posting.url} — redirected to ${currentUrl}`);
         const { error: skipErr } = await supabase
           .from("job_postings")
-          .update({ enrichment_error: `Redirected to non-job page: ${currentUrl.slice(0, 200)}` })
+          .update({ status: "closed", enrichment_error: `Redirected to non-job page: ${currentUrl.slice(0, 200)}` })
           .eq("id", posting.id);
         if (skipErr) {
           console.error(`Update failed for ${posting.id}: ${skipErr.message}`);
         }
+        await supabase.from("attribution_log").insert({
+          entity_type: "job_posting",
+          entity_id: posting.id,
+          action: "updated",
+          actor: "enrichment-cron",
+          reason: "status: active -> closed — posting redirected (expired)",
+          old_value: "active",
+          new_value: "closed",
+        });
         await page.close();
         failedCount++;
         continue;
@@ -289,6 +298,8 @@ async function main() {
           action: "enriched",
           actor: "enrichment-cron",
           reason: `Scraped from LinkedIn: ${enrichedFields}`,
+          old_value: null,
+          new_value: null,
         });
       if (attrErr) {
         console.warn(`Attribution log failed for ${posting.id}: ${attrErr.message}`);
