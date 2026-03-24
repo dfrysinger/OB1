@@ -1,14 +1,15 @@
-// scripts/backfill-posted-dates.ts
+// scripts/posting-maintenance.ts
 //
-// Scrapes posted_date from LinkedIn for jobs that are missing it.
-// Uses npx @playwright/cli (same as job-applicator) for reliable rendering.
-// Pass --dry-run to preview without writing to the database.
+// Maintains job posting data via LinkedIn.
+// --mode backfill (default): scrapes posted_date for jobs missing it.
+// --mode check-active: re-visits active postings, marks expired ones as closed.
+// Pass --dry-run to preview without writing. Pass --limit N to cap batch size.
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 const DELAY_MIN_MS = 30000;
 const DELAY_MAX_MS = 90000;
-const SESSION = "backfill";
+const SESSION = "maintenance";
 
 const dryRun = Deno.args.includes("--dry-run");
 const limitIdx = Deno.args.indexOf("--limit");
@@ -137,7 +138,7 @@ async function main() {
             entity_type: "job_posting",
             entity_id: posting.id,
             action: "updated",
-            actor: "backfill-posted-dates",
+            actor: "posting-maintenance",
             reason: "status: active -> closed — posting redirected (expired)",
             old_value: "active",
             new_value: "closed",
