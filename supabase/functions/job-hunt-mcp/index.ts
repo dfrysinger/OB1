@@ -737,7 +737,7 @@ server.registerTool(
   "search_job_postings",
   {
     title: "Search Job Postings",
-    description: "Search job postings by text query (title/company/notes), status, source, or exact URL. Shows application status if one exists. Use has_application filter to find postings with or without applications.",
+    description: "Search job postings by text query (title/company/notes), status, source, URL, or date range. Shows application status if one exists. Use has_application filter to find postings with or without applications.",
     inputSchema: {
       query: z.string().optional().describe("Text search across title, company name, and notes (case-insensitive)"),
       status: z.enum(["draft", "ready", "applied", "screening", "interviewing", "offer", "accepted", "rejected", "withdrawn"]).optional().describe("Filter by application status"),
@@ -746,9 +746,15 @@ server.registerTool(
       priority: z.enum(["high", "medium", "low"]).optional().describe("Filter by job priority"),
       has_application: z.boolean().optional().describe("Filter by whether an application exists. true = only postings with applications, false = only postings without applications"),
       created_by: z.string().optional().describe("Filter by who created the posting (filters job_postings.created_by)"),
+      created_after: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Postings added on or after this date (YYYY-MM-DD, UTC)"),
+      created_before: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Postings added on or before this date (YYYY-MM-DD, UTC)"),
+      posted_after: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("LinkedIn posting date on or after (YYYY-MM-DD)"),
+      posted_before: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("LinkedIn posting date on or before (YYYY-MM-DD)"),
+      applied_after: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Application submitted on or after (YYYY-MM-DD)"),
+      applied_before: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Application submitted on or before (YYYY-MM-DD)"),
     },
   },
-  async ({ query, status, source, url, priority, has_application, created_by }) => {
+  async ({ query, status, source, url, priority, has_application, created_by, created_after, created_before, posted_after, posted_before, applied_after, applied_before }) => {
     try {
       // Build select based on whether status filter is needed
       let q;
