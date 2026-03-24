@@ -23,37 +23,32 @@ Add 6 optional date parameters to `search_job_postings`:
 
 ### Schema changes
 
-Add to the existing `inputSchema` in the `search_job_postings` tool registration:
+Add to the existing `inputSchema` in the `search_job_postings` tool registration. Use Zod regex to validate YYYY-MM-DD format:
 
 ```typescript
-created_after: z.string().optional().describe("Postings added on or after this date (YYYY-MM-DD)"),
-created_before: z.string().optional().describe("Postings added on or before this date (YYYY-MM-DD)"),
-posted_after: z.string().optional().describe("LinkedIn posting date on or after (YYYY-MM-DD)"),
-posted_before: z.string().optional().describe("LinkedIn posting date on or before (YYYY-MM-DD)"),
-applied_after: z.string().optional().describe("Application submitted on or after (YYYY-MM-DD)"),
-applied_before: z.string().optional().describe("Application submitted on or before (YYYY-MM-DD)"),
+const dateParam = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional();
+
+created_after: dateParam.describe("Postings added on or after this date (YYYY-MM-DD, UTC)"),
+created_before: dateParam.describe("Postings added on or before this date (YYYY-MM-DD, UTC)"),
+posted_after: dateParam.describe("LinkedIn posting date on or after (YYYY-MM-DD)"),
+posted_before: dateParam.describe("LinkedIn posting date on or before (YYYY-MM-DD)"),
+applied_after: dateParam.describe("Application submitted on or after (YYYY-MM-DD)"),
+applied_before: dateParam.describe("Application submitted on or before (YYYY-MM-DD)"),
+```
+
+### Tool description update
+
+Update the description to mention date filtering:
+
+```
+"Search job postings by text query (title/company/notes), status, source, URL, or date range. Shows application status if one exists. Use has_application filter to find postings with or without applications."
 ```
 
 ### Handler changes
 
 In the handler function, destructure the 6 new params alongside the existing ones.
 
-**created_at filters:** Since `created_at` is `timestamptz`, append time boundaries:
-```typescript
-if (created_after) q = q.gte("created_at", `${created_after}T00:00:00Z`);
-if (created_before) q = q.lte("created_at", `${created_before}T23:59:59Z`);
-```
-
-**posted_date filters:** `posted_date` is a `DATE` column, no time conversion needed:
-```typescript
-if (posted_after) q = q.gte("posted_date", posted_after);
-if (posted_before) q = q.lte("posted_date", posted_before);
-```
-
-**applied_date filters:** These require an inner join on `applications`, same pattern as the existing `status` filter. The join logic needs to account for three cases:
-1. `status` is set (already inner joins) -- add applied_date filters to the same join
-2. `applied_after/before` is set without `status` -- switch to inner join without status filter
-3. Neither is set -- keep left join (existing behavior)
+**Join logic:** Replace the existing `if (status) / else` block with a unified check that accounts for all inner-join triggers:
 
 ```typescript
 const needsInnerJoin = !!status || !!applied_after || !!applied_before;
@@ -72,22 +67,37 @@ if (needsInnerJoin) {
 }
 ```
 
+The remaining filters (`url`, `source`, `priority`, `created_by`, `query`, and the new date filters below) are applied after this block, same as before.
+
+**created_at filters:** Since `created_at` is `timestamptz`, use day boundaries in UTC. For `created_before`, use `lt` on the next day to avoid sub-second precision issues:
+```typescript
+if (created_after) q = q.gte("created_at", `${created_after}T00:00:00Z`);
+if (created_before) {
+  const next = new Date(created_before);
+  next.setDate(next.getDate() + 1);
+  q = q.lt("created_at", `${next.toISOString().slice(0, 10)}T00:00:00Z`);
+}
+```
+
+**posted_date filters:** `posted_date` is a `DATE` column, no time conversion needed:
+```typescript
+if (posted_after) q = q.gte("posted_date", posted_after);
+if (posted_before) q = q.lte("posted_date", posted_before);
+```
+
+### Edge cases
+
+- **`has_application: false` + `applied_after/before`:** The inner join guarantees applications exist, so `has_application: false` would return zero results. This is logically contradictory and produces an empty result set, which is acceptable behavior. No validation needed.
+- **Null `posted_date` or `applied_date`:** Rows with null values are excluded when those filters are active. This is standard SQL comparison behavior.
+- **UTC timezone for `created_at`:** All timestamps in the DB are UTC. The `created_after/before` params are interpreted as UTC dates. Parameter descriptions note this.
+
 ### No changes needed
 
 - Database schema (all columns already exist)
 - Response format
 - Other tools
 - Error handling patterns
-- Tool description (update to mention date filters)
-
-### Tool description update
-
-Update the description to mention date filtering:
-
-```
-"Search job postings by text query (title/company/notes), status, source, URL, or date range. Shows application status if one exists. Use has_application filter to find postings with or without applications."
-```
 
 ## Files to modify
 
-1. `/Users/dfrysinger/Projects/open-brain/supabase/functions/job-hunt-mcp/index.ts` -- add params to schema, update handler logic and description
+1. `/Users/dfrysinger/Projects/open-brain/supabase/functions/job-hunt-mcp/index.ts` -- add params to schema, replace join block, add date filters to handler, update description
