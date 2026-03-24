@@ -18,7 +18,7 @@ Rename `backfill-posted-dates.ts` to `posting-maintenance.ts`. Add a `--mode` fl
   - 404 (page shows "Page not found"): set `enrichment_error` only, leave `status = 'active'`.
   - Live posting: if `posted_date` is null, scrape it. Otherwise skip.
 
-Both modes share the same Playwright CLI browser session, delay logic (30-90s random), dry-run flag, and limit flag.
+Both modes share the same Playwright CLI browser session (rename session from "backfill" to "maintenance"), delay logic (30-90s random), dry-run flag, and limit flag. Update the `actor` field in attribution log entries from "backfill-posted-dates" to "posting-maintenance".
 
 ### Scheduling
 
