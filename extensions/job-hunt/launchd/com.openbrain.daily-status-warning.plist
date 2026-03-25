@@ -6,9 +6,7 @@
   <string>com.openbrain.daily-status-warning</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/opt/homebrew/bin/deno</string>
-    <string>run</string>
-    <string>--allow-all</string>
+    <string>/Users/dfrysinger/Projects/open-brain/extensions/job-hunt/scripts/launchd-wrapper.sh</string>
     <string>/Users/dfrysinger/Projects/open-brain/extensions/job-hunt/scripts/daily-status.ts</string>
     <string>--mode</string>
     <string>warning</string>

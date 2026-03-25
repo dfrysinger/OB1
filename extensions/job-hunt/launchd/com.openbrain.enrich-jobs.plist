@@ -6,9 +6,7 @@
   <string>com.openbrain.enrich-jobs</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/opt/homebrew/bin/deno</string>
-    <string>run</string>
-    <string>--allow-all</string>
+    <string>/Users/dfrysinger/Projects/open-brain/extensions/job-hunt/scripts/launchd-wrapper.sh</string>
     <string>/Users/dfrysinger/Projects/open-brain/extensions/job-hunt/scripts/enrich-job-postings.ts</string>
   </array>
   <key>StartCalendarInterval</key>
