@@ -3,7 +3,7 @@
 # Reads credentials from a cached file (refreshed by the refresh-creds script).
 # Usage: launchd-wrapper.sh <script.ts> [args...]
 
-CREDS_FILE="/tmp/job-hunt-creds.json"
+CREDS_FILE="$HOME/.config/job-hunt/creds.json"
 
 if [ ! -f "$CREDS_FILE" ]; then
   echo "ERROR: $CREDS_FILE not found. Run refresh-creds.ts first." >&2

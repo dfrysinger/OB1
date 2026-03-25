@@ -16,7 +16,7 @@ if [ -z "$OP_SERVICE_ACCOUNT_TOKEN" ]; then
   exit 1
 fi
 
-CREDS_FILE="/tmp/job-hunt-creds.json"
+CREDS_FILE="$HOME/.config/job-hunt/creds.json"
 
 SUPABASE_URL=$(op item get "Open Brain - Supabase" --vault ClawdBot --fields label=project_url --reveal)
 SUPABASE_KEY=$(op item get "Open Brain - Supabase" --vault ClawdBot --fields label=service_role_key --reveal)
@@ -39,3 +39,4 @@ with open('$CREDS_FILE', 'w') as f:
     json.dump(creds, f, indent=2)
 print(f'Credentials cached to $CREDS_FILE')
 "
+chmod 600 "$CREDS_FILE"
