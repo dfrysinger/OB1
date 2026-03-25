@@ -4,6 +4,13 @@
 // This avoids spawning a subprocess on every Slack notification.
 
 async function readOp(item: string, field: string): Promise<string> {
+  // Check env vars first (set by launchd-wrapper.sh)
+  if (item === "Open Brain - Slack" && field === "credential" && Deno.env.get("SLACK_BOT_TOKEN")) {
+    return Deno.env.get("SLACK_BOT_TOKEN")!;
+  }
+  if (item === "Open Brain - Slack" && field === "channel" && Deno.env.get("SLACK_CHANNEL")) {
+    return Deno.env.get("SLACK_CHANNEL")!;
+  }
   const proc = new Deno.Command("bash", {
     args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
     stdout: "piped",

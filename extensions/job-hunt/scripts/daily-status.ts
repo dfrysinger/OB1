@@ -20,8 +20,15 @@ import {
   shouldSendWarning,
 } from "../lib/status-messages.ts";
 
-// --- 1Password helper (same pattern as other scripts) ---
+// --- 1Password helper (checks env vars first for launchd compatibility) ---
 async function readOp(item: string, field: string): Promise<string> {
+  // Check env vars first (set by launchd-wrapper.sh)
+  if (item === "Open Brain - Supabase" && field === "project_url" && Deno.env.get("SUPABASE_URL")) {
+    return Deno.env.get("SUPABASE_URL")!;
+  }
+  if (item === "Open Brain - Supabase" && field === "service_role_key" && Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")) {
+    return Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  }
   const proc = new Deno.Command("bash", {
     args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
     stdout: "piped",

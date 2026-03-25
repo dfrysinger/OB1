@@ -6,6 +6,13 @@
 import nodemailer from "npm:nodemailer@6";
 
 async function readOp(item: string, field: string): Promise<string> {
+  // Check env vars first (set by launchd-wrapper.sh)
+  if (item === "Daniel Gmail SMTP" && field === "email" && Deno.env.get("GMAIL_EMAIL")) {
+    return Deno.env.get("GMAIL_EMAIL")!;
+  }
+  if (item === "Daniel Gmail SMTP" && field === "app_password" && Deno.env.get("GMAIL_APP_PASSWORD")) {
+    return Deno.env.get("GMAIL_APP_PASSWORD")!;
+  }
   const proc = new Deno.Command("bash", {
     args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
     stdout: "piped",
