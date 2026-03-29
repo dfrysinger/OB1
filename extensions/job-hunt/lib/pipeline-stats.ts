@@ -489,6 +489,7 @@ export async function fetchWeeklySummary(supabase: SupabaseClient): Promise<Week
     if (!jp) {
       console.warn(`Application row missing job_postings join data (applied_date: ${row.applied_date})`);
       incompleteCount++;
+      continue;
     }
     const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
     applications.push({
