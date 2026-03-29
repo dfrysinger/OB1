@@ -2,7 +2,7 @@
 //
 // Pure formatting functions. No I/O. Input: PipelineStats. Output: message strings.
 
-import type { PipelineStats, TrackStats } from "./pipeline-stats.ts";
+import type { PipelineStats, TrackStats, WeeklySummary } from "./pipeline-stats.ts";
 
 const TRACK_LABELS: Record<string, string> = {
   resume_creation: "Resume Creation",
@@ -179,6 +179,42 @@ export function formatScorecard(stats: PipelineStats): MessagePayload {
   return {
     slack,
     email: { subject: `Job Hunt Scorecard — ${stats.today}`, html: slackToHtml(slack) },
+  };
+}
+
+// --- Sunday: Weekly application summary ---
+
+export function formatWeeklySummary(summary: WeeklySummary): MessagePayload {
+  const count = summary.applications.length;
+  const lines: string[] = [
+    "*Weekly Application Summary*",
+    `*${summary.weekStart} to ${summary.weekEnd}*`,
+    "",
+    `*${count} application${count !== 1 ? "s" : ""} submitted:*`,
+  ];
+
+  if (count === 0) {
+    lines.push("");
+    lines.push("No applications submitted this week.");
+  } else {
+    for (const app of summary.applications) {
+      lines.push("");
+      lines.push(app.appliedDate);
+      lines.push(app.company);
+      lines.push(app.title);
+      if (app.url) {
+        lines.push(app.url);
+      }
+    }
+  }
+
+  const slack = lines.join("\n");
+  return {
+    slack,
+    email: {
+      subject: `Weekly Applications: ${count} submitted (${summary.weekStart} to ${summary.weekEnd})`,
+      html: slackToHtml(slack),
+    },
   };
 }
 
