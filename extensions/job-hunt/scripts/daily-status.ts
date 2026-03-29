@@ -95,7 +95,9 @@ async function main() {
     }
   }
 
-  if (!payload) return;
+  if (!payload) {
+    throw new Error(`No payload generated for mode: ${mode}. This is a bug in the dispatch logic.`);
+  }
 
   let slackOk = false;
   let emailOk = false;
@@ -106,7 +108,7 @@ async function main() {
     console.log("Slack message sent.");
     slackOk = true;
   } catch (err) {
-    console.error("Slack send failed:", err instanceof Error ? err.message : err);
+    console.error("Slack send failed:", err);
   }
 
   // Send email
@@ -122,7 +124,7 @@ async function main() {
     console.log("Email sent.");
     emailOk = true;
   } catch (err) {
-    console.error("Email send failed:", err instanceof Error ? err.message : err);
+    console.error("Email send failed:", err);
   }
 
   if (!slackOk && !emailOk) {

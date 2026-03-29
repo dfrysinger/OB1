@@ -33,7 +33,7 @@ export async function readCredential(item: string, field: string): Promise<strin
   if (!output.success) {
     const stderr = new TextDecoder().decode(output.stderr).trim();
     throw new Error(
-      `1Password lookup failed for ${item}/${field}: ${stderr || "unknown error"}`
+      `1Password lookup failed for ${item}/${field}: ${stderr || `unknown error (exit code ${output.code})`}`
     );
   }
   const value = new TextDecoder().decode(output.stdout).trim();

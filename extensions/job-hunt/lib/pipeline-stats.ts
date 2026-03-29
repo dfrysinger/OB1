@@ -479,17 +479,29 @@ export async function fetchWeeklySummary(supabase: SupabaseClient): Promise<Week
     .order("applied_date", { ascending: true });
 
   if (error) throw new Error(`Failed to fetch weekly applications: ${error.message}`);
+  if (!data) throw new Error("Supabase returned null data with no error for weekly applications query");
 
-  const applications: WeeklyApplication[] = (data ?? []).map((row: Record<string, unknown>) => {
+  const applications: WeeklyApplication[] = [];
+  let incompleteCount = 0;
+
+  for (const row of data) {
     const jp = row.job_postings as Record<string, unknown>;
+    if (!jp) {
+      console.warn(`Application row missing job_postings join data (applied_date: ${row.applied_date})`);
+      incompleteCount++;
+    }
     const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
-    return {
+    applications.push({
       appliedDate: row.applied_date as string,
       company,
       title: jp?.title as string ?? "Untitled",
       url: jp?.url as string ?? "",
-    };
-  });
+    });
+  }
+
+  if (incompleteCount > 0) {
+    console.warn(`${incompleteCount} application(s) had missing join data in weekly summary`);
+  }
 
   return { weekStart: prevSunday, weekEnd: prevSaturday, applications };
 }
