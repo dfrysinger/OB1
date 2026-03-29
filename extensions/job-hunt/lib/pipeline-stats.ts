@@ -444,6 +444,56 @@ async function fetchStaleQueue(supabase: SupabaseClient): Promise<StaleQueueItem
   });
 }
 
+// --- Weekly application summary ---
+
+export interface WeeklyApplication {
+  appliedDate: string;
+  company: string;
+  title: string;
+  url: string;
+}
+
+export interface WeeklySummary {
+  weekStart: string;
+  weekEnd: string;
+  applications: WeeklyApplication[];
+}
+
+export async function fetchWeeklySummary(supabase: SupabaseClient): Promise<WeeklySummary> {
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0, 10);
+  const dayOfWeek = today.getDay(); // 0 = Sunday
+
+  // Previous week: Sunday through Saturday before today.
+  // If today is Sunday (0), previous Sunday is 7 days ago.
+  // If today is Wednesday (3), previous Sunday is 3+7 = 10 days ago.
+  const prevSunday = offsetDate(todayStr, -(dayOfWeek + 7));
+  const prevSaturday = offsetDate(prevSunday, 6);
+
+  const { data, error } = await supabase
+    .from("applications")
+    .select("applied_date, job_postings(title, url, companies(name))")
+    .not("applied_date", "is", null)
+    .gte("applied_date", prevSunday)
+    .lte("applied_date", prevSaturday)
+    .order("applied_date", { ascending: true });
+
+  if (error) throw new Error(`Failed to fetch weekly applications: ${error.message}`);
+
+  const applications: WeeklyApplication[] = (data ?? []).map((row: Record<string, unknown>) => {
+    const jp = row.job_postings as Record<string, unknown>;
+    const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
+    return {
+      appliedDate: row.applied_date as string,
+      company,
+      title: jp?.title as string ?? "Untitled",
+      url: jp?.url as string ?? "",
+    };
+  });
+
+  return { weekStart: prevSunday, weekEnd: prevSaturday, applications };
+}
+
 // --- Utility helpers ---
 
 function offsetDate(dateStr: string, days: number): string {
