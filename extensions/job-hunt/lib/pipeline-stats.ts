@@ -465,7 +465,7 @@ export async function fetchWeeklySummary(
 ): Promise<WeeklySummary> {
   const today = new Date();
   const todayStr = today.toISOString().slice(0, 10);
-  const dayOfWeek = today.getDay(); // 0 = Sunday
+  const dayOfWeek = today.getUTCDay(); // 0 = Sunday
 
   const defaultStart = offsetDate(todayStr, -(dayOfWeek + 7));
   const rangeStart = opts?.from ?? defaultStart;
