@@ -30,17 +30,25 @@ export interface StaleApplication {
   applicationId: string;
 }
 
+export interface StaleQueueItem {
+  title: string;
+  company: string;
+  daysInQueue: number;
+  postingAgeDays: number | null;
+  postingId: string;
+}
+
 export interface PipelineStats {
   tracks: TrackStats[];
   suggested: SuggestedJob[];        // top 5 per track for kickoff message
   staleApplications: StaleApplication[];
+  staleQueue: StaleQueueItem[];
   activeInterviews: number;
   applicationsOut: number;
   draftResumes: number;             // postings with resume_path IS NULL and status = 'draft'
   totalDrafts: number;              // all postings in a workable state not yet applied
   currentPace: number;              // average app submissions per day (last 7 days)
   daysToClearBacklog: number | null;
-  lastRejectionDaysAgo: number | null;
   today: string;                    // ISO date string YYYY-MM-DD
 }
 
@@ -139,6 +147,9 @@ export async function fetchPipelineStats(supabase: SupabaseClient): Promise<Pipe
   // --- Stale applications (applied 14+ days ago, no response_date) ---
   const staleApplications = await fetchStaleApplications(supabase);
 
+  // --- Stale queue items (draft/ready applications sitting too long) ---
+  const staleQueue = await fetchStaleQueue(supabase);
+
   // --- Win tracking ---
   // Count applications in interviewing or screening status
   const { count: activeInterviews, error: activeInterviewsErr } = await supabase
@@ -166,20 +177,6 @@ export async function fetchPipelineStats(supabase: SupabaseClient): Promise<Pipe
     .in("status", ["draft", "ready"]);
   if (totalDraftsErr) throw new Error(`Failed to count total drafts: ${totalDraftsErr.message}`);
 
-  // Last rejection
-  const { data: lastRejection, error: lastRejectionErr } = await supabase
-    .from("applications")
-    .select("updated_at")
-    .eq("status", "rejected")
-    .order("updated_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-  if (lastRejectionErr) throw new Error(`Failed to fetch last rejection: ${lastRejectionErr.message}`);
-
-  const lastRejectionDaysAgo = lastRejection
-    ? Math.floor((Date.now() - new Date(lastRejection.updated_at).getTime()) / 86400000)
-    : null;
-
   // Current pace (app submissions per day, last 7 days)
   const submissionTrackRows = daysRange(today, -1, -7)
     .map(d => statsMap.get(`${d}|application_submission`)?.completed ?? 0);
@@ -193,13 +190,13 @@ export async function fetchPipelineStats(supabase: SupabaseClient): Promise<Pipe
     tracks,
     suggested,
     staleApplications,
+    staleQueue,
     activeInterviews: activeInterviews ?? 0,
     applicationsOut: applicationsOut ?? 0,
     draftResumes: draftResumes ?? 0,
     totalDrafts: totalDrafts ?? 0,
     currentPace,
     daysToClearBacklog,
-    lastRejectionDaysAgo,
     today,
   };
 }
@@ -414,6 +411,100 @@ async function fetchStaleApplications(supabase: SupabaseClient): Promise<StaleAp
       applicationId: row.id,
     };
   });
+}
+
+// --- Stale queue items (jobs sitting in draft/ready too long without applying) ---
+
+async function fetchStaleQueue(supabase: SupabaseClient): Promise<StaleQueueItem[]> {
+  const cutoff = offsetDate(new Date().toISOString().slice(0, 10), -7);
+  const { data, error } = await supabase
+    .from("applications")
+    .select("id, created_at, job_postings(id, title, posted_date, companies(name))")
+    .in("status", ["draft", "ready"])
+    .lte("created_at", cutoff)
+    .order("created_at", { ascending: true })
+    .limit(5);
+  if (error) throw new Error(`Failed to fetch stale queue: ${error.message}`);
+
+  return (data ?? []).map((row) => {
+    const jp = row.job_postings as Record<string, unknown>;
+    const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
+    const daysInQueue = Math.floor((Date.now() - new Date(row.created_at).getTime()) / 86400000);
+    const postedDate = jp?.posted_date as string | null;
+    const postingAgeDays = postedDate
+      ? Math.floor((Date.now() - new Date(postedDate).getTime()) / 86400000)
+      : null;
+    return {
+      title: jp?.title as string ?? "Untitled",
+      company,
+      daysInQueue,
+      postingAgeDays,
+      postingId: jp?.id as string ?? row.id,
+    };
+  });
+}
+
+// --- Weekly application summary ---
+
+export interface WeeklyApplication {
+  appliedDate: string;
+  company: string;
+  title: string;
+  url: string;
+}
+
+export interface WeeklySummary {
+  weekStart: string;
+  weekEnd: string;
+  applications: WeeklyApplication[];
+}
+
+export async function fetchWeeklySummary(supabase: SupabaseClient): Promise<WeeklySummary> {
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0, 10);
+  const dayOfWeek = today.getDay(); // 0 = Sunday
+
+  // Previous week: Sunday through Saturday before today.
+  // If today is Sunday (0), previous Sunday is 7 days ago.
+  // If today is Wednesday (3), previous Sunday is 3+7 = 10 days ago.
+  const prevSunday = offsetDate(todayStr, -(dayOfWeek + 7));
+  const prevSaturday = offsetDate(prevSunday, 6);
+
+  const { data, error } = await supabase
+    .from("applications")
+    .select("applied_date, job_postings(title, url, companies(name))")
+    .not("applied_date", "is", null)
+    .gte("applied_date", prevSunday)
+    .lte("applied_date", prevSaturday)
+    .order("applied_date", { ascending: true });
+
+  if (error) throw new Error(`Failed to fetch weekly applications: ${error.message}`);
+  if (!data) throw new Error("Supabase returned null data with no error for weekly applications query");
+
+  const applications: WeeklyApplication[] = [];
+  let incompleteCount = 0;
+
+  for (const row of data) {
+    const jp = row.job_postings as Record<string, unknown>;
+    if (!jp) {
+      console.warn(`Application row missing job_postings join data (applied_date: ${row.applied_date})`);
+      incompleteCount++;
+      continue;
+    }
+    const company = (jp?.companies as Record<string, unknown>)?.name as string ?? "Unknown";
+    applications.push({
+      appliedDate: row.applied_date as string,
+      company,
+      title: jp?.title as string ?? "Untitled",
+      url: jp?.url as string ?? "",
+    });
+  }
+
+  if (incompleteCount > 0) {
+    console.warn(`${incompleteCount} application(s) had missing join data in weekly summary`);
+  }
+
+  return { weekStart: prevSunday, weekEnd: prevSaturday, applications };
 }
 
 // --- Utility helpers ---

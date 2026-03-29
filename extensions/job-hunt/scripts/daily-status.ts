@@ -1,43 +1,31 @@
 // scripts/daily-status.ts
 //
-// Daily pipeline status agent. Accepts a --mode argument:
-//   kickoff   — 12pm wake-up with today's targets and suggested jobs
-//   checkin   — 6pm progress update
-//   warning   — 11pm urgency alert (only sends if 50%+ of any track remains)
-//   scorecard — 1am final totals, streaks, trends
+// Pipeline status notifications. Accepts a --mode argument:
+//   kickoff        — 12pm wake-up with today's targets and suggested jobs
+//   checkin        — 6pm progress update
+//   warning        — 11pm urgency alert (only sends if 50%+ of any track remains)
+//   scorecard      — 1am final totals, streaks, trends
+//   weekly-summary — Sunday 10am list of previous week's applications
 //
 // Sends to both Slack and email (Gmail SMTP).
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { sendSlackMessage, getCaptureChannel } from "../lib/slack.ts";
 import { sendEmail } from "../lib/email.ts";
-import { fetchPipelineStats } from "../lib/pipeline-stats.ts";
+import { fetchPipelineStats, fetchWeeklySummary } from "../lib/pipeline-stats.ts";
 import {
   formatKickoff,
   formatCheckin,
   formatWarning,
   formatScorecard,
+  formatWeeklySummary,
   shouldSendWarning,
 } from "../lib/status-messages.ts";
-
-// --- 1Password helper (same pattern as other scripts) ---
-async function readOp(item: string, field: string): Promise<string> {
-  const proc = new Deno.Command("bash", {
-    args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const output = await proc.output();
-  if (!output.success) {
-    const stderr = new TextDecoder().decode(output.stderr).trim();
-    throw new Error(`1Password lookup failed for ${item}/${field}: ${stderr}`);
-  }
-  return new TextDecoder().decode(output.stdout).trim();
-}
+import { readCredential } from "../lib/credentials.ts";
 
 async function getSupabaseClient() {
-  const url = await readOp("Open Brain - Supabase", "project_url");
-  const key = await readOp("Open Brain - Supabase", "service_role_key");
+  const url = await readCredential("Open Brain - Supabase", "project_url");
+  const key = await readCredential("Open Brain - Supabase", "service_role_key");
   return createClient(url, key);
 }
 
@@ -45,11 +33,11 @@ async function getSupabaseClient() {
 function getMode(): string {
   const idx = Deno.args.indexOf("--mode");
   if (idx === -1 || idx + 1 >= Deno.args.length) {
-    throw new Error("Usage: daily-status.ts --mode <kickoff|checkin|warning|scorecard>");
+    throw new Error("Usage: daily-status.ts --mode <kickoff|checkin|warning|scorecard|weekly-summary>");
   }
   const mode = Deno.args[idx + 1];
-  if (!["kickoff", "checkin", "warning", "scorecard"].includes(mode)) {
-    throw new Error(`Unknown mode: ${mode}. Must be one of: kickoff, checkin, warning, scorecard`);
+  if (!["kickoff", "checkin", "warning", "scorecard", "weekly-summary"].includes(mode)) {
+    throw new Error(`Unknown mode: ${mode}. Must be one of: kickoff, checkin, warning, scorecard, weekly-summary`);
   }
   return mode;
 }
@@ -82,26 +70,34 @@ async function main() {
 
   const supabase = await getSupabaseClient();
   const channel = await getCaptureChannel();
-  const stats = await fetchPipelineStats(supabase);
 
   let payload: { slack: string; email: { subject: string; html: string } } | null = null;
 
-  if (mode === "kickoff") {
-    payload = formatKickoff(stats);
-  } else if (mode === "checkin") {
-    payload = formatCheckin(stats);
-  } else if (mode === "warning") {
-    if (!shouldSendWarning(stats)) {
-      console.log("No tracks are 50%+ remaining. Skipping warning message.");
-      return;
+  if (mode === "weekly-summary") {
+    const summary = await fetchWeeklySummary(supabase);
+    payload = formatWeeklySummary(summary);
+  } else {
+    const stats = await fetchPipelineStats(supabase);
+
+    if (mode === "kickoff") {
+      payload = formatKickoff(stats);
+    } else if (mode === "checkin") {
+      payload = formatCheckin(stats);
+    } else if (mode === "warning") {
+      if (!shouldSendWarning(stats)) {
+        console.log("No tracks are 50%+ remaining. Skipping warning message.");
+        return;
+      }
+      payload = formatWarning(stats);
+    } else if (mode === "scorecard") {
+      payload = formatScorecard(stats);
+      await persistDailyStats(supabase, stats);
     }
-    payload = formatWarning(stats);
-  } else if (mode === "scorecard") {
-    payload = formatScorecard(stats);
-    await persistDailyStats(supabase, stats);
   }
 
-  if (!payload) return;
+  if (!payload) {
+    throw new Error(`No payload generated for mode: ${mode}. This is a bug in the dispatch logic.`);
+  }
 
   let slackOk = false;
   let emailOk = false;
@@ -112,16 +108,23 @@ async function main() {
     console.log("Slack message sent.");
     slackOk = true;
   } catch (err) {
-    console.error("Slack send failed:", err instanceof Error ? err.message : err);
+    console.error("Slack send failed:", err);
   }
 
   // Send email
   try {
-    await sendEmail({ subject: payload.email.subject, html: payload.email.html });
+    const emailOpts: { subject: string; html: string; to?: string } = {
+      subject: payload.email.subject,
+      html: payload.email.html,
+    };
+    if (mode === "weekly-summary") {
+      emailOpts.to = "daniel@frysinger.net, cheryl.loeffler@gmail.com";
+    }
+    await sendEmail(emailOpts);
     console.log("Email sent.");
     emailOk = true;
   } catch (err) {
-    console.error("Email send failed:", err instanceof Error ? err.message : err);
+    console.error("Email send failed:", err);
   }
 
   if (!slackOk && !emailOk) {

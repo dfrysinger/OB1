@@ -1,0 +1,207 @@
+// scripts/posting-maintenance.ts
+//
+// Maintains job posting data via LinkedIn.
+// --mode backfill (default): scrapes posted_date for jobs missing it.
+// --mode check-active: re-visits active postings, marks expired ones as closed.
+// Pass --dry-run to preview without writing. Pass --limit N to cap batch size.
+
+import { createClient } from "npm:@supabase/supabase-js@2";
+import { readCredential } from "../lib/credentials.ts";
+
+const DELAY_MIN_MS = 30000;
+const DELAY_MAX_MS = 90000;
+const SESSION = "maintenance";
+
+const dryRun = Deno.args.includes("--dry-run");
+const modeIdx = Deno.args.indexOf("--mode");
+const MODE = modeIdx !== -1 ? Deno.args[modeIdx + 1] : "backfill";
+if (!["backfill", "check-active"].includes(MODE)) {
+  console.error(`Unknown mode: ${MODE}. Must be "backfill" or "check-active".`);
+  Deno.exit(1);
+}
+const limitIdx = Deno.args.indexOf("--limit");
+const DEFAULT_LIMIT = MODE === "check-active" ? 999 : 3;
+const LIMIT = limitIdx !== -1 ? parseInt(Deno.args[limitIdx + 1], 10) : DEFAULT_LIMIT;
+
+async function pw(...parts: string[]): Promise<string> {
+  const args = ["-s=" + SESSION, ...parts];
+  const proc = new Deno.Command("playwright-cli", {
+    args: args,
+    stdout: "piped",
+    stderr: "piped",
+  });
+  const output = await proc.output();
+  const stdout = new TextDecoder().decode(output.stdout).trim();
+  const stderr = new TextDecoder().decode(output.stderr).trim();
+  if (!output.success) {
+    throw new Error(`Playwright CLI failed: ${stderr || stdout}`);
+  }
+  return stdout;
+}
+
+function parsePostedDate(text: string): string | null {
+  const agoMatch = text.match(/(\d+)\s+(minute|hour|day|week|month)s?\s+ago/i);
+  if (!agoMatch) return null;
+  const num = parseInt(agoMatch[1], 10);
+  const unit = agoMatch[2].toLowerCase();
+  const now = new Date();
+  if (unit === "minute" || unit === "hour") {
+    return now.toISOString().slice(0, 10);
+  } else if (unit === "day") {
+    now.setDate(now.getDate() - num);
+  } else if (unit === "week") {
+    now.setDate(now.getDate() - num * 7);
+  } else if (unit === "month") {
+    now.setMonth(now.getMonth() - num);
+  }
+  return now.toISOString().slice(0, 10);
+}
+
+async function main() {
+  const modeLabel = MODE === "check-active" ? "check active postings" : "backfill posted dates";
+  console.log(`[${new Date().toISOString()}] Posting maintenance: ${modeLabel}${dryRun ? " (DRY RUN)" : ""}...`);
+
+  const url = await readCredential("Open Brain - Supabase", "project_url");
+  const key = await readCredential("Open Brain - Supabase", "service_role_key");
+  const supabase = createClient(url, key);
+
+  let query = supabase
+    .from("job_postings")
+    .select("id, url, title, posted_date, companies(name)")
+    .not("url", "is", null)
+    .is("enrichment_error", null)
+    .like("url", "%linkedin.com/jobs/view/%");
+
+  if (MODE === "check-active") {
+    query = query.eq("status", "active");
+  } else {
+    query = query.is("posted_date", null);
+  }
+
+  const { data: postings, error } = await query;
+
+  if (error) {
+    console.error("Query error:", error.message);
+    return;
+  }
+
+  if (!postings || postings.length === 0) {
+    console.log("No postings to process.");
+    return;
+  }
+
+  const batch = postings.slice(0, LIMIT);
+  console.log(`Found ${postings.length} postings to process. Running ${batch.length} (limit ${LIMIT}).\n`);
+
+  // Launch browser with saved auth state
+  console.log("Launching browser...");
+  await pw("open", "--headed", "https://www.linkedin.com");
+  try {
+    await pw("state-load", "~/.playwright-auth.json");
+    console.log("Auth state loaded.");
+  } catch {
+    console.warn("No saved auth state found.");
+  }
+
+  let updated = 0;
+  let skipped = 0;
+  let expired = 0;
+
+  for (const posting of batch) {
+    if (!posting.url) continue;
+
+    const company = (posting.companies as Record<string, unknown>)?.name as string ?? "Unknown";
+    const label = `${posting.title ?? "Untitled"} at ${company}`;
+
+    try {
+      console.log(`\n  Loading: ${label}`);
+      await pw("goto", posting.url);
+
+      // Wait a moment for client-side rendering
+      await new Promise(r => setTimeout(r, 3000));
+
+      // Check current URL for redirect (expired postings redirect away from /jobs/view/)
+      const currentUrl = await pw("eval", "() => window.location.href");
+
+      // Get the page content via eval
+      const pageText = await pw("eval", "() => document.body.innerText.slice(0, 3000)");
+
+      // Check for expired/404/redirect
+      const isRedirect = !currentUrl.includes("/jobs/view/");
+      const is404 = pageText.includes("Page not found") || pageText.includes("no longer available");
+      if (isRedirect) {
+        console.log(`  CLOSED ${label} — posting redirected (expired)`);
+        if (!dryRun) {
+          await supabase
+            .from("job_postings")
+            .update({ enrichment_error: "Expired (redirected)", status: "closed" })
+            .eq("id", posting.id);
+          await supabase.from("attribution_log").insert({
+            entity_type: "job_posting",
+            entity_id: posting.id,
+            action: "updated",
+            actor: "posting-maintenance",
+            reason: "status: active -> closed — posting redirected (expired)",
+            old_value: "active",
+            new_value: "closed",
+          });
+        } else {
+          console.log(`  WOULD SET status=closed and enrichment_error (redirect)`);
+        }
+        expired++;
+      } else if (is404) {
+        console.log(`  FLAGGED ${label} — page not found (bad link?)`);
+        if (!dryRun) {
+          await supabase
+            .from("job_postings")
+            .update({ enrichment_error: "Page not found (may be bad link)" })
+            .eq("id", posting.id);
+        } else {
+          console.log(`  WOULD SET enrichment_error only (404, no status change)`);
+        }
+        expired++;
+      } else {
+        if (MODE === "check-active" && (posting as any).posted_date) {
+          console.log(`  OK ${label} — still active`);
+        } else {
+          const dateText = await pw("eval", '() => { const el = document.querySelector(".job-details-jobs-unified-top-card__primary-description-container"); return el ? el.textContent : document.body.innerText.slice(0, 1000); }');
+
+          const postedDate = parsePostedDate(dateText);
+
+          if (!postedDate) {
+            console.log(`  SKIP ${label} — could not parse posting date`);
+            console.log(`  Text sample: ${dateText.slice(0, 200)}`);
+            skipped++;
+          } else if (dryRun) {
+            console.log(`  WOULD SET → posted_date = ${postedDate}`);
+            updated++;
+          } else {
+            await supabase
+              .from("job_postings")
+              .update({ posted_date: postedDate })
+              .eq("id", posting.id);
+            console.log(`  SET → posted_date = ${postedDate}`);
+            updated++;
+          }
+        }
+      }
+
+      const delay = DELAY_MIN_MS + Math.random() * (DELAY_MAX_MS - DELAY_MIN_MS);
+      console.log(`  Waiting ${Math.round(delay / 1000)}s before next request...`);
+      await new Promise(r => setTimeout(r, delay));
+
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error(`  ERROR ${label}: ${msg}`);
+      skipped++;
+    }
+  }
+
+  console.log(`\nDone${dryRun ? " (DRY RUN)" : ""}. ${updated} ${dryRun ? "would update" : "updated"}, ${expired} expired, ${skipped} skipped.`);
+  console.log("Browser left open — close it manually or it will close when the process exits.");
+}
+
+main().catch((err) => {
+  console.error(err);
+  Deno.exit(1);
+});

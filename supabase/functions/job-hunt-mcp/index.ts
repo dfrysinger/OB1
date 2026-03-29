@@ -737,7 +737,7 @@ server.registerTool(
   "search_job_postings",
   {
     title: "Search Job Postings",
-    description: "Search job postings by text query (title/company/notes), status, source, or exact URL. Shows application status if one exists. Use has_application filter to find postings with or without applications.",
+    description: "Search job postings by text query (title/company/notes), status, source, URL, or date range. Shows application status if one exists. Use has_application filter to find postings with or without applications.",
     inputSchema: {
       query: z.string().optional().describe("Text search across title, company name, and notes (case-insensitive)"),
       status: z.enum(["draft", "ready", "applied", "screening", "interviewing", "offer", "accepted", "rejected", "withdrawn"]).optional().describe("Filter by application status"),
@@ -746,20 +746,28 @@ server.registerTool(
       priority: z.enum(["high", "medium", "low"]).optional().describe("Filter by job priority"),
       has_application: z.boolean().optional().describe("Filter by whether an application exists. true = only postings with applications, false = only postings without applications"),
       created_by: z.string().optional().describe("Filter by who created the posting (filters job_postings.created_by)"),
+      created_after: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Postings added on or after this date (YYYY-MM-DD, UTC)"),
+      created_before: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Postings added on or before this date (YYYY-MM-DD, UTC)"),
+      posted_after: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("LinkedIn posting date on or after (YYYY-MM-DD)"),
+      posted_before: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("LinkedIn posting date on or before (YYYY-MM-DD)"),
+      applied_after: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Application submitted on or after (YYYY-MM-DD)"),
+      applied_before: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("Application submitted on or before (YYYY-MM-DD)"),
+      posting_status: z.enum(["active", "closed"]).optional().describe("Filter by posting status (active or closed)"),
     },
   },
-  async ({ query, status, source, url, priority, has_application, created_by }) => {
+  async ({ query, status, source, url, priority, has_application, created_by, created_after, created_before, posted_after, posted_before, applied_after, applied_before, posting_status }) => {
     try {
-      // Build select based on whether status filter is needed
+      // Build select — inner join when filtering by application fields
+      const needsInnerJoin = !!status || !!applied_after || !!applied_before;
       let q;
-      if (status) {
-        // Inner join — only postings with matching application status
+      if (needsInnerJoin) {
         q = supabase
           .from("job_postings")
-          .select("*, companies(name), applications!inner(id, status, applied_date, resume_path, cover_letter_path, created_by)")
-          .eq("applications.status", status);
+          .select("*, companies(name), applications!inner(id, status, applied_date, resume_path, cover_letter_path, created_by)");
+        if (status) q = q.eq("applications.status", status);
+        if (applied_after) q = q.gte("applications.applied_date", applied_after);
+        if (applied_before) q = q.lte("applications.applied_date", applied_before);
       } else {
-        // Left join — all postings, applications if they exist
         q = supabase
           .from("job_postings")
           .select("*, companies(name), applications(id, status, applied_date, resume_path, cover_letter_path, created_by)");
@@ -780,6 +788,18 @@ server.registerTool(
       if (created_by) {
         q = q.eq("created_by", created_by);
       }
+
+      if (created_after) q = q.gte("created_at", `${created_after}T00:00:00Z`);
+      if (created_before) {
+        const next = new Date(created_before);
+        next.setDate(next.getDate() + 1);
+        q = q.lt("created_at", `${next.toISOString().slice(0, 10)}T00:00:00Z`);
+      }
+
+      if (posted_after) q = q.gte("posted_date", posted_after);
+      if (posted_before) q = q.lte("posted_date", posted_before);
+
+      if (posting_status) q = q.eq("status", posting_status);
 
       if (query) {
         // Escape PostgREST special characters in the query
@@ -1392,9 +1412,10 @@ server.registerTool(
       notes: z.string().nullable().optional().describe("Notes"),
       posted_date: z.string().nullable().optional().describe("Date posted (YYYY-MM-DD)"),
       closing_date: z.string().nullable().optional().describe("Closing date (YYYY-MM-DD)"),
+      status: z.enum(["active", "closed"]).optional().describe("Posting status (active or closed)"),
     },
   },
-  async ({ job_posting_id, actor, actor_reason, networking_status, has_network_connections, priority, title, url, location, source, salary_min, salary_max, salary_currency, notes, posted_date, closing_date }) => {
+  async ({ job_posting_id, actor, actor_reason, networking_status, has_network_connections, priority, title, url, location, source, salary_min, salary_max, salary_currency, notes, posted_date, closing_date, status }) => {
     try {
       const updateFields: Record<string, unknown> = {};
       if (networking_status !== undefined) updateFields.networking_status = networking_status;
@@ -1410,6 +1431,7 @@ server.registerTool(
       if (notes !== undefined) updateFields.notes = notes;
       if (posted_date !== undefined) updateFields.posted_date = posted_date;
       if (closing_date !== undefined) updateFields.closing_date = closing_date;
+      if (status !== undefined) updateFields.status = status;
 
       if (Object.keys(updateFields).length === 0) {
         return {
@@ -1420,7 +1442,7 @@ server.registerTool(
       // Fetch current state for change detection in attribution logging
       const { data: current, error: currentErr } = await supabase
         .from("job_postings")
-        .select("networking_status, has_network_connections, priority, title, status")
+        .select("networking_status, has_network_connections, priority, title, status, url, location, source, salary_min, salary_max, salary_currency, notes, posted_date, closing_date")
         .eq("id", job_posting_id)
         .single();
       if (currentErr) console.error(`Failed to fetch current posting state: ${currentErr.message}`);
@@ -1439,34 +1461,55 @@ server.registerTool(
         };
       }
 
-      // Build descriptive reason with old -> new transitions for key fields
-      // Always include structured transitions so pipeline-stats ILIKE queries match
-      const changes: string[] = [];
-      if (networking_status !== undefined) {
-        const oldVal = current?.networking_status ?? "unknown";
-        changes.push(`networking_status: ${oldVal} -> ${networking_status}`);
-      }
-      if (priority !== undefined) {
-        const oldVal = current?.priority ?? "unknown";
-        changes.push(`priority: ${oldVal} -> ${priority}`);
-      }
-      const otherFields = Object.keys(updateFields).filter(f => f !== "networking_status" && f !== "priority");
-      if (otherFields.length > 0) {
-        changes.push(`Updated: ${otherFields.join(", ")}`);
-      }
-      let reason = changes.join("; ");
-      if (actor_reason) {
-        reason = reason ? `${reason} — ${actor_reason}` : actor_reason;
-      }
+      // Attribution: log each changed field with old/new values
+      if (current) {
+        const fieldChanges: Array<{ field: string; old_val: string | null; new_val: string | null }> = [];
 
-      const { error: attrErr } = await supabase.from("attribution_log").insert({
-        entity_type: "job_posting",
-        entity_id: job_posting_id,
-        action: "updated",
-        actor,
-        reason,
-      });
-      if (attrErr) console.error(`Attribution log failed: ${attrErr.message}`);
+        const stringFields = ["title", "status", "networking_status", "priority", "url", "location", "source", "salary_currency", "notes", "posted_date", "closing_date"] as const;
+        for (const field of stringFields) {
+          if (updateFields[field] !== undefined && String(updateFields[field] ?? "") !== String((current as any)[field] ?? "")) {
+            fieldChanges.push({ field, old_val: (current as any)[field] ?? null, new_val: String(updateFields[field] ?? null) });
+          }
+        }
+
+        const numFields = ["salary_min", "salary_max"] as const;
+        for (const field of numFields) {
+          if (updateFields[field] !== undefined && String(updateFields[field] ?? "") !== String((current as any)[field] ?? "")) {
+            fieldChanges.push({ field, old_val: (current as any)[field] != null ? String((current as any)[field]) : null, new_val: updateFields[field] != null ? String(updateFields[field]) : null });
+          }
+        }
+
+        if (updateFields.has_network_connections !== undefined && String(updateFields.has_network_connections) !== String((current as any).has_network_connections)) {
+          fieldChanges.push({ field: "has_network_connections", old_val: String((current as any).has_network_connections ?? null), new_val: String(updateFields.has_network_connections) });
+        }
+
+        for (const change of fieldChanges) {
+          const reason = actor_reason
+            ? `${change.field}: ${change.old_val} -> ${change.new_val} — ${actor_reason}`
+            : `${change.field}: ${change.old_val} -> ${change.new_val}`;
+          const { error: attrErr } = await supabase.from("attribution_log").insert({
+            entity_type: "job_posting",
+            entity_id: job_posting_id,
+            action: "updated",
+            actor: actor ?? "unknown",
+            reason,
+            old_value: change.old_val,
+            new_value: change.new_val,
+          });
+          if (attrErr) console.error(`[update_job_posting] Attribution log error for ${change.field}: ${attrErr.message}`);
+        }
+
+        if (fieldChanges.length === 0) {
+          const { error: attrErr } = await supabase.from("attribution_log").insert({
+            entity_type: "job_posting",
+            entity_id: job_posting_id,
+            action: "updated",
+            actor: actor ?? "unknown",
+            reason: actor_reason ?? "Fields updated",
+          });
+          if (attrErr) console.error(`[update_job_posting] Attribution log error: ${attrErr.message}`);
+        }
+      }
 
       return {
         content: [{ type: "text" as const, text: JSON.stringify({ success: true, message: `Updated posting: ${data.title ?? data.url}`, job_posting: data }, null, 2) }],
@@ -1501,6 +1544,7 @@ server.registerTool(
         .from("job_postings")
         .select("id, title, url, location, priority, has_network_connections, networking_status, created_at, companies(name), applications(id, status)")
         .order("priority", { ascending: true })
+        .eq("status", "active")
         .limit(limit);
 
       if (networking_status) q = q.eq("networking_status", networking_status);

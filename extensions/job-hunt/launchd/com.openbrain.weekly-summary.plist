@@ -3,25 +3,27 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.openbrain.daily-status-kickoff</string>
+  <string>com.openbrain.weekly-summary</string>
   <key>ProgramArguments</key>
   <array>
     <string>/Users/dfrysinger/Projects/open-brain/extensions/job-hunt/scripts/launchd-wrapper.sh</string>
     <string>/Users/dfrysinger/Projects/open-brain/extensions/job-hunt/scripts/daily-status.ts</string>
     <string>--mode</string>
-    <string>kickoff</string>
+    <string>weekly-summary</string>
   </array>
   <key>StartCalendarInterval</key>
   <dict>
+    <key>Weekday</key>
+    <integer>0</integer>
     <key>Hour</key>
-    <integer>12</integer>
+    <integer>10</integer>
     <key>Minute</key>
     <integer>0</integer>
   </dict>
   <key>StandardOutPath</key>
-  <string>/tmp/daily-status-kickoff.log</string>
+  <string>/tmp/weekly-summary.log</string>
   <key>StandardErrorPath</key>
-  <string>/tmp/daily-status-kickoff.err</string>
+  <string>/tmp/weekly-summary.err</string>
   <key>EnvironmentVariables</key>
   <dict>
     <key>HOME</key>

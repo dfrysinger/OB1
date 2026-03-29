@@ -6,6 +6,7 @@
 import { chromium } from "npm:playwright";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { sendSlackMessage, getCaptureChannel } from "../lib/slack.ts";
+import { readCredential } from "../lib/credentials.ts";
 
 // --- Config ---
 const CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -14,27 +15,9 @@ const DELAY_MIN_MS = 5000;
 const DELAY_MAX_MS = 15000;
 
 // --- Supabase setup (credentials from 1Password) ---
-async function readOp(item: string, field: string): Promise<string> {
-  const proc = new Deno.Command("bash", {
-    args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const output = await proc.output();
-  if (!output.success) {
-    const stderr = new TextDecoder().decode(output.stderr).trim();
-    throw new Error(`1Password lookup failed for ${item}/${field}: ${stderr || 'unknown error (exit code ' + output.code + ')'}`);
-  }
-  const value = new TextDecoder().decode(output.stdout).trim();
-  if (!value) {
-    throw new Error(`1Password returned empty value for ${item}/${field}`);
-  }
-  return value;
-}
-
 async function getSupabaseClient() {
-  const url = await readOp("Open Brain - Supabase", "project_url");
-  const key = await readOp("Open Brain - Supabase", "service_role_key");
+  const url = await readCredential("Open Brain - Supabase", "project_url");
+  const key = await readCredential("Open Brain - Supabase", "service_role_key");
   return createClient(url, key);
 }
 
@@ -117,11 +100,20 @@ async function main() {
         console.warn(`Skipping ${posting.url} — redirected to ${currentUrl}`);
         const { error: skipErr } = await supabase
           .from("job_postings")
-          .update({ enrichment_error: `Redirected to non-job page: ${currentUrl.slice(0, 200)}` })
+          .update({ status: "closed", enrichment_error: `Redirected to non-job page: ${currentUrl.slice(0, 200)}` })
           .eq("id", posting.id);
         if (skipErr) {
           console.error(`Update failed for ${posting.id}: ${skipErr.message}`);
         }
+        await supabase.from("attribution_log").insert({
+          entity_type: "job_posting",
+          entity_id: posting.id,
+          action: "updated",
+          actor: "enrichment-cron",
+          reason: "status: active -> closed — posting redirected (expired)",
+          old_value: "active",
+          new_value: "closed",
+        });
         await page.close();
         failedCount++;
         continue;
@@ -155,6 +147,31 @@ async function main() {
           // Check for "People you can reach out to" section
           const hasNetworkConnections = document.body.innerText.includes("People you can reach out to");
 
+          // Extract posting date from the "X days/weeks/months ago" or "Reposted X ago" text
+          let postedDateISO: string | null = null;
+          const timeEl = document.querySelector(".job-details-jobs-unified-top-card__primary-description-container .tvm__text")
+            || document.querySelector("[class*='posted-date']")
+            || null;
+          const timeText = timeEl?.textContent?.trim() ?? "";
+          const agoMatch = timeText.match(/(\d+)\s+(minute|hour|day|week|month)s?\s+ago/i);
+          if (agoMatch) {
+            const num = parseInt(agoMatch[1], 10);
+            const unit = agoMatch[2].toLowerCase();
+            const now = new Date();
+            if (unit === "minute" || unit === "hour") {
+              postedDateISO = now.toISOString().slice(0, 10);
+            } else if (unit === "day") {
+              now.setDate(now.getDate() - num);
+              postedDateISO = now.toISOString().slice(0, 10);
+            } else if (unit === "week") {
+              now.setDate(now.getDate() - num * 7);
+              postedDateISO = now.toISOString().slice(0, 10);
+            } else if (unit === "month") {
+              now.setMonth(now.getMonth() - num);
+              postedDateISO = now.toISOString().slice(0, 10);
+            }
+          }
+
           // Recruiter / hirer card
           const hirerCard = document.querySelector(".hirer-card__hirer-information")
             || document.querySelector("[data-test-id='job-poster']")
@@ -183,10 +200,10 @@ async function main() {
             }
           }
 
-          return { title: titleFromPage, company: companyFromPage, location, hasNetworkConnections, recruiterName, recruiterTitle, recruiterUrl };
+          return { title: titleFromPage, company: companyFromPage, location, hasNetworkConnections, postedDateISO, recruiterName, recruiterTitle, recruiterUrl };
         }),
         new Promise((_, reject) => setTimeout(() => reject(new Error("page.evaluate timed out after 15s")), 15000))
-      ]) as { title: string | null; company: string | null; location: string | null; hasNetworkConnections: boolean; recruiterName: string | null; recruiterTitle: string | null; recruiterUrl: string | null };
+      ]) as { title: string | null; company: string | null; location: string | null; hasNetworkConnections: boolean; postedDateISO: string | null; recruiterName: string | null; recruiterTitle: string | null; recruiterUrl: string | null };
 
       await page.close();
 
@@ -240,6 +257,7 @@ async function main() {
       if (company_id) updateFields.company_id = company_id;
       if (details.location) updateFields.location = details.location;
       updateFields.has_network_connections = details.hasNetworkConnections;
+      if (details.postedDateISO) updateFields.posted_date = details.postedDateISO;
 
       if (Object.keys(updateFields).length > 0) {
         const { error: updateErr } = await supabase
@@ -263,6 +281,8 @@ async function main() {
           action: "enriched",
           actor: "enrichment-cron",
           reason: `Scraped from LinkedIn: ${enrichedFields}`,
+          old_value: null,
+          new_value: null,
         });
       if (attrErr) {
         console.warn(`Attribution log failed for ${posting.id}: ${attrErr.message}`);

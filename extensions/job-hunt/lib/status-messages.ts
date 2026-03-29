@@ -2,7 +2,7 @@
 //
 // Pure formatting functions. No I/O. Input: PipelineStats. Output: message strings.
 
-import type { PipelineStats, TrackStats } from "./pipeline-stats.ts";
+import type { PipelineStats, TrackStats, WeeklySummary } from "./pipeline-stats.ts";
 
 const TRACK_LABELS: Record<string, string> = {
   resume_creation: "Resume Creation",
@@ -37,21 +37,18 @@ function formatPipelineFooter(stats: PipelineStats): string[] {
   const lines: string[] = [];
 
   lines.push("");
-  lines.push(`*Pipeline:* ${stats.applicationsOut} applied, ${stats.activeInterviews} interviewing`);
-
-  if (stats.lastRejectionDaysAgo !== null) {
-    lines.push(`*Last rejection:* ${stats.lastRejectionDaysAgo} day(s) ago`);
-  }
+  lines.push(`*Queue:* ${stats.totalDrafts} jobs to apply for | ${stats.applicationsOut} applied, ${stats.activeInterviews} interviewing`);
 
   if (stats.daysToClearBacklog !== null) {
-    lines.push(`*Backlog:* ${stats.totalDrafts} drafts. At ${stats.currentPace.toFixed(1)}/day, ${stats.daysToClearBacklog} days to clear.`);
+    lines.push(`*Pace:* ${stats.currentPace.toFixed(1)} apps/day, ${stats.daysToClearBacklog} days to clear backlog`);
   }
 
-  if (stats.staleApplications.length > 0) {
+  if (stats.staleQueue.length > 0) {
     lines.push("");
-    lines.push("*Aging alerts:*");
-    for (const a of stats.staleApplications.slice(0, 3)) {
-      lines.push(`  ${a.title} at ${a.company} — ${a.daysOld} days with no response`);
+    lines.push("*Aging alerts — apply soon:*");
+    for (const a of stats.staleQueue.slice(0, 3)) {
+      const age = a.postingAgeDays !== null ? ` (posted ${a.postingAgeDays}d ago)` : "";
+      lines.push(`  ${a.title} at ${a.company} — in queue ${a.daysInQueue} days${age}`);
     }
   }
 
@@ -185,6 +182,44 @@ export function formatScorecard(stats: PipelineStats): MessagePayload {
   };
 }
 
+// --- Sunday: Weekly application summary ---
+
+export function formatWeeklySummary(summary: WeeklySummary): MessagePayload {
+  const count = summary.applications.length;
+  const startUS = toUSDate(summary.weekStart);
+  const endUS = toUSDate(summary.weekEnd);
+  const lines: string[] = [
+    "*Weekly Application Summary*",
+    `*${startUS} to ${endUS}*`,
+    "",
+    `*${count} application${count !== 1 ? "s" : ""} submitted:*`,
+  ];
+
+  if (count === 0) {
+    lines.push("");
+    lines.push("No applications submitted this week.");
+  } else {
+    for (const app of summary.applications) {
+      lines.push("");
+      lines.push(toUSDate(app.appliedDate));
+      lines.push(app.company);
+      lines.push(app.title);
+      if (app.url) {
+        lines.push(app.url);
+      }
+    }
+  }
+
+  const slack = lines.join("\n");
+  return {
+    slack,
+    email: {
+      subject: `Weekly Applications: ${count} submitted (${startUS} to ${endUS})`,
+      html: slackToHtml(slack),
+    },
+  };
+}
+
 // --- Helpers ---
 
 function progressBar(done: number, total: number, width = 10): string {
@@ -198,6 +233,11 @@ function trendLabel(current: number, previous: number): string {
   const pct = Math.round(((current - previous) / previous) * 100);
   if (Math.abs(pct) < 10) return "";
   return pct > 0 ? ` | up ${pct}% vs last week` : ` | down ${Math.abs(pct)}% vs last week`;
+}
+
+function toUSDate(isoDate: string): string {
+  const [y, m, d] = isoDate.split("-");
+  return `${m}/${d}/${y}`;
 }
 
 function slackToHtml(text: string): string {

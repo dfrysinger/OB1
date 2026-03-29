@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS job_postings (
     has_network_connections BOOLEAN,
     networking_status TEXT DEFAULT 'not_started'
         CHECK (networking_status IN ('not_started', 'researched', 'outreach_in_progress', 'done')),
+    status TEXT DEFAULT 'active' CHECK (status IN ('active', 'closed')),
     created_at TIMESTAMPTZ DEFAULT now() NOT NULL
 );
 
@@ -233,6 +234,8 @@ CREATE TABLE IF NOT EXISTS attribution_log (
     action TEXT NOT NULL,
     actor TEXT NOT NULL,
     reason TEXT,
+    old_value TEXT,
+    new_value TEXT,
     created_at TIMESTAMPTZ DEFAULT now() NOT NULL
 );
 
