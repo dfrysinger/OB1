@@ -184,6 +184,23 @@ export function formatScorecard(stats: PipelineStats): MessagePayload {
 
 // --- Sunday: Weekly application summary ---
 
+function getWeekSunday(isoDate: string): string {
+  const d = new Date(isoDate + "T00:00:00");
+  const day = d.getDay();
+  d.setDate(d.getDate() - day);
+  return d.toISOString().slice(0, 10);
+}
+
+function groupByWeek(applications: WeeklySummary["applications"]): Map<string, WeeklySummary["applications"]> {
+  const weeks = new Map<string, WeeklySummary["applications"]>();
+  for (const app of applications) {
+    const sunday = getWeekSunday(app.appliedDate);
+    if (!weeks.has(sunday)) weeks.set(sunday, []);
+    weeks.get(sunday)!.push(app);
+  }
+  return weeks;
+}
+
 export function formatWeeklySummary(summary: WeeklySummary): MessagePayload {
   const count = summary.applications.length;
   const startUS = toUSDate(summary.weekStart);
@@ -199,13 +216,23 @@ export function formatWeeklySummary(summary: WeeklySummary): MessagePayload {
     lines.push("");
     lines.push("No applications submitted this week.");
   } else {
-    for (const app of summary.applications) {
-      lines.push("");
-      lines.push(toUSDate(app.appliedDate));
-      lines.push(app.company);
-      lines.push(app.title);
-      if (app.url) {
-        lines.push(app.url);
+    const weeks = groupByWeek(summary.applications);
+    const multiWeek = weeks.size > 1;
+
+    for (const [sunday, apps] of weeks) {
+      if (multiWeek) {
+        const saturday = offsetWeek(sunday, 6);
+        lines.push("");
+        lines.push(`*Week of ${toUSDate(sunday)} to ${toUSDate(saturday)}:*`);
+      }
+      for (const app of apps) {
+        lines.push("");
+        lines.push(toUSDate(app.appliedDate));
+        lines.push(app.company);
+        lines.push(app.title);
+        if (app.url) {
+          lines.push(app.url);
+        }
       }
     }
   }
@@ -218,6 +245,12 @@ export function formatWeeklySummary(summary: WeeklySummary): MessagePayload {
       html: slackToHtml(slack),
     },
   };
+}
+
+function offsetWeek(dateStr: string, days: number): string {
+  const d = new Date(dateStr + "T00:00:00");
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
 }
 
 // --- Helpers ---

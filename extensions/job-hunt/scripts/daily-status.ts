@@ -74,7 +74,11 @@ async function main() {
   let payload: { slack: string; email: { subject: string; html: string } } | null = null;
 
   if (mode === "weekly-summary") {
-    const summary = await fetchWeeklySummary(supabase);
+    const fromIdx = Deno.args.indexOf("--from");
+    const toIdx = Deno.args.indexOf("--to");
+    const fromDate = fromIdx !== -1 ? Deno.args[fromIdx + 1] : undefined;
+    const toDate = toIdx !== -1 ? Deno.args[toIdx + 1] : undefined;
+    const summary = await fetchWeeklySummary(supabase, { from: fromDate, to: toDate });
     payload = formatWeeklySummary(summary);
   } else {
     const stats = await fetchPipelineStats(supabase);

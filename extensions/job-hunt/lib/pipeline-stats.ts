@@ -459,23 +459,23 @@ export interface WeeklySummary {
   applications: WeeklyApplication[];
 }
 
-export async function fetchWeeklySummary(supabase: SupabaseClient): Promise<WeeklySummary> {
+export async function fetchWeeklySummary(
+  supabase: SupabaseClient,
+  opts?: { from?: string; to?: string },
+): Promise<WeeklySummary> {
   const today = new Date();
   const todayStr = today.toISOString().slice(0, 10);
   const dayOfWeek = today.getDay(); // 0 = Sunday
 
-  // Previous week: Sunday through Saturday before today.
-  // If today is Sunday (0), previous Sunday is 7 days ago.
-  // If today is Wednesday (3), previous Sunday is 3+7 = 10 days ago.
-  const prevSunday = offsetDate(todayStr, -(dayOfWeek + 7));
-  const prevSaturday = offsetDate(prevSunday, 6);
+  const rangeStart = opts?.from ?? offsetDate(todayStr, -(dayOfWeek + 7));
+  const rangeEnd = opts?.to ?? offsetDate(rangeStart, 6);
 
   const { data, error } = await supabase
     .from("applications")
     .select("applied_date, job_postings(title, url, companies(name))")
     .not("applied_date", "is", null)
-    .gte("applied_date", prevSunday)
-    .lte("applied_date", prevSaturday)
+    .gte("applied_date", rangeStart)
+    .lte("applied_date", rangeEnd)
     .order("applied_date", { ascending: true });
 
   if (error) throw new Error(`Failed to fetch weekly applications: ${error.message}`);
@@ -504,7 +504,7 @@ export async function fetchWeeklySummary(supabase: SupabaseClient): Promise<Week
     console.warn(`${incompleteCount} application(s) had missing join data in weekly summary`);
   }
 
-  return { weekStart: prevSunday, weekEnd: prevSaturday, applications };
+  return { weekStart: rangeStart, weekEnd: rangeEnd, applications };
 }
 
 // --- Utility helpers ---
