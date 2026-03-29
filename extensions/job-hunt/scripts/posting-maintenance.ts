@@ -6,6 +6,7 @@
 // Pass --dry-run to preview without writing. Pass --limit N to cap batch size.
 
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { readCredential } from "../lib/credentials.ts";
 
 const DELAY_MIN_MS = 30000;
 const DELAY_MAX_MS = 90000;
@@ -21,20 +22,6 @@ if (!["backfill", "check-active"].includes(MODE)) {
 const limitIdx = Deno.args.indexOf("--limit");
 const DEFAULT_LIMIT = MODE === "check-active" ? 999 : 3;
 const LIMIT = limitIdx !== -1 ? parseInt(Deno.args[limitIdx + 1], 10) : DEFAULT_LIMIT;
-
-async function readOp(item: string, field: string): Promise<string> {
-  const proc = new Deno.Command("bash", {
-    args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const output = await proc.output();
-  if (!output.success) {
-    const stderr = new TextDecoder().decode(output.stderr).trim();
-    throw new Error(`1Password lookup failed for ${item}/${field}: ${stderr}`);
-  }
-  return new TextDecoder().decode(output.stdout).trim();
-}
 
 async function pw(...parts: string[]): Promise<string> {
   const args = ["-s=" + SESSION, ...parts];
@@ -74,8 +61,8 @@ async function main() {
   const modeLabel = MODE === "check-active" ? "check active postings" : "backfill posted dates";
   console.log(`[${new Date().toISOString()}] Posting maintenance: ${modeLabel}${dryRun ? " (DRY RUN)" : ""}...`);
 
-  const url = await readOp("Open Brain - Supabase", "project_url");
-  const key = await readOp("Open Brain - Supabase", "service_role_key");
+  const url = await readCredential("Open Brain - Supabase", "project_url");
+  const key = await readCredential("Open Brain - Supabase", "service_role_key");
   const supabase = createClient(url, key);
 
   let query = supabase

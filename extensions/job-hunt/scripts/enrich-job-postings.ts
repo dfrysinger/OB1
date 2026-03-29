@@ -6,6 +6,7 @@
 import { chromium } from "npm:playwright";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { sendSlackMessage, getCaptureChannel } from "../lib/slack.ts";
+import { readCredential } from "../lib/credentials.ts";
 
 // --- Config ---
 const CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -14,27 +15,9 @@ const DELAY_MIN_MS = 5000;
 const DELAY_MAX_MS = 15000;
 
 // --- Supabase setup (credentials from 1Password) ---
-async function readOp(item: string, field: string): Promise<string> {
-  const proc = new Deno.Command("bash", {
-    args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const output = await proc.output();
-  if (!output.success) {
-    const stderr = new TextDecoder().decode(output.stderr).trim();
-    throw new Error(`1Password lookup failed for ${item}/${field}: ${stderr || 'unknown error (exit code ' + output.code + ')'}`);
-  }
-  const value = new TextDecoder().decode(output.stdout).trim();
-  if (!value) {
-    throw new Error(`1Password returned empty value for ${item}/${field}`);
-  }
-  return value;
-}
-
 async function getSupabaseClient() {
-  const url = await readOp("Open Brain - Supabase", "project_url");
-  const key = await readOp("Open Brain - Supabase", "service_role_key");
+  const url = await readCredential("Open Brain - Supabase", "project_url");
+  const key = await readCredential("Open Brain - Supabase", "service_role_key");
   return createClient(url, key);
 }
 

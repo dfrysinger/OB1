@@ -8,30 +8,12 @@
 //   deno run --allow-all scripts/migrate-thoughts-to-jobs.ts --commit # actually insert into DB
 
 import { createClient, SupabaseClient } from "npm:@supabase/supabase-js@2";
-
-// --- 1Password credential reader ---
-async function readOp(item: string, field: string): Promise<string> {
-  const proc = new Deno.Command("bash", {
-    args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const output = await proc.output();
-  if (!output.success) {
-    const stderr = new TextDecoder().decode(output.stderr).trim();
-    throw new Error(`1Password lookup failed for ${item}/${field}: ${stderr || 'unknown error (exit code ' + output.code + ')'}`);
-  }
-  const value = new TextDecoder().decode(output.stdout).trim();
-  if (!value) {
-    throw new Error(`1Password returned empty value for ${item}/${field}`);
-  }
-  return value;
-}
+import { readCredential } from "../lib/credentials.ts";
 
 // --- Supabase client ---
 async function getSupabaseClient(): Promise<SupabaseClient> {
-  const url = await readOp("Open Brain - Supabase", "project_url");
-  const key = await readOp("Open Brain - Supabase", "service_role_key");
+  const url = await readCredential("Open Brain - Supabase", "project_url");
+  const key = await readCredential("Open Brain - Supabase", "service_role_key");
   return createClient(url, key);
 }
 
@@ -372,7 +354,7 @@ async function main() {
   console.log("Reading credentials from 1Password...");
   const [supabase, openRouterKey] = await Promise.all([
     getSupabaseClient(),
-    readOp("Open Brain - OpenRouter", "credential"),
+    readCredential("Open Brain - OpenRouter", "credential"),
   ]);
 
   console.log("Fetching job-related thoughts...");

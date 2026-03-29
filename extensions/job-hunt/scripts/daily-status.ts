@@ -19,32 +19,11 @@ import {
   formatScorecard,
   shouldSendWarning,
 } from "../lib/status-messages.ts";
-
-// --- 1Password helper (checks env vars first for launchd compatibility) ---
-async function readOp(item: string, field: string): Promise<string> {
-  // Check env vars first (set by launchd-wrapper.sh)
-  if (item === "Open Brain - Supabase" && field === "project_url" && Deno.env.get("SUPABASE_URL")) {
-    return Deno.env.get("SUPABASE_URL")!;
-  }
-  if (item === "Open Brain - Supabase" && field === "service_role_key" && Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")) {
-    return Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-  }
-  const proc = new Deno.Command("bash", {
-    args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const output = await proc.output();
-  if (!output.success) {
-    const stderr = new TextDecoder().decode(output.stderr).trim();
-    throw new Error(`1Password lookup failed for ${item}/${field}: ${stderr}`);
-  }
-  return new TextDecoder().decode(output.stdout).trim();
-}
+import { readCredential } from "../lib/credentials.ts";
 
 async function getSupabaseClient() {
-  const url = await readOp("Open Brain - Supabase", "project_url");
-  const key = await readOp("Open Brain - Supabase", "service_role_key");
+  const url = await readCredential("Open Brain - Supabase", "project_url");
+  const key = await readCredential("Open Brain - Supabase", "service_role_key");
   return createClient(url, key);
 }
 

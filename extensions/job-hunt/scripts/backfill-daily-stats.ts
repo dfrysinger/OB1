@@ -4,23 +4,10 @@
 // Counts the same events as pipeline-stats.ts for each of the last N days.
 
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { readCredential } from "../lib/credentials.ts";
 
 const DAYS_BACK = 14;
 const BASE_TARGET = 5;
-
-async function readOp(item: string, field: string): Promise<string> {
-  const proc = new Deno.Command("bash", {
-    args: ["-c", `OP_SERVICE_ACCOUNT_TOKEN=$(textutil -convert txt -stdout ~/1password\\ service.rtf) op item get "${item}" --vault ClawdBot --fields label=${field} --reveal`],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const output = await proc.output();
-  if (!output.success) {
-    const stderr = new TextDecoder().decode(output.stderr).trim();
-    throw new Error(`1Password lookup failed for ${item}/${field}: ${stderr}`);
-  }
-  return new TextDecoder().decode(output.stdout).trim();
-}
 
 function offsetDate(dateStr: string, days: number): string {
   const d = new Date(dateStr);
@@ -29,8 +16,8 @@ function offsetDate(dateStr: string, days: number): string {
 }
 
 async function main() {
-  const url = await readOp("Open Brain - Supabase", "project_url");
-  const key = await readOp("Open Brain - Supabase", "service_role_key");
+  const url = await readCredential("Open Brain - Supabase", "project_url");
+  const key = await readCredential("Open Brain - Supabase", "service_role_key");
   const supabase = createClient(url, key);
 
   const today = new Date().toISOString().slice(0, 10);
