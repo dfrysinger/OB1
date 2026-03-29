@@ -111,7 +111,14 @@ async function main() {
 
   // Send email
   try {
-    await sendEmail({ subject: payload.email.subject, html: payload.email.html });
+    const emailOpts: { subject: string; html: string; to?: string } = {
+      subject: payload.email.subject,
+      html: payload.email.html,
+    };
+    if (mode === "weekly-summary") {
+      emailOpts.to = "daniel@frysinger.net, cheryl.loeffler@gmail.com";
+    }
+    await sendEmail(emailOpts);
     console.log("Email sent.");
     emailOk = true;
   } catch (err) {

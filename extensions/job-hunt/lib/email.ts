@@ -9,6 +9,7 @@ import { readCredential } from "./credentials.ts";
 export async function sendEmail(opts: {
   subject: string;
   html: string;
+  to?: string;
 }): Promise<void> {
   const email = await readCredential("Daniel Gmail SMTP", "email");
   const appPassword = await readCredential("Daniel Gmail SMTP", "app_password");
@@ -20,7 +21,7 @@ export async function sendEmail(opts: {
 
   await transporter.sendMail({
     from: email,
-    to: email,
+    to: opts.to ?? email,
     subject: opts.subject,
     html: opts.html,
   });
