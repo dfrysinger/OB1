@@ -467,8 +467,9 @@ export async function fetchWeeklySummary(
   const todayStr = today.toISOString().slice(0, 10);
   const dayOfWeek = today.getDay(); // 0 = Sunday
 
-  const rangeStart = opts?.from ?? offsetDate(todayStr, -(dayOfWeek + 7));
-  const rangeEnd = opts?.to ?? offsetDate(rangeStart, 6);
+  const defaultStart = offsetDate(todayStr, -(dayOfWeek + 7));
+  const rangeStart = opts?.from ?? defaultStart;
+  const rangeEnd = opts?.to ?? (opts?.from ? todayStr : offsetDate(defaultStart, 6));
 
   const { data, error } = await supabase
     .from("applications")
@@ -509,9 +510,9 @@ export async function fetchWeeklySummary(
 
 // --- Utility helpers ---
 
-function offsetDate(dateStr: string, days: number): string {
-  const d = new Date(dateStr);
-  d.setDate(d.getDate() + days);
+export function offsetDate(dateStr: string, days: number): string {
+  const d = new Date(dateStr + "T12:00:00Z");
+  d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);
 }
 

@@ -78,6 +78,12 @@ async function main() {
     const toIdx = Deno.args.indexOf("--to");
     const fromDate = fromIdx !== -1 ? Deno.args[fromIdx + 1] : undefined;
     const toDate = toIdx !== -1 ? Deno.args[toIdx + 1] : undefined;
+    if (fromDate && !/^\d{4}-\d{2}-\d{2}$/.test(fromDate)) {
+      throw new Error(`Invalid --from date: ${fromDate}. Expected YYYY-MM-DD format.`);
+    }
+    if (toDate && !/^\d{4}-\d{2}-\d{2}$/.test(toDate)) {
+      throw new Error(`Invalid --to date: ${toDate}. Expected YYYY-MM-DD format.`);
+    }
     const summary = await fetchWeeklySummary(supabase, { from: fromDate, to: toDate });
     payload = formatWeeklySummary(summary);
   } else {

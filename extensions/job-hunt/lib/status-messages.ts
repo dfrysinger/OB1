@@ -3,6 +3,7 @@
 // Pure formatting functions. No I/O. Input: PipelineStats. Output: message strings.
 
 import type { PipelineStats, TrackStats, WeeklySummary } from "./pipeline-stats.ts";
+import { offsetDate } from "./pipeline-stats.ts";
 
 const TRACK_LABELS: Record<string, string> = {
   resume_creation: "Resume Creation",
@@ -185,9 +186,9 @@ export function formatScorecard(stats: PipelineStats): MessagePayload {
 // --- Sunday: Weekly application summary ---
 
 function getWeekSunday(isoDate: string): string {
-  const d = new Date(isoDate + "T00:00:00");
-  const day = d.getDay();
-  d.setDate(d.getDate() - day);
+  const d = new Date(isoDate + "T12:00:00Z");
+  const day = d.getUTCDay();
+  d.setUTCDate(d.getUTCDate() - day);
   return d.toISOString().slice(0, 10);
 }
 
@@ -221,7 +222,7 @@ export function formatWeeklySummary(summary: WeeklySummary): MessagePayload {
 
     for (const [sunday, apps] of weeks) {
       if (multiWeek) {
-        const saturday = offsetWeek(sunday, 6);
+        const saturday = offsetDate(sunday, 6);
         lines.push("");
         lines.push(`*Week of ${toUSDate(sunday)} to ${toUSDate(saturday)}:*`);
       }
@@ -245,12 +246,6 @@ export function formatWeeklySummary(summary: WeeklySummary): MessagePayload {
       html: slackToHtml(slack),
     },
   };
-}
-
-function offsetWeek(dateStr: string, days: number): string {
-  const d = new Date(dateStr + "T00:00:00");
-  d.setDate(d.getDate() + days);
-  return d.toISOString().slice(0, 10);
 }
 
 // --- Helpers ---
